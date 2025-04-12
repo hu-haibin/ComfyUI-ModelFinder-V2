@@ -1,0 +1,24 @@
+# Python缓存文件
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 构建目录
+dist/
+build/
+*.egg-info/
+
+# 本地配置
+*.ini
+*.cfg
+config.json
+
+# 结果文件
+results/
+
+# PyInstaller/Nuitka
+*.spec
+*.build/
+
+# 其他
+.DS_Store
