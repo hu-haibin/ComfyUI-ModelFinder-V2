@@ -7,21 +7,16 @@ echo 1. Checking git status...
 git status
 
 echo.
-echo 2. Initializing git repository (if needed)...
-git init
-
-echo.
-echo 3. Adding all files to staging area...
+echo 2. Adding all files to staging area...
 git add .
 
 echo.
-echo 4. Committing changes...
-git commit -m "Initial code backup"
+echo 3. Committing changes...
+git commit -m "Code backup update"
 
 echo.
-echo 5. Adding GitHub remote repository and pushing code...
-git remote add origin https://github.com/hu-haibin/ModelFinder_V2.git
-git push -u origin master
+echo 4. Pushing changes to GitHub...
+git push origin commercial-features
 
 echo.
 echo Backup completed!
