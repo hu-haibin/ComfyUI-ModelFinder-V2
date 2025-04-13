@@ -20,5 +20,8 @@ results/
 *.spec
 *.build/
 
+# 调试脚本
+debug_script.py
+
 # 其他
 .DS_Store

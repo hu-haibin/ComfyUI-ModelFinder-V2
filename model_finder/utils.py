@@ -1,6 +1,6 @@
 """
-工具函数模块
-包含辅助功能：依赖检查、浏览器检测、HTML生成等
+Utility Functions Module
+Contains helper functions: dependency check, browser detection, HTML generation, etc.
 """
 
 import os
@@ -13,161 +13,170 @@ import csv
 
 
 def check_dependencies():
-    """检查并安装缺失依赖"""
+    """Check and install missing dependencies"""
     required_packages = {"pandas": "pandas", "DrissionPage": "DrissionPage", "ttkbootstrap": "ttkbootstrap"}
     missing_packages = []
     
     for package, pip_name in required_packages.items():
         try:
             __import__(package)
-            print(f"✓ {package} 已安装")
+            print(f"✓ {package} is installed")
         except ImportError:
-            print(f"✗ 缺少 {package}")
+            print(f"✗ Missing {package}")
             missing_packages.append(pip_name)
     
     if missing_packages:
-        print("\n安装缺失依赖...")
+        print("\nInstalling missing dependencies...")
         try:
-            # 尝试使用国内镜像源安装
+            # Try using domestic mirror source
             cmd = [sys.executable, "-m", "pip", "install", 
                    "-i", "https://pypi.tuna.tsinghua.edu.cn/simple"]
             cmd.extend(missing_packages)
             subprocess.check_call(cmd)
-            print("依赖安装成功!")
+            print("Dependencies installed successfully!")
             
-            # 需要重启脚本以使导入生效
-            print("重启程序以应用更改...")
+            # Need to restart script for imports to take effect
+            print("Restarting program to apply changes...")
             os.execv(sys.executable, [sys.executable] + sys.argv)
         except Exception as e:
-            print(f"安装依赖出错: {e}")
-            # 尝试使用备用源
+            print(f"Error installing dependencies: {e}")
+            # Try using backup mirror
             try:
-                print("尝试备用镜像...")
+                print("Trying alternative mirror...")
                 cmd = [sys.executable, "-m", "pip", "install", 
                        "-i", "https://mirrors.aliyun.com/pypi/simple/"]
                 cmd.extend(missing_packages)
                 subprocess.check_call(cmd)
-                print("依赖安装成功!")
+                print("Dependencies installed successfully!")
                 
-                # 需要重启脚本以使导入生效
-                print("重启程序以应用更改...")
+                # Need to restart script for imports to take effect
+                print("Restarting program to apply changes...")
                 os.execv(sys.executable, [sys.executable] + sys.argv)
             except Exception as e2:
-                print(f"安装依赖出错: {e2}")
-                print("请手动安装以下包:")
+                print(f"Error installing dependencies: {e2}")
+                print("Please manually install the following packages:")
                 for pkg in missing_packages:
                     print(f"pip install {pkg}")
-                input("按Enter键退出...")
+                input("Press Enter to exit...")
                 sys.exit(1)
 
 def find_chrome_path():
-    """查找Chrome浏览器路径"""
-    # 可能的Chrome安装路径
+    """Find Chrome browser path"""
+    # Possible Chrome installation paths
     possible_paths = [
-        # Windows 标准路径
+        # Windows standard paths
         os.path.join(os.environ.get('PROGRAMFILES', 'C:\\Program Files'), 'Google', 'Chrome', 'Application', 'chrome.exe'),
         os.path.join(os.environ.get('PROGRAMFILES(X86)', 'C:\\Program Files (x86)'), 'Google', 'Chrome', 'Application', 'chrome.exe'),
         os.path.join(os.environ.get('LOCALAPPDATA', ''), 'Google', 'Chrome', 'Application', 'chrome.exe'),
-        # 其他可能的Windows路径
+        # Other possible Windows paths
         "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
         "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
     ]
     
-    # 检查这些路径
+    # Check these paths
     for path in possible_paths:
         if os.path.exists(path):
-            print(f"找到Chrome浏览器: {path}")
+            print(f"Found Chrome browser: {path}")
             return path
     
-    # 从注册表获取Chrome路径(仅Windows)
+    # Get Chrome path from registry (Windows only)
     if sys.platform.startswith('win'):
         try:
             import winreg
             with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\chrome.exe") as key:
                 chrome_path = winreg.QueryValue(key, None)
                 if os.path.exists(chrome_path):
-                    print(f"从注册表找到Chrome浏览器: {chrome_path}")
+                    print(f"Found Chrome browser from registry: {chrome_path}")
                     return chrome_path
         except Exception as e:
-            print(f"检查注册表时出错: {e}")
+            print(f"Error checking registry: {e}")
     
-    print("警告: 未找到Chrome浏览器。请安装Chrome。")
+    print("Warning: Chrome browser not found. Please install Chrome.")
     return None
 
 def get_mirror_link(original_url):
-    """获取Hugging Face的镜像链接"""
+    """Get Hugging Face mirror link"""
     if not original_url or 'huggingface.co' not in original_url:
         return ''
     
     try:
-        # 解析URL以确保正确的格式转换
+        # Parse URL to ensure correct format conversion
         parsed_url = urlparse(original_url)
         path = parsed_url.path
         
-        # 确保路径格式正确（移除/resolve/并替换为对应路径）
+        # Ensure path format is correct (remove /resolve/ and replace with corresponding path)
         if '/resolve/' in path:
             path = path.replace('/resolve/', '/blob/')
             
-        # 构建正确的镜像链接
+        # Build correct mirror link
         mirror_base_url = "https://hf-mirror.com"
         mirror_url = urljoin(mirror_base_url, path)
         
-        # 将blob替换回resolve用于下载
+        # Replace blob back to resolve for download
         if '/blob/' in mirror_url:
             mirror_url = mirror_url.replace('/blob/', '/resolve/')
             
         return mirror_url
     except Exception as e:
-        print(f"构建镜像链接时出错: {e}")
+        print(f"Error building mirror link: {e}")
         return ''
 
 def create_html_view(csv_file):
-    """创建改进的HTML视图，包含表头筛选和统一字体
+    """Create improved HTML view with table filtering and unified font
     
-    参数:
-        csv_file: CSV文件路径，可能是单个工作流的结果或汇总文件
+    Args:
+        csv_file: CSV file path, can be single workflow result or summary file
     
-    返回:
-        生成的HTML文件路径，失败则返回None
+    Returns:
+        Generated HTML file path, or None if failed
     """
     import pandas as pd
     try:
-        # 添加调试信息
-        print(f"正在为 {csv_file} 创建HTML视图")
+        # Add debug info
+        print(f"Creating HTML view for {csv_file}")
         
-        # 读取CSV文件并尝试不同的编码
+        # Read CSV file with different encodings
         try:
             df = pd.read_csv(csv_file, encoding='utf-8')
-            print(f"成功读取CSV，列名: {df.columns.tolist()}")
+            print(f"Successfully read CSV, columns: {df.columns.tolist()}")
         except Exception:
             try:
                 df = pd.read_csv(csv_file, encoding='utf-8-sig')
-                print(f"使用UTF-8-SIG成功读取CSV，列名: {df.columns.tolist()}")
+                print(f"Successfully read CSV with UTF-8-SIG, columns: {df.columns.tolist()}")
             except Exception as e:
-                print(f"读取CSV文件失败: {e}")
+                print(f"Failed to read CSV file: {e}")
                 return None
         
-        # 确保必要的列存在（适配不同的CSV格式）
-        required_columns = ['文件名']
+        # Ensure required columns exist (adapt to different CSV formats)
+        # Check for English column names and fall back to Chinese if needed
+        required_columns = []
+        if 'File Name' in df.columns:
+            required_columns = ['File Name']
+        elif '文件名' in df.columns:
+            required_columns = ['文件名']
+        elif 'Workflow File' in df.columns:
+            required_columns = ['Workflow File']
+        elif '工作流文件' in df.columns:
+            required_columns = ['工作流文件']
         
-        # 检查必要的列是否存在
+        # Check if necessary columns exist
         for col in required_columns:
             if col not in df.columns:
-                print(f"错误: CSV文件必须包含'{col}'列")
+                print(f"Error: CSV file must contain '{col}' column")
                 return None
         
-        # 处理汇总文件或批量处理结果的不同列名
+        # Process different column names for summary files or batch processing results
         core_columns = []
-        if '文件名' in df.columns:
-            # 也包含搜索链接列
-            core_columns.extend(['文件名', '下载链接', '镜像链接', '搜索链接', '状态'])
-        elif 'CSV文件' in df.columns:  # 批量处理结果格式
-            core_columns.extend(['工作流文件', 'CSV文件', '缺失数量'])
+        if 'File Name' in df.columns:
+            # Also include search link column
+            core_columns.extend(['File Name', 'Download Link', 'Mirror Link', 'Search Link', 'Status'])
+        elif 'CSV File' in df.columns:  # Batch processing result format
+            core_columns.extend(['Workflow File', 'CSV File', 'Missing Quantity'])
         
-        # 生成HTML文件名
+        # Generate HTML file name
         html_file = os.path.splitext(csv_file)[0] + '.html'
         
-        # 创建HTML内容 - 头部
+        # Create HTML content - header
         html_content = """
         <!DOCTYPE html>
         <html>
@@ -210,7 +219,7 @@ def create_html_view(csv_file):
                 .liblib-link { color: #00aa00; }
                 .hf-link a, .mirror-link a, .liblib-link a { text-decoration: none; }
                 
-                /* 下拉菜单样式 */
+                /* Dropdown menu styles */
                 .dropdown-content {
                     display: none;
                     position: absolute;
@@ -267,63 +276,63 @@ def create_html_view(csv_file):
             <h1>模型下载链接</h1>
         """
         
-        # 添加文件信息和统计
+        # Add file information and statistics
         file_basename = os.path.basename(csv_file)
         html_content += f"""
-            <p>源文件: {file_basename}</p>
-            <p>生成时间: {pd.Timestamp.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
+            <p>Source file: {file_basename}</p>
+            <p>Generated time: {pd.Timestamp.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
         """
         
-        # 添加使用指南
+        # Add usage guide
         html_content += """
             <div class="usage-guide">
-                <p><strong>使用说明:</strong></p>
+                <p><strong>Usage Instructions:</strong></p>
                 <ul style="margin: 5px 0 0 20px; padding: 0;">
-                    <li>点击表格标题可以<strong>排序</strong>列内容</li>
-                    <li>点击表格标题右侧的筛选图标可以<strong>筛选</strong>列内容</li>
-                    <li>表格中 <span style="color: #ff6000; font-size: 16px;">✓</span> 表示有链接可点击，<span>×</span> 表示无链接</li>
-                    <li><span style="color: #ff6000;">✓点此跳转</span> - 跳转到 HuggingFace 模型页面</li>
-                    <li><span style="color: #0066ff;">✓点此跳转</span> - 跳转到 HF镜像 下载页面</li>
-                    <li><span style="color: #00aa00;">✓点此跳转</span> - 跳转到 LibLib 模型页面</li>
+                    <li>Click table headers to <strong>sort</strong> column content</li>
+                    <li>Click the filter icon on the right of table headers to <strong>filter</strong> column content</li>
+                    <li>Table <span style="color: #ff6000; font-size: 16px;">✓</span> indicates clickable links, <span>×</span> indicates no links</li>
+                    <li><span style="color: #ff6000;">✓ Click to jump</span> - Jump to HuggingFace model page</li>
+                    <li><span style="color: #0066ff;">✓ Click to jump</span> - Jump to HF mirror download page</li>
+                    <li><span style="color: #00aa00;">✓ Click to jump</span> - Jump to LibLib model page</li>
                 </ul>
             </div>
         """
         
-        # 如果是模型列表，添加全局筛选功能
-        if '文件名' in df.columns:
+        # If it's a model list, add global filtering functionality
+        if 'File Name' in df.columns:
             html_content += """
             <div class="filter-box">
-                <label for="filterInput">筛选模型名称: </label>
-                <input type="text" id="filterInput" onkeyup="filterTable()" placeholder="输入关键词...">
+                <label for="filterInput">Filter model name: </label>
+                <input type="text" id="filterInput" onkeyup="filterTable()" placeholder="Enter keyword...">
             </div>
             """
         
-        # 开始创建表格
+        # Start creating table
         html_content += """
             <table id="modelTable">
                 <tr>
         """
         
-        # 添加表头 - 确定要显示的列
+        # Add table header - determine which columns to display
         display_columns = []
         for col in df.columns:
-            if col in core_columns or col in ['序号', '节点ID', '节点类型', '缺失数量']:
+            if col in core_columns or col in ['Index', 'Node ID', 'Node Type', 'Missing Quantity']:
                 display_columns.append(col)
-                # 修改表头显示
+                # Modify table header display
                 display_name = col
-                if col == '下载链接':
+                if col == 'Download Link':
                     display_name = 'huggingface'
-                elif col == '镜像链接':
-                    display_name = 'hf镜像'
-                elif col == '搜索链接':
+                elif col == 'Mirror Link':
+                    display_name = 'hf mirror'
+                elif col == 'Search Link':
                     display_name = 'liblib'
                 
-                # 添加带筛选图标的表头
+                # Add column header with filter icon
                 html_content += f'<th onclick="sortTable({len(display_columns)-1})">{display_name}<span class="filter-icon" onclick="event.stopPropagation(); showFilter(event, {len(display_columns)-1})">▼</span></th>\n'
         
         html_content += "</tr>\n"
         
-        # 添加数据行
+        # Add data rows
         row_count = 0
         for index, row in df.iterrows():
             row_count += 1
@@ -334,90 +343,90 @@ def create_html_view(csv_file):
                 if pd.isna(value):
                     value = ''
                     
-                if col == '状态':
-                    # 为不同状态添加样式
-                    if value == '已处理':
+                if col == 'Status':
+                    # Add styles for different statuses
+                    if value == 'Processed':
                         status_class = "status-processed"
-                    elif value == '处理错误':
+                    elif value == 'Processing Error':
                         status_class = "status-error"
                     else:
                         status_class = "status-notfound"
                     html_content += f'<td class="{status_class}">{value}</td>\n'
-                elif col in ['文件名', 'CSV文件', '工作流文件']:
-                    # 文件名加粗显示
+                elif col in ['File Name', 'CSV File', 'Workflow File']:
+                    # Bold file name display
                     html_content += f'<td class="file-name">{value}</td>\n'
-                elif col in ['下载链接', '镜像链接', '搜索链接']:
-                    # 链接列使用✓或×表示
+                elif col in ['Download Link', 'Mirror Link', 'Search Link']:
+                    # Link column using ✓ or × to indicate
                     if value:
-                        # 确定链接文本与样式
-                        link_text = "✓点此跳转"  # 使用统一的文本
+                        # Determine link text and style
+                        link_text = "✓ Click to jump"  # Use uniform text
                         link_class = "link-col"
                         
-                        # 根据列类型和链接内容设置不同的类
-                        if col == '下载链接' and 'huggingface' in value:
+                        # Set different classes based on column type and link content
+                        if col == 'Download Link' and 'huggingface' in value:
                             link_class += " hf-link"
-                            tooltip = "点击跳转到HuggingFace模型页面"
-                        elif col == '镜像链接' and 'hf-mirror' in value:
+                            tooltip = "Click to jump to HuggingFace model page"
+                        elif col == 'Mirror Link' and 'hf-mirror' in value:
                             link_class += " mirror-link"
-                            tooltip = "点击跳转到HF镜像下载页面"
-                        elif col == '搜索链接' and 'liblib' in value:
+                            tooltip = "Click to jump to HF mirror download page"
+                        elif col == 'Search Link' and 'liblib' in value:
                             link_class += " liblib-link"
-                            tooltip = "点击跳转到LibLib模型页面"
-                        elif col == '下载链接' and 'liblib' in value:
+                            tooltip = "Click to jump to LibLib model page"
+                        elif col == 'Download Link' and 'liblib' in value:
                             link_class += " liblib-link"
-                            tooltip = "点击跳转到LibLib模型页面"
+                            tooltip = "Click to jump to LibLib model page"
                         else:
-                            tooltip = "点击跳转到下载页面"
+                            tooltip = "Click to jump to download page"
                             
-                        # 生成带链接的✓符号，添加鼠标悬停提示
+                        # Generate ✓ symbol with hover tooltip
                         html_content += f'<td class="{link_class}"><a href="{value}" target="_blank" title="{tooltip}">{link_text}</a></td>\n'
                     else:
-                        # 没有链接显示×符号
-                        html_content += '<td>×暂无</td>\n'
+                        # No link display × symbol
+                        html_content += '<td>× No link</td>\n'
                 else:
-                    # 其他列正常显示
+                    # Normal display for other columns
                     html_content += f'<td>{value}</td>\n'
             
             html_content += "</tr>\n"
         
-        # 添加表格结束标签和汇总信息
+        # Add table end tag and summary information
         html_content += """
             </table>
         """
         
-        # 添加记录总数信息
+        # Add total record count information
         html_content += f"""
             <div class="summary">
-                <p>总记录数: {row_count}</p>
+                <p>Total record count: {row_count}</p>
             </div>
         """
         
-        # 添加下拉筛选框元素
+        # Add dropdown filter element
         html_content += """
             <div id="filterDropdown" class="dropdown-content">
-                <input type="text" class="dropdown-search" placeholder="搜索筛选项..." id="filterSearchInput" onkeyup="filterDropdownItems()">
+                <input type="text" class="dropdown-search" placeholder="Search filter options..." id="filterSearchInput" onkeyup="filterDropdownItems()">
                 <div id="dropdown-items"></div>
                 <div class="filter-buttons">
-                    <button class="filter-apply" onclick="applyFilter()">应用</button>
-                    <button class="filter-clear" onclick="clearFilter()">清除</button>
+                    <button class="filter-apply" onclick="applyFilter()">Apply</button>
+                    <button class="filter-clear" onclick="clearFilter()">Clear</button>
                 </div>
             </div>
         """
         
-        # 添加JavaScript功能：排序、筛选和下拉菜单
+        # Add JavaScript functionality: sorting, filtering, and dropdown menu
         html_content += """
             <script>
-            // 存储当前的筛选状态
+            // Store current filtering state
             var currentFilterColumn = -1;
             var currentFilterValues = {};
             var tableHeaders = document.querySelectorAll("#modelTable th");
             
-            // 排序功能
+            // Sorting functionality
             function sortTable(n) {
                 var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
                 table = document.getElementById("modelTable");
                 switching = true;
-                // 设置默认排序方向
+                // Set default sorting direction
                 dir = "asc"; 
                 
                 while (switching) {
@@ -430,11 +439,11 @@ def create_html_view(csv_file):
                         x = rows[i].getElementsByTagName("TD")[n];
                         y = rows[i + 1].getElementsByTagName("TD")[n];
                         
-                        // 对"✓点此跳转"和"×暂无"特殊处理
+                        // Special handling for "✓ Click to jump" and "× No link"
                         var xText = x.textContent || x.innerText;
                         var yText = y.textContent || y.innerText;
                         
-                        // 如果是链接列，根据是否有链接进行排序（✓ 在前，× 在后）
+                        // If it's a link column, sort based on whether there's a link (✓ before ×)
                         if (xText.includes("✓") || xText.includes("×")) {
                             var xHasLink = xText.includes("✓");
                             var yHasLink = yText.includes("✓");
@@ -445,7 +454,7 @@ def create_html_view(csv_file):
                                 shouldSwitch = (xHasLink && !yHasLink);
                             }
                         } else {
-                            // 默认字母顺序比较
+                            // Default alphabetical order comparison
                             if (dir == "asc") {
                                 shouldSwitch = xText.toLowerCase() > yText.toLowerCase();
                             } else {
@@ -460,21 +469,21 @@ def create_html_view(csv_file):
                         }
                     }
                     
-                    // 如果完成了一轮排序而没有切换，改变排序方向
+                    // If a full sorting pass was made without switching, change sorting direction
                     if (switchcount == 0 && dir == "asc") {
                         dir = "desc";
                         switching = true;
                     }
                 }
                 
-                // 更新表头状态
+                // Update table header status
                 for (i = 0; i < tableHeaders.length; i++) {
                     tableHeaders[i].querySelector(".filter-icon").textContent = "▼";
                 }
                 tableHeaders[n].querySelector(".filter-icon").textContent = (dir === "asc") ? "▲" : "▼";
             }
             
-            // 全局筛选功能（现有的搜索功能）
+            // Global filtering functionality (existing search functionality)
             function filterTable() {
                 var input, filter, table, tr, found;
                 input = document.getElementById("filterInput");
@@ -486,15 +495,15 @@ def create_html_view(csv_file):
                     found = false;
                     var td = tr[i].getElementsByTagName("td");
                     
-                    // 首先检查是否通过列筛选
+                    // First check if row passes column filters
                     if (!passesColumnFilters(tr[i])) {
                         tr[i].style.display = "none";
                         continue;
                     }
                     
-                    // 然后检查关键词搜索
+                    // Then check keyword search
                     if (filter === "") {
-                        found = true; // 如果搜索框为空，显示所有通过列筛选的行
+                        found = true; // If search box is empty, display all rows passing column filters
                     } else {
                         for (var j = 0; j < td.length; j++) {
                             var txtValue = td[j].textContent || td[j].innerText;
@@ -513,27 +522,27 @@ def create_html_view(csv_file):
                 }
             }
             
-            // 显示列筛选下拉菜单
+            // Show column filter dropdown menu
             function showFilter(event, colIndex) {
                 var dropdown = document.getElementById("filterDropdown");
                 
-                // 设置当前筛选列
+                // Set current filtering column
                 currentFilterColumn = colIndex;
                 
-                // 计算下拉菜单位置
+                // Calculate dropdown menu position
                 var th = event.target.closest('th');
                 var rect = th.getBoundingClientRect();
                 dropdown.style.left = rect.left + window.pageXOffset + "px";
                 dropdown.style.top = rect.bottom + window.pageYOffset + "px";
                 dropdown.style.minWidth = rect.width + "px";
                 
-                // 生成唯一值列表
+                // Generate unique value list
                 populateDropdown(colIndex);
                 
-                // 显示下拉菜单
+                // Show dropdown menu
                 dropdown.classList.add("show");
                 
-                // 点击其他地方关闭下拉菜单
+                // Click elsewhere to close dropdown menu
                 window.onclick = function(event) {
                     if (!event.target.matches('.filter-icon') && 
                         !event.target.closest('#filterDropdown')) {
@@ -542,37 +551,37 @@ def create_html_view(csv_file):
                 }
             }
             
-            // 生成下拉菜单选项
+            // Generate dropdown menu options
             function populateDropdown(colIndex) {
                 var table = document.getElementById("modelTable");
                 var rows = table.getElementsByTagName("tr");
                 var uniqueValues = new Set();
                 
-                // 收集唯一值
+                // Collect unique values
                 for (var i = 1; i < rows.length; i++) {
                     var cell = rows[i].getElementsByTagName("td")[colIndex];
                     var value = cell.textContent || cell.innerText;
                     uniqueValues.add(value.trim());
                 }
                 
-                // 转换为数组并排序
+                // Convert to array and sort
                 var sortedValues = Array.from(uniqueValues).sort();
                 
-                // 清空并重新填充下拉菜单
+                // Clear and re-populate dropdown menu
                 var dropdown = document.getElementById("dropdown-items");
                 dropdown.innerHTML = "";
                 
-                // 添加"全选"选项
+                // Add "Select All" option
                 var allItem = document.createElement("div");
                 allItem.className = "dropdown-item";
-                allItem.innerHTML = '<input type="checkbox" id="select-all" onchange="toggleAll(this.checked)"> <label for="select-all">全选</label>';
+                allItem.innerHTML = '<input type="checkbox" id="select-all" onchange="toggleAll(this.checked)"> <label for="select-all">Select All</label>';
                 dropdown.appendChild(allItem);
                 
-                // 添加分隔线
+                // Add divider
                 var divider = document.createElement("hr");
                 dropdown.appendChild(divider);
                 
-                // 添加每个唯一值
+                // Add each unique value
                 sortedValues.forEach(function(value, index) {
                     var item = document.createElement("div");
                     item.className = "dropdown-item";
@@ -585,11 +594,11 @@ def create_html_view(csv_file):
                     dropdown.appendChild(item);
                 });
                 
-                // 更新全选复选框状态
+                // Update Select All checkbox status
                 updateSelectAllCheckbox();
             }
             
-            // 筛选下拉菜单项
+            // Filter dropdown menu items
             function filterDropdownItems() {
                 var input = document.getElementById("filterSearchInput");
                 var filter = input.value.toUpperCase();
@@ -605,9 +614,9 @@ def create_html_view(csv_file):
                 });
             }
             
-            // 应用筛选
+            // Apply filtering
             function applyFilter() {
-                // 获取选中的值
+                // Get selected values
                 var selectedValues = [];
                 var checkboxes = document.querySelectorAll("#dropdown-items .dropdown-item:not(:first-child) input[type='checkbox']");
                 
@@ -617,57 +626,57 @@ def create_html_view(csv_file):
                     }
                 });
                 
-                // 保存选中的值
+                // Save selected values
                 currentFilterValues[currentFilterColumn] = selectedValues;
                 
-                // 更新表头图标
+                // Update table header icon
                 if (selectedValues.length > 0 && selectedValues.length < checkboxes.length) {
                     tableHeaders[currentFilterColumn].querySelector(".filter-icon").textContent = "🔍";
                 } else {
                     tableHeaders[currentFilterColumn].querySelector(".filter-icon").textContent = "▼";
                 }
                 
-                // 关闭下拉菜单
+                // Close dropdown menu
                 document.getElementById("filterDropdown").classList.remove("show");
                 
-                // 应用筛选
+                // Apply filtering
                 filterTable();
             }
             
-            // 清除筛选
+            // Clear filtering
             function clearFilter() {
-                // 清除当前列的筛选
+                // Clear current column filtering
                 if (currentFilterColumn in currentFilterValues) {
                     delete currentFilterValues[currentFilterColumn];
                 }
                 
-                // 更新表头图标
+                // Update table header icon
                 tableHeaders[currentFilterColumn].querySelector(".filter-icon").textContent = "▼";
                 
-                // 重置复选框
+                // Reset checkboxes
                 var checkboxes = document.querySelectorAll("#dropdown-items .dropdown-item input[type='checkbox']");
                 checkboxes.forEach(function(checkbox) {
                     checkbox.checked = true;
                 });
                 
-                // 关闭下拉菜单
+                // Close dropdown menu
                 document.getElementById("filterDropdown").classList.remove("show");
                 
-                // 重新应用筛选
+                // Re-apply filtering
                 filterTable();
             }
             
-            // 全选/取消全选
+            // Select/unselect all
             function toggleAll(checked) {
                 var checkboxes = document.querySelectorAll("#dropdown-items .dropdown-item:not(:first-child) input[type='checkbox']");
                 checkboxes.forEach(function(checkbox) {
-                    if (checkbox.parentElement.style.display !== "none") { // 只处理可见的复选框
+                    if (checkbox.parentElement.style.display !== "none") { // Only process visible checkboxes
                         checkbox.checked = checked;
                     }
                 });
             }
             
-            // 更新全选复选框状态
+            // Update Select All checkbox status
             function updateSelectAllCheckbox() {
                 var allCheckbox = document.getElementById("select-all");
                 var checkboxes = document.querySelectorAll("#dropdown-items .dropdown-item:not(:first-child) input[type='checkbox']");
@@ -687,7 +696,7 @@ def create_html_view(csv_file):
                 allCheckbox.indeterminate = !allChecked && anyVisible;
             }
             
-            // 判断行是否通过列筛选
+            // Check if row passes column filters
             function passesColumnFilters(row) {
                 var cells = row.getElementsByTagName("td");
                 
@@ -705,18 +714,18 @@ def create_html_view(csv_file):
             </script>
         """
         
-        # 结束HTML
+        # End HTML
         html_content += """
         </body>
         </html>
         """
         
-        # 写入HTML文件
+        # Write HTML file
         with open(html_file, 'w', encoding='utf-8') as f:
             f.write(html_content)
         
         return html_file
     except Exception as e:
-        print(f"创建HTML视图时出错: {e}")
+        print(f"Error creating HTML view: {e}")
         traceback.print_exc()
         return None 

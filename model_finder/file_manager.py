@@ -1,6 +1,6 @@
 """
-文件管理模块
-包含：创建结构化输出目录、清理旧文件等功能
+File Management Module
+Contains functions for creating structured output directories, cleaning old files, etc.
 """
 
 import os
@@ -9,179 +9,206 @@ import shutil
 from datetime import datetime
 import ctypes
 import sys
+import platform
+import subprocess
 
 def is_admin():
-    """检查程序是否以管理员权限运行"""
+    """Check if the program is running with administrator privileges"""
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
     except:
         return False
 
 def run_as_admin():
-    """尝试以管理员权限重启程序"""
+    """Attempt to restart the program with administrator privileges"""
     try:
         if not is_admin():
-            # 获取当前程序的完整路径
+            # Get the full path of the current program
             script = sys.executable
             params = sys.argv
             params.insert(0, script)
             
-            # 使用ShellExecute以管理员权限重启程序
+            # Use ShellExecute to restart the program with administrator privileges
             ctypes.windll.shell32.ShellExecuteW(None, "runas", script, " ".join(params), None, 1)
-            # 退出当前实例
+            # Exit the current instance
             sys.exit()
         return True
     except Exception as e:
-        print(f"请求管理员权限失败: {e}")
+        print(f"Failed to request administrator privileges: {e}")
         return False
 
 def create_output_directory():
-    """创建有组织的输出目录结构
+    """Create an organized output directory structure
     
-    返回:
-        创建的输出目录路径
+    Returns:
+        Path to the created output directory
     """
     try:
-        # 使用改进后的get_results_folder函数获取基础目录
+        # Use the improved get_results_folder function to get the base directory
         base_dir = get_results_folder()
         
-        # 使用当前日期创建子文件夹
+        # Create a subfolder using the current date
         today = datetime.now()
         date_dir = os.path.join(base_dir, f"{today.year:04d}-{today.month:02d}-{today.day:02d}")
         
-        # 确保目录存在
+        # Ensure the directory exists
         os.makedirs(date_dir, exist_ok=True)
         
         return date_dir
     except Exception as e:
-        # 如果发生错误，使用临时目录
+        # If an error occurs, use a temporary directory
         import tempfile
         today = datetime.now()
         date_str = f"{today.year:04d}-{today.month:02d}-{today.day:02d}"
         temp_dir = os.path.join(tempfile.gettempdir(), f"ModelFinder_Results/{date_str}")
-        print(f"创建输出目录出错: {e}, 使用临时目录: {temp_dir}")
+        print(f"Error creating output directory: {e}, using temporary directory: {temp_dir}")
         os.makedirs(temp_dir, exist_ok=True)
         return temp_dir
 
-def get_output_path(original_file, extension=None):
-    """根据原始文件名生成输出文件路径
+def get_output_path(original_file, extension=None, prefix=""):
+    """Generate output file path based on the original file name.
     
-    参数:
-        original_file: 原始文件路径
-        extension: 可选的文件扩展名(不含点)，如果不提供则保持原始扩展名
+    Args:
+        original_file: Path to the original file.
+        extension: Optional file extension (without dot). Keeps original if None.
+        prefix: Optional prefix to add to the base file name.
     
-    返回:
-        输出文件的完整路径
+    Returns:
+        Full path for the output file.
     """
-    # 创建输出目录
+    # Create output directory
     output_dir = create_output_directory()
     
-    # 获取文件名(不含路径)
+    # Get base name (without path)
     base_name = os.path.basename(original_file)
     
-    # 如果提供了新扩展名，替换原有扩展名
+    # If new extension provided, replace the old one
     if extension:
-        base_name = os.path.splitext(base_name)[0] + f".{extension}"
+        name_part = os.path.splitext(base_name)[0]
+        base_name = f"{name_part}.{extension}"
     
-    # 返回完整路径
+    # Add prefix if provided
+    if prefix:
+        base_name = f"{prefix}{base_name}"
+        
+    # Return full path
     return os.path.join(output_dir, base_name)
 
 def cleanup_old_results(days_to_keep=30):
-    """清理超过指定天数的结果文件
+    """Clean up result files older than the specified number of days
     
-    参数:
-        days_to_keep: 保留文件的天数，默认30天
+    Args:
+        days_to_keep: Number of days to keep files, default 30 days
     
-    返回:
-        清理的文件夹数量
+    Returns:
+        Number of cleaned folders
     """
     try:
-        # 使用改进后的get_results_folder函数获取基础目录
+        # Use the improved get_results_folder function to get the base directory
         base_dir = get_results_folder()
         
         if not os.path.exists(base_dir):
-            print(f"结果目录不存在: {base_dir}")
+            print(f"Results directory does not exist: {base_dir}")
             return 0
         
         current_time = time.time()
         cleaned_count = 0
         
-        # 检查每个日期文件夹
+        # Check each date folder
         for dir_name in os.listdir(base_dir):
             dir_path = os.path.join(base_dir, dir_name)
             if os.path.isdir(dir_path):
-                # 获取目录修改时间
+                # Get directory modification time
                 dir_time = os.path.getmtime(dir_path)
-                # 如果超过指定天数
+                # If older than the specified number of days
                 if (current_time - dir_time) / (24 * 3600) > days_to_keep:
                     try:
                         shutil.rmtree(dir_path)
-                        print(f"已清理旧结果目录: {dir_path}")
+                        print(f"Cleaned old results directory: {dir_path}")
                         cleaned_count += 1
                     except Exception as e:
-                        print(f"清理目录出错: {e}")
+                        print(f"Error cleaning directory: {e}")
         
         return cleaned_count
     except Exception as e:
-        print(f"清理旧结果出错: {e}")
+        print(f"Error cleaning old results: {e}")
         return 0
 
 def get_results_folder():
-    """获取结果文件夹的路径
+    """Get the path of the results folder
     
-    返回:
-        结果文件夹的完整路径
+    Returns:
+        Full path of the results folder
     """
     try:
-        # 获取应用程序所在目录
+        # Get the directory where the application is located
         if hasattr(sys, '_MEIPASS'):
-            # PyInstaller打包环境
+            # PyInstaller bundled environment
             base_path = sys._MEIPASS
-            print(f"使用PyInstaller基础路径: {base_path}")
+            print(f"Using PyInstaller base path: {base_path}")
         else:
-            # 开发环境
-            # 首先尝试获取当前模块的目录
+            # Development environment
+            # First try to get the directory of the current module
             base_path = os.path.dirname(os.path.abspath(__file__))
-            print(f"文件管理器模块路径: {base_path}")
+            print(f"File manager module path: {base_path}")
             
-            # 如果在model_finder子目录中，则上移一级
+            # If in the model_finder subdirectory, move up one level
             if os.path.basename(base_path) == 'model_finder':
                 base_path = os.path.dirname(base_path)
-                print(f"上移至父目录: {base_path}")
+                print(f"Moved up to parent directory: {base_path}")
         
-        # 如果以上逻辑失败，尝试使用当前工作目录
+        # If the above logic fails, try using the current working directory
         if not os.path.exists(base_path):
             base_path = os.getcwd()
-            print(f"使用当前工作目录: {base_path}")
+            print(f"Using current working directory: {base_path}")
         
-        # 在程序目录下的results文件夹
+        # Results folder under the application directory
         results_dir = os.path.join(base_path, "results")
-        print(f"结果目录: {results_dir}")
+        print(f"Results directory: {results_dir}")
         
-        # 确保目录存在
+        # Ensure the directory exists
         os.makedirs(results_dir, exist_ok=True)
         
-        # 再次验证目录是否可访问
+        # Re-verify if the directory is accessible
         if not os.path.exists(results_dir) or not os.access(results_dir, os.W_OK):
-            # 如果不可访问，回退到用户文档目录
+            # If not accessible, fallback to the user's documents directory
             import ctypes.wintypes
-            CSIDL_PERSONAL = 5  # 我的文档
-            SHGFP_TYPE_CURRENT = 0  # 当前值
+            CSIDL_PERSONAL = 5  # My Documents
+            SHGFP_TYPE_CURRENT = 0  # Current value
             
             buf = ctypes.create_unicode_buffer(ctypes.wintypes.MAX_PATH)
             ctypes.windll.shell32.SHGetFolderPathW(None, CSIDL_PERSONAL, None, SHGFP_TYPE_CURRENT, buf)
             
-            # 在我的文档下创建一个结果文件夹
+            # Create a results folder under My Documents
             docs_path = buf.value
             results_dir = os.path.join(docs_path, "ModelFinder_Results")
-            print(f"使用备用结果目录: {results_dir}")
+            print(f"Using fallback results directory: {results_dir}")
             os.makedirs(results_dir, exist_ok=True)
         
         return results_dir
     except Exception as e:
-        # 出错时使用临时目录
+        # Use temporary directory on error
         import tempfile
         temp_dir = os.path.join(tempfile.gettempdir(), "ModelFinder_Results")
-        print(f"获取结果目录出错: {e}, 使用临时目录: {temp_dir}")
+        print(f"Error getting results directory: {e}, using temporary directory: {temp_dir}")
         os.makedirs(temp_dir, exist_ok=True)
         return temp_dir
+
+def open_directory(path):
+    """Opens the specified directory in the default file explorer."""
+    if not os.path.isdir(path):
+        print(f"Error: Directory not found at {path}")
+        return
+
+    try:
+        if platform.system() == "Windows":
+            os.startfile(path)
+        elif platform.system() == "Darwin":  # macOS
+            subprocess.run(["open", path], check=True)
+        else:  # Linux and other Unix-like
+            subprocess.run(["xdg-open", path], check=True)
+        print(f"Opened directory: {path}")
+    except FileNotFoundError:
+        print(f"Error: Could not find the necessary command (open/xdg-open) to open the directory.")
+    except Exception as e:
+        print(f"Error opening directory {path}: {e}")
