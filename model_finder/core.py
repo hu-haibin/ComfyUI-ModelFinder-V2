@@ -83,6 +83,15 @@ def find_missing_models(workflow_file):
         print(f"工作流文件格式有误: 根对象不是字典")
         return []
     
+    # 节点类型到模型参数索引的映射
+    node_model_indices = {
+        # 默认情况：大多数加载器只在索引0有模型
+        "default": [0],
+        # 特殊节点：在多个位置有模型
+        "SUPIR_Upscale": [0, 1],
+        # 可以根据需要添加更多特殊节点
+    }
+    
     # 查找文件引用
     file_references = []
     model_extensions = ('.safetensors', '.pth', '.ckpt', '.pt', '.bin', '.onnx')
@@ -105,7 +114,8 @@ def find_missing_models(workflow_file):
         "InstantIDModelLoader",
         "EcomID_PulidModelLoader",
         "PulidEvaClipLoader",
-        "UltralyticsDetectorProvider"
+        "UltralyticsDetectorProvider",
+        "SUPIR_Upscale",
     ]
     
     # 限制节点数量以避免处理时间过长
@@ -155,34 +165,37 @@ def find_missing_models(workflow_file):
             if not widgets_values:
                 continue
             
-            # ComfyUI中模型文件通常是第一个参数
-            # 检查第一个widgets_value是否可能是模型文件
-            if len(widgets_values) > 0 and isinstance(widgets_values[0], str):
-                value = widgets_values[0].strip()
-                
-                # 跳过空字符串
-                if not value:
-                    continue
-                
-                # 跳过包含换行符的字符串(文件名不会有换行)
-                if '\n' in value or '\r' in value:
-                    continue
-                
-                # 排除一些常见的非模型选项值
-                common_non_model_options = ["default", "none", "empty", "auto", "off", "on"]
-                if value.lower() in common_non_model_options:
-                    continue
+            # 获取此节点类型应检查的索引
+            indices_to_check = node_model_indices.get(node_type, node_model_indices["default"])
+            
+            # 检查每个可能的模型参数位置
+            for index in indices_to_check:
+                if len(widgets_values) > index and isinstance(widgets_values[index], str):
+                    value = widgets_values[index].strip()
                     
-                # 提取文件名（去掉路径）
-                if '\\' in value or '/' in value:
-                    value = os.path.basename(value.replace('\\', '/'))
-                
-                # 添加到引用列表
-                file_references.append({
-                    'node_id': node_id,
-                    'node_type': node_type,
-                    'file_path': value
-                })
+                    # 跳过空字符串
+                    if not value:
+                        continue
+                    
+                    # 跳过包含换行符的字符串(文件名不会有换行)
+                    if '\n' in value or '\r' in value:
+                        continue
+                    
+                    # 排除一些常见的非模型选项值
+                    common_non_model_options = ["default", "none", "empty", "auto", "off", "on"]
+                    if value.lower() in common_non_model_options:
+                        continue
+                        
+                    # 提取文件名（去掉路径）
+                    if '\\' in value or '/' in value:
+                        value = os.path.basename(value.replace('\\', '/'))
+                    
+                    # 添加到引用列表
+                    file_references.append({
+                        'node_id': node_id,
+                        'node_type': node_type,
+                        'file_path': value
+                    })
     except Exception as e:
         print(f"处理节点时出错: {e}")
         traceback.print_exc()
