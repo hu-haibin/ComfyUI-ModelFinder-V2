@@ -3,115 +3,147 @@
 
 """
 Model Finder Launcher
-This script handles the startup of the Model Finder application
+This script handles the startup of the Model Finder application, including logging setup.
 """
 
 import os
 import sys
 import traceback
+import logging # Import logging module
+import logging.handlers # For file handler
+from tkinter import messagebox # Keep for critical startup errors
+import tkinter as tk # Keep for critical startup errors
+
+# --- Early Logging Setup ---
+# We configure logging here so that even import errors or early issues can be logged.
+
+def setup_logging():
+    """Configures logging to console and file."""
+    log_level = logging.DEBUG # Set to logging.INFO for less verbose output in production
+    log_format = logging.Formatter('%(asctime)s - %(levelname)s - [%(name)s] - %(message)s')
+    log_filename = "app.log" # Log filename
+
+    # Determine log file path (place it in the 'results' folder if possible)
+    log_dir = None
+    try:
+        # Try to import file_manager to get results path
+        # Add project root to sys.path temporarily if needed
+        project_root = os.path.dirname(os.path.abspath(__file__))
+        if project_root not in sys.path:
+            sys.path.insert(0, project_root)
+        from model_finder.file_manager import get_results_folder
+        log_dir = get_results_folder()
+        # Ensure the directory exists
+        os.makedirs(log_dir, exist_ok=True)
+        log_filepath = os.path.join(log_dir, log_filename)
+    except Exception as e:
+        print(f"Warning: Could not determine results directory for log file: {e}. Logging to current directory.")
+        log_filepath = log_filename # Fallback to current directory
+
+    # Get the root logger
+    root_logger = logging.getLogger()
+    root_logger.setLevel(log_level)
+
+    # Clear existing handlers (important if script is run multiple times in same session)
+    if root_logger.hasHandlers():
+        root_logger.handlers.clear()
+
+    # Console Handler (StreamHandler)
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setFormatter(log_format)
+    root_logger.addHandler(console_handler)
+
+    # File Handler
+    try:
+        # Use RotatingFileHandler for larger logs, or simple FileHandler
+        # file_handler = logging.handlers.RotatingFileHandler(log_filepath, maxBytes=5*1024*1024, backupCount=2, encoding='utf-8')
+        file_handler = logging.FileHandler(log_filepath, encoding='utf-8')
+        file_handler.setFormatter(log_format)
+        root_logger.addHandler(file_handler)
+    except Exception as e:
+        print(f"Error setting up file logging to {log_filepath}: {e}")
+
+    logging.info("Logging configured successfully.")
+    logging.info(f"Log level set to: {logging.getLevelName(log_level)}")
+    if log_dir:
+        logging.info(f"Log file path: {log_filepath}")
+
+# --- Main Application Execution ---
 
 def main():
-    try:
-        print("Starting Model Finder 2.0...")
-        # 添加管理员权限请求
-        # try:
-        #     from model_finder.file_manager import is_admin, run_as_admin
-        #     if not is_admin():
-        #         print("请求管理员权限...")
-        #         run_as_admin()
-        # except ImportError:
-        #     pass  # 如果无法导入，则不请求管理员权限
+    # Configure logging as the first step
+    setup_logging()
+    logger = logging.getLogger(__name__) # Get logger for the launcher itself
+    logger.info(f"Starting Model Finder {__version__ if '__version__' in locals() else 'N/A'}...") # Version might not be available yet
 
-        # Add the current directory to the Python path
+    try:
+        # Add project root to Python path (if not already done by setup_logging)
         current_dir = os.path.dirname(os.path.abspath(__file__))
         if current_dir not in sys.path:
             sys.path.insert(0, current_dir)
-        
-        # First try to import necessary components
+            logger.debug(f"Added {current_dir} to sys.path")
+
+        # Check dependencies (moved utils check inside model_finder/init)
+        # Logging for dependencies happens within the module now if check_dependencies logs
+
+        # Import the main application components AFTER path setup
+        # Handle import errors specifically
+        start_app = None
         try:
-            import tkinter as tk
-            from tkinter import messagebox
-        except ImportError:
-            print("ERROR: Tkinter not available. Please install Python with Tkinter support.")
-            input("Press Enter to exit...")
-            return
-        
-        # Check for required packages
-        missing_packages = []
-        required_packages = ["pandas", "DrissionPage", "ttkbootstrap"]
-        
-        for package in required_packages:
-            try:
-                __import__(package)
-                print(f"✓ {package} is installed")
-            except ImportError:
-                print(f"✗ Missing {package}")
-                missing_packages.append(package)
-        
-        # If missing packages, ask to install
-        if missing_packages:
-            root = tk.Tk()
-            root.withdraw()
-            result = messagebox.askyesno(
-                "Missing Dependencies",
-                f"The following packages are required but not installed:\n" +
-                "\n".join(missing_packages) + 
-                "\n\nWould you like to install them now?"
-            )
-            root.destroy()
-            
-            if result:
-                print("Installing missing packages...")
-                try:
-                    import subprocess
-                    cmd = [sys.executable, "-m", "pip", "install", 
-                           "-i", "https://pypi.tuna.tsinghua.edu.cn/simple"]
-                    cmd.extend(missing_packages)
-                    subprocess.check_call(cmd)
-                    print("Packages installed successfully!")
-                except Exception as e:
-                    print(f"Error installing packages: {e}")
-                    input("Press Enter to exit...")
-                    return
-            else:
-                print("Cannot continue without required packages.")
-                input("Press Enter to exit...")
-                return
-        
-        # Now try to import and start the Model Finder
-        try:
-            # Import from model_finder directory
+            # We now import the *main* function from the refactored model_finder.py
             from model_finder.model_finder import main as start_app
-            # 清理旧文件
-            try:
-                from model_finder.file_manager import cleanup_old_results
-                cleaned = cleanup_old_results(days_to_keep=7)  # 保留7天的文件
-                if cleaned > 0:
-                    print(f"已清理 {cleaned} 个旧结果目录")
-            except ImportError:
-                pass  # 如果无法导入，则不执行清理
-
-            # Start the application
-            print("Launching Model Finder...")
-            start_app()
-
-            
+            from model_finder import __version__, __author__ # Get version/author after successful import
+            logger.info(f"Successfully imported Model Finder v{__version__} by {__author__}")
         except ImportError as e:
-            print(f"ERROR: Could not import Model Finder: {e}")
-            traceback.print_exc()
-            input("Press Enter to exit...")
-            return
-            
+             logger.critical(f"ERROR: Could not import Model Finder components: {e}", exc_info=True)
+             # Use Tkinter messagebox as fallback UI for critical error
+             tk_root = tk.Tk()
+             tk_root.withdraw()
+             messagebox.showerror("启动错误", f"无法导入程序组件:\n{e}\n\n请确保文件完整并检查日志。")
+             tk_root.destroy()
+             input("按Enter键退出...") # Keep console pause
+             return # Exit script
+
+        # Optional: Automatic cleanup of old results on startup
+        try:
+             from model_finder.file_manager import cleanup_old_results
+             # Use a default value or value from config if available (later)
+             cleaned_count = cleanup_old_results(days_to_keep=7)
+             if cleaned_count > 0:
+                 logger.info(f"自动清理了 {cleaned_count} 个旧结果目录 (超过7天)。")
+        except ImportError:
+             logger.warning("无法导入 file_manager 或 cleanup_old_results，跳过自动清理。")
         except Exception as e:
-            print(f"ERROR: Failed to start Model Finder: {e}")
-            traceback.print_exc()
-            input("Press Enter to exit...")
-            return
-    
+             logger.error("自动清理旧结果时出错。", exc_info=True)
+
+
+        # Start the application (calling the main() function from model_finder.py)
+        if start_app:
+            logger.info("Launching Model Finder GUI...")
+            start_app() # This now sets up ttk.Window, Controller, View and runs mainloop
+            logger.info("Model Finder GUI closed.")
+        else:
+             # This should not happen if import succeeded, but as a safeguard:
+             logger.error("start_app function not defined after import.")
+             input("按Enter键退出...")
+
+
     except Exception as e:
-        print(f"ERROR: {e}")
-        traceback.print_exc()
-        input("Press Enter to exit...")
+        # Log any other uncaught exception during startup phase
+        logger.critical(f"An unexpected error occurred during startup: {e}", exc_info=True)
+        try:
+            tk_root = tk.Tk()
+            tk_root.withdraw()
+            messagebox.showerror("严重错误", f"程序启动时遇到意外错误:\n{e}\n\n请查看日志文件 app.log。")
+            tk_root.destroy()
+        except Exception as me:
+            print(f"无法显示最终错误消息框: {me}") # Last resort print
+        input("按Enter键退出...") # Keep console pause
 
 if __name__ == "__main__":
+    # Set version for logging if available before importing main app
+    try:
+        from model_finder import __version__
+    except ImportError:
+        __version__ = "Unknown" # Default if import fails early
     main()
