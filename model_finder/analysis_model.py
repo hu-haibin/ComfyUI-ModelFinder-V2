@@ -7,6 +7,7 @@ import csv
 import traceback
 import re
 import logging
+import random
 
 # Import utilities and file manager directly, as Model handles core logic
 from .utils import get_mirror_link, create_html_view, find_chrome_path # Assuming utils are stable
@@ -240,8 +241,7 @@ class AnalysisModel:
         except Exception as e:
             logger.error(f"Error creating CSV file for {output_basename}", exc_info=True)
             return None
-
-
+        
     def search_model_links(self, csv_file, progress_callback=None):
         """Searches model download links using Bing and DrissionPage."""
         logger.info(f"Starting model link search for CSV: {csv_file}")
@@ -250,31 +250,57 @@ class AnalysisModel:
              return False # Indicate failure due to missing dependency
 
         try:
-            try: df = pd.read_csv(csv_file, encoding='utf-8')
-            except: df = pd.read_csv(csv_file, encoding='utf-8-sig')
-            logger.debug(f"Successfully read CSV: {csv_file}, Shape: {df.shape}")
+            # --- 修改开始: 读取 CSV 并处理数据类型 ---
+            logger.debug(f"Attempting to read CSV with specified string dtypes: {csv_file}")
 
-            required_cols = ['文件名', '状态', '下载链接', '镜像链接', '搜索链接']
-            for col in required_cols:
-                if col not in df.columns:
-                    logger.warning(f"CSV missing required column '{col}', adding it.")
-                    df[col] = ''
+            # 1. 定义需要确保为字符串类型的列
+            string_columns = ['状态', '下载链接', '镜像链接', '搜索链接']
+            # 2. 创建 dtype 字典，告诉 Pandas 这些列应该是字符串
+            col_dtypes = {col: str for col in string_columns}
 
+            try:
+                # 3. 尝试用两种编码读取 CSV，同时传入 dtype 和处理空值的参数
+                try:
+                    df = pd.read_csv(csv_file, encoding='utf-8', dtype=col_dtypes, keep_default_na=False, na_values=[''])
+                except Exception:
+                    df = pd.read_csv(csv_file, encoding='utf-8-sig', dtype=col_dtypes, keep_default_na=False, na_values=[''])
+
+                logger.debug(f"Successfully read CSV: {csv_file}, Shape: {df.shape}, Dtypes:\n{df.dtypes}")
+
+                # 4. 确保所有必需的列存在，并再次强制转换类型/填充NaN为空字符串
+                required_cols = ['文件名', '状态', '下载链接', '镜像链接', '搜索链接']
+                for col in required_cols:
+                    if col not in df.columns:
+                        logger.warning(f"CSV missing required column '{col}', adding it.")
+                        df[col] = '' # 添加新列时初始化为空字符串
+                    else:
+                        # 对明确需要是字符串的列，再次进行处理以防万一
+                        if col in string_columns:
+                            # fillna('') 确保没有 NaN 值, astype(str) 强制转换为字符串
+                            df[col] = df[col].fillna('').astype(str)
+                            # logger.debug(f"Column '{col}' processed: filled NaN, type enforced to string.")
+
+            except Exception as read_e:
+                 logger.error(f"Critical error reading or processing CSV file {csv_file}", exc_info=True)
+                 return False # 如果读取或初步处理失败，则提前返回 False
+            # --- 修改结束 ---
+
+            # --- 原有逻辑: 准备要搜索的关键词列表 (基本不变) ---
             keywords_to_search = []
             indices_to_update = [] # Store indices corresponding to keywords
             for index, row in df.iterrows():
-                 keyword = row.get('文件名')
-                 status = row.get('状态', '')
-                 link = row.get('下载链接', '') # Check primary HF link column
-                 liblib_link = row.get('搜索链接', '') # Check LibLib link column (previously named '搜索链接')
+                 # 使用 .get() 并提供默认值，增加对列可能不存在的鲁棒性
+                 keyword = row.get('文件名', '')
+                 status = str(row.get('状态', '')) # 确保状态是字符串
+                 link = str(row.get('下载链接', '')) # 确保链接是字符串
+                 liblib_link = str(row.get('搜索链接', '')) # 确保链接是字符串
 
                  if pd.isna(keyword) or keyword == '': continue
 
-                 # Skip if status is '已处理' AND we have EITHER a HF link OR a LibLib link
                  is_processed = (status == '已处理')
-                 has_hf_link = not pd.isna(link) and str(link).strip() != ''
-                 # Check if liblib link is a valid URL, not just a search query
-                 has_liblib_link = not pd.isna(liblib_link) and str(liblib_link).startswith('http')
+                 has_hf_link = link.strip() != ''
+                 # 检查 liblib 链接是否是有效的 URL (以 http 开头)
+                 has_liblib_link = liblib_link.strip().startswith('http')
 
                  if is_processed and (has_hf_link or has_liblib_link):
                      logger.debug(f"Skipping already processed keyword: {keyword}")
@@ -285,9 +311,13 @@ class AnalysisModel:
 
             if not keywords_to_search:
                 logger.info("No keywords require searching in this CSV.")
-                return True # Indicate success (nothing to do)
-
-            logger.info(f"Found {len(keywords_to_search)} keywords to search.")
+                # 【注意】: 如果没有关键词需要搜索，原代码是返回 True。但此时可能仍需要生成HTML（显示所有都是已处理状态）
+                # 因此，我们应该继续执行到 HTML 生成步骤，而不是直接返回 True。
+                # 所以，这里的 return True 需要移除或注释掉，让流程继续。
+                # return True # <--- 注释掉或者删除这一行
+                pass # 让代码继续往下执行到浏览器设置和HTML生成部分
+            else:
+                 logger.info(f"Found {len(keywords_to_search)} keywords to search.")
 
             # --- Browser Setup ---
             logger.debug("Configuring browser options...")

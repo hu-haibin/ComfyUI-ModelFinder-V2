@@ -460,7 +460,8 @@ class AppController:
                 'auto_open_html': self.auto_open_html.get(),
                 'chrome_path': self.view.get_chrome_path(),
                 'random_theme': self.random_theme.get(),
-                'theme': self._loaded_theme, # Use the internally stored theme preference
+                
+                'theme': self.view.get_selected_theme(), # Saves the theme currently selected in the view's combobox.
                 'retention_days': retention_days_from_view
             }
             logger.debug(f"Data to be saved: {settings_to_save}")
