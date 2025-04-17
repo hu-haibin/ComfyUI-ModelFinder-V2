@@ -43,7 +43,28 @@ class AnalysisModel:
         if ChromiumPage is None:
             logger.error("DrissionPage library is not installed, search functionality will not work.")
 
+    def remove_chinese_prefix(self, filename):
+        """
+        Removes ONLY the Chinese prefix from a filename, if it exists at the beginning.
+        Examples:
+        "万相clip_vision_h.safetensors" -> "clip_vision_h.safetensors"
+        "牛奶abc_def_pingguo.safetensors" -> "abc_def_pingguo.safetensors"
+        "abc一二三def.safetensors" -> "abc一二三def.safetensors" (no change)
+        "abcdef一二三.safetensors" -> "abcdef一二三.safetensors" (no change)
+        """
 
+        # 匹配以一个或多个中文字符开始的模式
+        prefix_pattern = re.compile(r"^[\u4e00-\u9fa5]+")
+
+        # 检查是否以中文开头
+        if re.search(r"^[\u4e00-\u9fa5]", filename):
+            # 移除中文前缀
+            filename = re.sub(prefix_pattern, "", filename).strip()
+            # 移除前导的分隔符
+            filename = re.sub(r"^[-_|\s]+", "", filename).strip()
+
+        return filename
+    
     def _contains_chinese(self, text):
         """Detects if a string contains Chinese characters."""
         if not isinstance(text, str):
@@ -93,12 +114,14 @@ class AnalysisModel:
 
             node_model_indices = {"default": [0], "SUPIR_Upscale": [0, 1]} # Simplified example
             model_extensions = ('.safetensors', '.pth', '.ckpt', '.pt', '.bin', '.onnx')
+
             model_node_types = [ "CheckpointLoaderSimple", "CheckpointLoader", "ControlNetLoader",
-                                "DiffControlNetLoader", "LoraLoader", "CLIPLoader", "UNETLoader",
-                                "VAELoader", "ModelLoader", "UpscaleModelLoader", "StyleModelLoader",
-                                "CLIPVisionLoader", "GANLoader", "InstantIDModelLoader",
-                                "EcomID_PulidModelLoader", "PulidEvaClipLoader",
-                                "UltralyticsDetectorProvider", "SUPIR_Upscale"]
+                        "DiffControlNetLoader", "LoraLoader", "CLIPLoader", "UNETLoader",
+                        "VAELoader", "ModelLoader", "UpscaleModelLoader", "StyleModelLoader",
+                        "CLIPVisionLoader", "GANLoader", "InstantIDModelLoader",
+                        "EcomID_PulidModelLoader", "PulidEvaClipLoader",
+                        "UltralyticsDetectorProvider", "SUPIR_Upscale", "DownloadAndLoadGIMMVFIModel"]  # 添加了 DiffusionModelLoaderKJ
+           
 
             file_references = []
             nodes = workflow_json.get('nodes', [])
@@ -290,24 +313,28 @@ class AnalysisModel:
             indices_to_update = [] # Store indices corresponding to keywords
             for index, row in df.iterrows():
                  # 使用 .get() 并提供默认值，增加对列可能不存在的鲁棒性
-                 keyword = row.get('文件名', '')
-                 status = str(row.get('状态', '')) # 确保状态是字符串
-                 link = str(row.get('下载链接', '')) # 确保链接是字符串
-                 liblib_link = str(row.get('搜索链接', '')) # 确保链接是字符串
+                keyword = row.get('文件名', '')
+                status = str(row.get('状态', '')) # 确保状态是字符串
+                link = str(row.get('下载链接', '')) # 确保链接是字符串
+                liblib_link = str(row.get('搜索链接', '')) # 确保链接是字符串
 
-                 if pd.isna(keyword) or keyword == '': continue
+                if pd.isna(keyword) or keyword == '': continue
 
-                 is_processed = (status == '已处理')
-                 has_hf_link = link.strip() != ''
-                 # 检查 liblib 链接是否是有效的 URL (以 http 开头)
-                 has_liblib_link = liblib_link.strip().startswith('http')
+                is_processed = (status == '已处理')
+                has_hf_link = link.strip() != ''
+                # 检查 liblib 链接是否是有效的 URL (以 http 开头)
+                has_liblib_link = liblib_link.strip().startswith('http')
 
-                 if is_processed and (has_hf_link or has_liblib_link):
-                     logger.debug(f"Skipping already processed keyword: {keyword}")
-                     continue
+                if is_processed and (has_hf_link or has_liblib_link):
+                    logger.debug(f"Skipping already processed keyword: {keyword}")
+                    continue
 
-                 keywords_to_search.append(keyword)
-                 indices_to_update.append(index) # Keep track of the original df index
+                # 在这里添加：处理中文前缀
+                keyword = self.remove_chinese_prefix(keyword)
+                logger.debug(f"Processed keyword: {keyword}")
+                
+                keywords_to_search.append(keyword)
+                indices_to_update.append(index) # Keep track of the original df index
 
             if not keywords_to_search:
                 logger.info("No keywords require searching in this CSV.")
