@@ -1,0 +1,6 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,38,ControlNetLoader,CN-anytest_v4-marged.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22CN-anytest_v4-marged.safetensors%22
+2,34,ControlNetLoader,TTPLANET_Controlnet_Tile_realistic_v2_fp16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22TTPLANET_Controlnet_Tile_realistic_v2_fp16.safetensors%22
+3,20,CheckpointLoaderSimple,anything-v5-PrtRE.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22anything-v5-PrtRE.safetensors%22
+4,28,ControlNetLoader,control_v11p_sd15_mlsd_fp16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22control_v11p_sd15_mlsd_fp16.safetensors%22
+5,18,Miaoshouai_Tagger,promptgen_base_v2.0,,,,https://www.bing.com/search?q=site:huggingface.co+%22promptgen_base_v2.0%22

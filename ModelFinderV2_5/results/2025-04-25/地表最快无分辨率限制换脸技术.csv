@@ -1,0 +1,6 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,92,ControlNetLoader,control_instant_id_sdxl.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22control_instant_id_sdxl.safetensors%22
+2,76,UltralyticsDetectorProvider,face_yolov8n_v2.pt,,,,https://www.bing.com/search?q=site:huggingface.co+%22face_yolov8n_v2.pt%22
+3,91,InstantIDModelLoader,ip-adapter.bin,,,,https://www.bing.com/search?q=site:huggingface.co+%22ip-adapter.bin%22
+4,52,CheckpointLoaderSimple,juggernautXL_juggernautX.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22juggernautXL_juggernautX.safetensors%22
+5,77,SAMLoader,sam_vit_b_01ec64.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22sam_vit_b_01ec64.pth%22

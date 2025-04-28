@@ -1,0 +1,9 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,72,LoraLoader,Pixel_Lineart.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22Pixel_Lineart.safetensors%22
+2,2,UpscaleModelLoader,RealESRGAN_x4plus_anime_6B.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22RealESRGAN_x4plus_anime_6B.pth%22
+3,84,SUPIR_Upscale,SUPIR-v0F_fp16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22SUPIR-v0F_fp16.safetensors%22
+4,"25,84","CheckpointLoaderSimple,SUPIR_Upscale",Stable Diffusion SDXL_sdxl_1.0.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22Stable+Diffusion+SDXL_sdxl_1.0.safetensors%22
+5,68,CLIPVisionLoader,clip_vision_g.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22clip_vision_g.safetensors%22
+6,45,ControlNetLoader,control-lora-depth-rank256.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22control-lora-depth-rank256.safetensors%22
+7,28,VAELoader,sdxl_vae.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22sdxl_vae.safetensors%22
+8,50,ControlNetLoader,t2i-adapter-lineart-sdxl-1.0.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22t2i-adapter-lineart-sdxl-1.0.safetensors%22

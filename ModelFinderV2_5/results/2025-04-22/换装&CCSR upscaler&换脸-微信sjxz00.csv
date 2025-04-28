@@ -1,0 +1,4 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,144,CheckpointLoaderSimple,XXMix_9realisticSDXL.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22XXMix_9realisticSDXL.safetensors%22
+2,37,ControlNetLoaderAdvanced,control-lora-recolor-rank256.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22control-lora-recolor-rank256.safetensors%22
+3,2,CheckpointLoaderSimple,juggernautXL_version6Rundiffusion.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22juggernautXL_version6Rundiffusion.safetensors%22

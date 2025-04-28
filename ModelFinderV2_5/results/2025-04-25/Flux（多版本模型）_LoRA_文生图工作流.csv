@@ -1,0 +1,10 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,74,LoraLoaderModelOnly,FLUX1-超写实逼真黑悟空aiyouxiketang.safetensors,,,,https://www.bing.com/search?q=site:liblib.art+%22FLUX1-超写实逼真黑悟空aiyouxiketang.safetensors%22
+2,"46,42,85",VAELoader,ae.sft,,,,https://www.bing.com/search?q=site:huggingface.co+%22ae.sft%22
+3,69,UnetLoaderGGUF,flux1-dev-Q6_K.gguf,,,,https://www.bing.com/search?q=site:huggingface.co+%22flux1-dev-Q6_K.gguf%22
+4,30,CheckpointLoaderSimple,flux1-dev-fp8-with_clip_vae.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22flux1-dev-fp8-with_clip_vae.safetensors%22
+5,40,UNETLoader,flux1-dev-fp8.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22flux1-dev-fp8.safetensors%22
+6,44,UNETLoader,flux1-dev.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22flux1-dev.safetensors%22
+7,72,DualCLIPLoaderGGUF,t5-v1_1-xxl-encoder-Q6_K.gguf,,,,https://www.bing.com/search?q=site:huggingface.co+%22t5-v1_1-xxl-encoder-Q6_K.gguf%22
+8,45,DualCLIPLoader,t5xxl_fp16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22t5xxl_fp16.safetensors%22
+9,41,DualCLIPLoader,t5xxl_fp8_e4m3fn.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22t5xxl_fp8_e4m3fn.safetensors%22

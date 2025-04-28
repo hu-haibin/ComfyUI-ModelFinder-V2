@@ -1,0 +1,4 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,34,IPAdapterUnifiedLoader,PLUS (high strength),,,,https://www.bing.com/search?q=site:huggingface.co+%22PLUS+(high+strength)%22
+2,29,ControlNetLoaderAdvanced,control-lora-canny-rank256.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22control-lora-canny-rank256.safetensors%22
+3,4,CheckpointLoaderSimple,juggernautXL_v9Rdphoto2Lightning.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22juggernautXL_v9Rdphoto2Lightning.safetensors%22

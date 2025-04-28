@@ -1,0 +1,4 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,4,CheckpointLoaderSimple,dreamshaperXL_lightningDPMSDE.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22dreamshaperXL_lightningDPMSDE.safetensors%22
+2,28,ControlNetLoader,mistoLine_rank256.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22mistoLine_rank256.safetensors%22
+3,15,LoraLoaderModelOnly,sdxl_lightning_4step_lora.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22sdxl_lightning_4step_lora.safetensors%22

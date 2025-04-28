@@ -1,0 +1,8 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,270,UpscaleModelLoader,4x-UltraSharp.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%224x-UltraSharp.pth%22
+2,563,LoraLoaderModelOnly,AnimateLCM_sd15_t2v_lora.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22AnimateLCM_sd15_t2v_lora.safetensors%22
+3,748,CLIPVisionLoader,CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors%22
+4,127,ControlNetLoaderAdvanced,control_v1p_sd15_qrcode_monster.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22control_v1p_sd15_qrcode_monster.safetensors%22
+5,564,CheckpointLoaderSimple,dreamshaper_8.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22dreamshaper_8.safetensors%22
+6,747,IPAdapterModelLoader,ip-adapter-plus_sd15.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22ip-adapter-plus_sd15.safetensors%22
+7,85,VAELoader,vae-ft-mse-840000-ema-pruned.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22vae-ft-mse-840000-ema-pruned.safetensors%22

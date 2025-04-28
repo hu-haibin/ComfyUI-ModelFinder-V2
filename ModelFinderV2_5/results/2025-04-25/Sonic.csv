@@ -1,0 +1,3 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,54,ImageOnlyCheckpointLoader,svd_xt_1_1.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22svd_xt_1_1.safetensors%22
+2,68,SONICTLoader,unet.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22unet.pth%22

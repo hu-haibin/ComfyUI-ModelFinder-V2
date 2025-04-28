@@ -1,0 +1,4 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,17,VAELoader,ae.sft,,,,https://www.bing.com/search?q=site:huggingface.co+%22ae.sft%22
+2,16,DualCLIPLoader,clip_l.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22clip_l.safetensors%22
+3,15,UNETLoader,flux1-fill-dev.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22flux1-fill-dev.safetensors%22

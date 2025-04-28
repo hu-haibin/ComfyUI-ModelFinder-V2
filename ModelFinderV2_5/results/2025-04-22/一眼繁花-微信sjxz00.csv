@@ -1,0 +1,13 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,"244,287",Upscale Model Loader,4x_NMKD-Siax_200k.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%224x_NMKD-Siax_200k.pth%22
+2,220,CheckpointLoaderSimple,AWPortrait_v1.4.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22AWPortrait_v1.4.safetensors%22
+3,10,LoraLoader,DetailedEyes_V3.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22DetailedEyes_V3.safetensors%22
+4,82,GroundingDinoModelLoader (segment anything),GroundingDINO_SwinT_OGC (694MB),,,,https://www.bing.com/search?q=site:huggingface.co+%22GroundingDINO_SwinT_OGC+(694MB)%22
+5,237,LoraLoader,SDXLrender_v2.0.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22SDXLrender_v2.0.safetensors%22
+6,"291,318",ControlNetLoader,control-lora-depth-rank256.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22control-lora-depth-rank256.safetensors%22
+7,224,ControlNetLoader,control_v11f1e_sd15_tile.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22control_v11f1e_sd15_tile.pth%22
+8,11,LoraLoader,eye_catching.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22eye_catching.safetensors%22
+9,2,CheckpointLoaderSimple,leosamsHelloworldXL_helloworldXL50GPT4V.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22leosamsHelloworldXL_helloworldXL50GPT4V.safetensors%22
+10,238,LoraLoader,more_details.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22more_details.safetensors%22
+11,80,SAMModelLoader (segment anything),sam_vit_h (2.56GB),,,,https://www.bing.com/search?q=site:huggingface.co+%22sam_vit_h+(2.56GB)%22
+12,226,VAELoader,vae-ft-mse-840000-ema-pruned.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22vae-ft-mse-840000-ema-pruned.safetensors%22

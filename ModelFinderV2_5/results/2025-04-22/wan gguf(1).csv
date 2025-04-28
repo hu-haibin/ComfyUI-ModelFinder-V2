@@ -1,0 +1,8 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,"79,78",UpscaleModelLoader,RealESRGAN_x2plus.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22RealESRGAN_x2plus.pth%22
+2,81,DownloadAndLoadGIMMVFIModel,gimmvfi_r_arb_lpips_fp32.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22gimmvfi_r_arb_lpips_fp32.safetensors%22
+3,63,CLIPVisionLoader,万相clip_vision_h.safetensors,,,,https://www.bing.com/search?q=site:liblib.art+%22万相clip_vision_h.safetensors%22
+4,57,CLIPLoader,万相t5xxl_um_fp16.safetensors,,,,https://www.bing.com/search?q=site:liblib.art+%22万相t5xxl_um_fp16.safetensors%22
+5,53,CLIPLoader,万相t5xxl_um_fp8_e4m3fn_scaled.safetensors,,,,https://www.bing.com/search?q=site:liblib.art+%22万相t5xxl_um_fp8_e4m3fn_scaled.safetensors%22
+6,59,LoaderGGUF,万相wan2.1-i2v-14b-720p-q4_k_m.gguf,,,,https://www.bing.com/search?q=site:liblib.art+%22万相wan2.1-i2v-14b-720p-q4_k_m.gguf%22
+7,49,LoaderGGUF,万相wan2.1-t2v-14b-q8_0.gguf,,,,https://www.bing.com/search?q=site:liblib.art+%22万相wan2.1-t2v-14b-q8_0.gguf%22

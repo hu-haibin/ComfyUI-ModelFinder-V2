@@ -1,0 +1,13 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,37,Upscale Model Loader,4x-UltraSharp.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%224x-UltraSharp.pth%22
+2,301,IPAdapterUnifiedLoader,FULL FACE - SD1.5 only (portraits stronger),,,,https://www.bing.com/search?q=site:huggingface.co+%22FULL+FACE+-+SD1.5+only+(portraits+stronger)%22
+3,50,Upscale Model Loader,RealESRGAN_x4plus_anime_6B.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22RealESRGAN_x4plus_anime_6B.pth%22
+4,119,VAELoader,animevae.pt,,,,https://www.bing.com/search?q=site:huggingface.co+%22animevae.pt%22
+5,42,ControlNetLoaderAdvanced,control_v11f1e_sd15_tile_fp16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22control_v11f1e_sd15_tile_fp16.safetensors%22
+6,227,ControlNetLoader,control_v11f1p_sd15_depth_fp16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22control_v11f1p_sd15_depth_fp16.safetensors%22
+7,230,ControlNetLoader,control_v11p_sd15_lineart_fp16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22control_v11p_sd15_lineart_fp16.safetensors%22
+8,216,ControlNetLoader,control_v11p_sd15_openpose_fp16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22control_v11p_sd15_openpose_fp16.safetensors%22
+9,122,UltralyticsDetectorProvider,face_yolov8m.pt,,,,https://www.bing.com/search?q=site:huggingface.co+%22face_yolov8m.pt%22
+10,146,UltralyticsDetectorProvider,hand_yolov8s.pt,,,,https://www.bing.com/search?q=site:huggingface.co+%22hand_yolov8s.pt%22
+11,312,CLIPVisionLoader,image_encoder.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22image_encoder.safetensors%22
+12,"123,147",SAMLoader,sam_vit_b_01ec64.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22sam_vit_b_01ec64.pth%22

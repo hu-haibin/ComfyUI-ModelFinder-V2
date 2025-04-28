@@ -31,7 +31,7 @@ def setup_logging():
         project_root = os.path.dirname(os.path.abspath(__file__))
         if project_root not in sys.path:
             sys.path.insert(0, project_root)
-        from model_finder.file_manager import get_results_folder
+        from ModelFinderV2_5.file_manager import get_results_folder
         log_dir = get_results_folder()
         # Ensure the directory exists
         os.makedirs(log_dir, exist_ok=True)
@@ -91,8 +91,8 @@ def main():
         start_app = None
         try:
             # We now import the *main* function from the refactored model_finder.py
-            from model_finder.model_finder import main as start_app
-            from model_finder import __version__, __author__ # Get version/author after successful import
+            from ModelFinderV2_5.model_finder import main as start_app
+            from ModelFinderV2_5 import __version__, __author__ # Get version/author after successful import
             logger.info(f"Successfully imported Model Finder v{__version__} by {__author__}")
         except ImportError as e:
              logger.critical(f"ERROR: Could not import Model Finder components: {e}", exc_info=True)
@@ -106,7 +106,7 @@ def main():
 
         # Optional: Automatic cleanup of old results on startup
         try:
-             from model_finder.file_manager import cleanup_old_results
+             from ModelFinderV2_5.file_manager import cleanup_old_results
              # Use a default value or value from config if available (later)
              cleaned_count = cleanup_old_results(days_to_keep=7)
              if cleaned_count > 0:
@@ -143,7 +143,7 @@ def main():
 if __name__ == "__main__":
     # Set version for logging if available before importing main app
     try:
-        from model_finder import __version__
+        from ModelFinderV2_5 import __version__
     except ImportError:
         __version__ = "Unknown" # Default if import fails early
     main()

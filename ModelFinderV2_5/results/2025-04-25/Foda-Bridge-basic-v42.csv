@@ -1,0 +1,6 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,10,VAELoader,ae.sft,,,,https://www.bing.com/search?q=site:huggingface.co+%22ae.sft%22
+2,88,UNETLoader,flux1-schnell.sft,,,,https://www.bing.com/search?q=site:huggingface.co+%22flux1-schnell.sft%22
+3,537,CheckpointLoaderSimple,realvis_juggernaut_hermite.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22realvis_juggernaut_hermite.safetensors%22
+4,541,VAELoader,sdxl_vae_fixed.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22sdxl_vae_fixed.safetensors%22
+5,11,DualCLIPLoader,t5xxl_fp8_e4m3fn.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22t5xxl_fp8_e4m3fn.safetensors%22

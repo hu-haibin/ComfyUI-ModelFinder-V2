@@ -1,0 +1,8 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,197,LoraLoader,AnimateLCM_sd15_t2v_lora.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22AnimateLCM_sd15_t2v_lora.safetensors%22
+2,159,IPAdapterUnifiedLoader,PLUS (high strength),,,,https://www.bing.com/search?q=site:huggingface.co+%22PLUS+(high+strength)%22
+3,217,UpscaleModelLoader,RealESRGAN_x4plus.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22RealESRGAN_x4plus.pth%22
+4,195,CheckpointLoaderSimple,juggernaut_reborn.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22juggernaut_reborn.safetensors%22
+5,179,LoraLoader,sdxl_lightning_8step_lora.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22sdxl_lightning_8step_lora.safetensors%22
+6,196,VAELoader,vae-ft-mse-840000-ema-pruned.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22vae-ft-mse-840000-ema-pruned.safetensors%22
+7,177,CheckpointLoaderSimple,zavychromaxl_v80.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22zavychromaxl_v80.safetensors%22

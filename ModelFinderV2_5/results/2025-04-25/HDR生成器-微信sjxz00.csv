@@ -1,0 +1,3 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,18,LoraLoader,add-detail-xl.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22add-detail-xl.safetensors%22
+2,16,CheckpointLoaderSimple,dreamshaperXL_v21TurboDPMSDE.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22dreamshaperXL_v21TurboDPMSDE.safetensors%22

@@ -1,0 +1,4 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,"13,12",LoraLoader,SDXL_FILM_PHOTOGRAPHY_STYLE_BetaV0.4.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22SDXL_FILM_PHOTOGRAPHY_STYLE_BetaV0.4.safetensors%22
+2,11,LoraLoader,lcm_sdxl_pytorch_lora_weights.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22lcm_sdxl_pytorch_lora_weights.safetensors%22
+3,4,CheckpointLoaderSimple,realvisxlV20_v20Bakedvae.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22realvisxlV20_v20Bakedvae.safetensors%22

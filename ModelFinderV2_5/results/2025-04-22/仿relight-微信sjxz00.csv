@@ -1,0 +1,14 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,331,GroundingDinoModelLoader (segment anything),GroundingDINO_SwinT_OGC (694MB),,,,https://www.bing.com/search?q=site:huggingface.co+%22GroundingDINO_SwinT_OGC+(694MB)%22
+2,420,IPAdapterUnifiedLoader,STANDARD (medium strength),,,,https://www.bing.com/search?q=site:huggingface.co+%22STANDARD+(medium+strength)%22
+3,494,SUPIR_Upscale,SUPIR-v0F.ckpt,,,,https://www.bing.com/search?q=site:huggingface.co+%22SUPIR-v0F.ckpt%22
+4,494,SUPIR_Upscale,XXMix_9realisticSDXL.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22XXMix_9realisticSDXL.safetensors%22
+5,380,LoraLoader,add-detail-xl.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22add-detail-xl.safetensors%22
+6,402,ControlNetLoader,control-lora-canny-rank256.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22control-lora-canny-rank256.safetensors%22
+7,126,ControlNetLoader,control_v11p_sd15_canny.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22control_v11p_sd15_canny.pth%22
+8,474,CheckpointLoaderSimple,dreamshaper_8.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22dreamshaper_8.safetensors%22
+9,80,UNETLoader,iclight_sd15_fc_unet_ldm.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22iclight_sd15_fc_unet_ldm.safetensors%22
+10,378,CheckpointLoaderSimple,juggernautXL_v9Rundiffusionphoto2.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22juggernautXL_v9Rundiffusionphoto2.safetensors%22
+11,330,SAMModelLoader (segment anything),sam_vit_h (2.56GB),,,,https://www.bing.com/search?q=site:huggingface.co+%22sam_vit_h+(2.56GB)%22
+12,379,LoraLoader,sdxl_lightning_8step_lora.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22sdxl_lightning_8step_lora.safetensors%22
+13,382,VAELoader,sdxl_vae.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22sdxl_vae.safetensors%22

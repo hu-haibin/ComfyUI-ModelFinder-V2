@@ -1,0 +1,7 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,"62,31","UpscaleModelLoader,Upscale Model Loader",4xRealWebPhoto_v4_dat2.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%224xRealWebPhoto_v4_dat2.pth%22
+2,18,LoraLoaderModelOnly,Aesthetic_Amateur_Photo_V4_Beta_2.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22Aesthetic_Amateur_Photo_V4_Beta_2.safetensors%22
+3,24,LoraLoaderModelOnly,UltraRealPhoto.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22UltraRealPhoto.safetensors%22
+4,7,VAELoader,ae.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22ae.safetensors%22
+5,5,DualCLIPLoader,clip-vit-large-patch14.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22clip-vit-large-patch14.safetensors%22
+6,1,UnetLoaderGGUF,flux1-dev-Q8_0.gguf,,,,https://www.bing.com/search?q=site:huggingface.co+%22flux1-dev-Q8_0.gguf%22

@@ -1,0 +1,7 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,53,BizyAir_PulidFluxInsightFaceLoader,CUDA,,,,https://www.bing.com/search?q=site:huggingface.co+%22CUDA%22
+2,279,BizyAir_CheckpointLoaderSimple,DreamShaper XL v2.1 Turbo 闪电_v2.1 Turbo,,,,https://www.bing.com/search?q=site:liblib.art+%22DreamShaper+XL+v2.1+Turbo+闪电_v2.1+Turbo%22
+3,10,BizyAir_VAELoader,ae.sft,,,,https://www.bing.com/search?q=site:huggingface.co+%22ae.sft%22
+4,163,BizyAir_DualCLIPLoader,clip_l.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22clip_l.safetensors%22
+5,94,BizyAir_UNETLoader,flux1-dev.sft,,,,https://www.bing.com/search?q=site:huggingface.co+%22flux1-dev.sft%22
+6,45,BizyAir_PulidFluxModelLoader,pulid_flux.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22pulid_flux.safetensors%22

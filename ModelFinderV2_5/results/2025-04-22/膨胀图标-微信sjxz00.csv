@@ -1,0 +1,13 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,4,CheckpointLoaderSimple,3D角色PLUS_v1.0.safetensors,,,,https://www.bing.com/search?q=site:liblib.art+%223D角色PLUS_v1.0.safetensors%22
+2,30,IPAdapterUnifiedLoader,LIGHT - SD1.5 only (low strength),,,,https://www.bing.com/search?q=site:huggingface.co+%22LIGHT+-+SD1.5+only+(low+strength)%22
+3,"84,88",Upscale Model Loader,RealESRGAN_x2.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22RealESRGAN_x2.pth%22
+4,81,LoraLoader,SDXLrender_v2.0.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22SDXLrender_v2.0.safetensors%22
+5,"15,41",ControlNetLoader,control_depth-fp16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22control_depth-fp16.safetensors%22
+6,68,ControlNetLoader,control_v11f1e_sd15_tile.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22control_v11f1e_sd15_tile.pth%22
+7,"36,22",ControlNetLoader,control_v11p_sd15_canny.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22control_v11p_sd15_canny.pth%22
+8,64,CheckpointLoaderSimple,juggernaut_reborn.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22juggernaut_reborn.safetensors%22
+9,82,LoraLoader,more_details.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22more_details.safetensors%22
+10,70,VAELoader,vae-ft-mse-840000-ema-pruned.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22vae-ft-mse-840000-ema-pruned.safetensors%22
+11,11,LoraLoader,膨胀风ICON_v1.0.safetensors,,,,https://www.bing.com/search?q=site:liblib.art+%22膨胀风ICON_v1.0.safetensors%22
+12,12,LoraLoader,膨胀风海报设计V.1.0_膨胀风海报设计V.1.0.safetensors,,,,https://www.bing.com/search?q=site:liblib.art+%22膨胀风海报设计V.1.0_膨胀风海报设计V.1.0.safetensors%22

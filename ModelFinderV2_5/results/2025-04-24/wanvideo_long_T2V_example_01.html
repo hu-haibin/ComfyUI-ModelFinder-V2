@@ -1,0 +1,476 @@
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>模型下载链接</title>
+            <style>
+                body { font-family: "Microsoft YaHei", Arial, sans-serif; margin: 20px; }
+                table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+                th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                th { 
+                    background-color: #f2f2f2; 
+                    position: sticky; 
+                    top: 0; 
+                    cursor: pointer;
+                    user-select: none;
+                }
+                th:hover {
+                    background-color: #e0e0e0;
+                }
+                th .filter-icon {
+                    margin-left: 5px;
+                    font-size: 12px;
+                    color: #666;
+                }
+                tr:nth-child(even) { background-color: #f9f9f9; }
+                a { text-decoration: none; }
+                a:hover { text-decoration: underline; }
+                .status-processed { color: green; font-weight: bold; }
+                .status-notfound { color: red; }
+                .status-error { color: orange; }
+                .file-name { font-weight: bold; }
+                .link-col { max-width: 300px; text-align: center; font-size: 16px; font-family: "Microsoft YaHei", Arial, sans-serif; }
+                .summary { margin-top: 20px; padding: 10px; background-color: #f8f8f8; border-radius: 5px; }
+                .section-title { font-size: 1.2em; margin-top: 30px; margin-bottom: 10px; font-weight: bold; }
+                .filter-box { margin-bottom: 20px; padding: 10px; background: #f0f0f0; border-radius: 5px; }
+                #filterInput { width: 300px; padding: 5px; }
+                .hf-link { color: #ff6000; }
+                .mirror-link { color: #0066ff; }
+                .liblib-link { color: #00aa00; }
+                .hf-link a, .mirror-link a, .liblib-link a { text-decoration: none; }
+                
+                /* 下拉菜单样式 */
+                .dropdown-content {
+                    display: none;
+                    position: absolute;
+                    background-color: white;
+                    min-width: 160px;
+                    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                    z-index: 10;
+                    padding: 5px;
+                    border-radius: 3px;
+                    max-height: 300px;
+                    overflow-y: auto;
+                }
+                .dropdown-content.show {
+                    display: block;
+                }
+                .dropdown-item {
+                    padding: 5px;
+                    cursor: pointer;
+                }
+                .dropdown-item:hover {
+                    background-color: #f1f1f1;
+                }
+                .dropdown-search {
+                    width: 100%;
+                    box-sizing: border-box;
+                    padding: 5px;
+                    margin-bottom: 5px;
+                }
+                .filter-buttons {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 5px;
+                }
+                .filter-apply, .filter-clear {
+                    padding: 3px 8px;
+                    cursor: pointer;
+                    background-color: #f0f0f0;
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                }
+                .filter-apply:hover, .filter-clear:hover {
+                    background-color: #e0e0e0;
+                }
+                .usage-guide { 
+                    margin-bottom: 15px; 
+                    padding: 10px; 
+                    background: #f8fff8; 
+                    border-left: 4px solid #00aa00; 
+                    border-radius: 3px;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>模型下载链接</h1>
+        
+            <p>源文件: wanvideo_long_T2V_example_01.csv</p>
+            <p>生成时间: 2025-04-24 01:52:54</p>
+        
+            <div class="usage-guide">
+                <p><strong>使用说明:</strong></p>
+                <ul style="margin: 5px 0 0 20px; padding: 0;">
+                    <li>点击表格标题可以<strong>排序</strong>列内容</li>
+                    <li>点击表格标题右侧的筛选图标可以<strong>筛选</strong>列内容</li>
+                    <li>表格中 <span style="color: #ff6000; font-size: 16px;">✓</span> 表示有链接可点击，<span>×</span> 表示无链接</li>
+                    <li><span style="color: #ff6000;">✓点此跳转</span> - 跳转到 HuggingFace 模型页面</li>
+                    <li><span style="color: #0066ff;">✓点此跳转</span> - 跳转到 HF镜像 下载页面</li>
+                    <li><span style="color: #00aa00;">✓点此跳转</span> - 跳转到 LibLib 模型页面</li>
+                </ul>
+            </div>
+        
+            <div class="filter-box">
+                <label for="filterInput">筛选模型名称: </label>
+                <input type="text" id="filterInput" onkeyup="filterTable()" placeholder="输入关键词...">
+            </div>
+            
+            <table id="modelTable">
+                <tr>
+        <th onclick="sortTable(0)">序号<span class="filter-icon" onclick="event.stopPropagation(); showFilter(event, 0)">▼</span></th>
+<th onclick="sortTable(1)">节点ID<span class="filter-icon" onclick="event.stopPropagation(); showFilter(event, 1)">▼</span></th>
+<th onclick="sortTable(2)">节点类型<span class="filter-icon" onclick="event.stopPropagation(); showFilter(event, 2)">▼</span></th>
+<th onclick="sortTable(3)">文件名<span class="filter-icon" onclick="event.stopPropagation(); showFilter(event, 3)">▼</span></th>
+<th onclick="sortTable(4)">状态<span class="filter-icon" onclick="event.stopPropagation(); showFilter(event, 4)">▼</span></th>
+<th onclick="sortTable(5)">huggingface<span class="filter-icon" onclick="event.stopPropagation(); showFilter(event, 5)">▼</span></th>
+<th onclick="sortTable(6)">hf镜像<span class="filter-icon" onclick="event.stopPropagation(); showFilter(event, 6)">▼</span></th>
+<th onclick="sortTable(7)">liblib<span class="filter-icon" onclick="event.stopPropagation(); showFilter(event, 7)">▼</span></th>
+</tr>
+<tr>
+<td>1</td>
+<td>38</td>
+<td>WanVideoVAELoader</td>
+<td class="file-name">Wan2_1_VAE_bf16.safetensors</td>
+<td class="status-processed">已处理</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/Wan2_1_VAE_bf16.safetensors" target="_blank" title="点击跳转到HuggingFace模型页面">✓点此跳转</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kijai/WanVideo_comfy/resolve/main/Wan2_1_VAE_bf16.safetensors" target="_blank" title="点击跳转到HF镜像下载页面">✓点此跳转</a></td>
+<td>×暂无</td>
+</tr>
+<tr>
+<td>2</td>
+<td>11</td>
+<td>LoadWanVideoT5TextEncoder</td>
+<td class="file-name">umt5-xxl-enc-bf16.safetensors</td>
+<td class="status-processed">已处理</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/umt5-xxl-enc-bf16.safetensors" target="_blank" title="点击跳转到HuggingFace模型页面">✓点此跳转</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kijai/WanVideo_comfy/resolve/main/umt5-xxl-enc-bf16.safetensors" target="_blank" title="点击跳转到HF镜像下载页面">✓点此跳转</a></td>
+<td>×暂无</td>
+</tr>
+<tr>
+<td>3</td>
+<td>22</td>
+<td>WanVideoModelLoader</td>
+<td class="file-name">wan2.1_t2v_1.3B_fp16.safetensors</td>
+<td class="status-processed">已处理</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/diffusion_models/wan2.1_t2v_1.3B_fp16.safetensors" target="_blank" title="点击跳转到HuggingFace模型页面">✓点此跳转</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/diffusion_models/wan2.1_t2v_1.3B_fp16.safetensors" target="_blank" title="点击跳转到HF镜像下载页面">✓点此跳转</a></td>
+<td>×暂无</td>
+</tr>
+
+            </table>
+        
+            <div class="summary">
+                <p>总记录数: 3</p>
+            </div>
+        
+            <div id="filterDropdown" class="dropdown-content">
+                <input type="text" class="dropdown-search" placeholder="搜索筛选项..." id="filterSearchInput" onkeyup="filterDropdownItems()">
+                <div id="dropdown-items"></div>
+                <div class="filter-buttons">
+                    <button class="filter-apply" onclick="applyFilter()">应用</button>
+                    <button class="filter-clear" onclick="clearFilter()">清除</button>
+                </div>
+            </div>
+        
+            <script>
+            // 存储当前的筛选状态
+            var currentFilterColumn = -1;
+            var currentFilterValues = {};
+            var tableHeaders = document.querySelectorAll("#modelTable th");
+            
+            // 排序功能
+            function sortTable(n) {
+                var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+                table = document.getElementById("modelTable");
+                switching = true;
+                // 设置默认排序方向
+                dir = "asc"; 
+                
+                while (switching) {
+                    switching = false;
+                    rows = table.rows;
+                    
+                    for (i = 1; i < (rows.length - 1); i++) {
+                        shouldSwitch = false;
+                        
+                        x = rows[i].getElementsByTagName("TD")[n];
+                        y = rows[i + 1].getElementsByTagName("TD")[n];
+                        
+                        // 对"✓点此跳转"和"×暂无"特殊处理
+                        var xText = x.textContent || x.innerText;
+                        var yText = y.textContent || y.innerText;
+                        
+                        // 如果是链接列，根据是否有链接进行排序（✓ 在前，× 在后）
+                        if (xText.includes("✓") || xText.includes("×")) {
+                            var xHasLink = xText.includes("✓");
+                            var yHasLink = yText.includes("✓");
+                            
+                            if (dir == "asc") {
+                                shouldSwitch = (!xHasLink && yHasLink);
+                            } else {
+                                shouldSwitch = (xHasLink && !yHasLink);
+                            }
+                        } else {
+                            // 默认字母顺序比较
+                            if (dir == "asc") {
+                                shouldSwitch = xText.toLowerCase() > yText.toLowerCase();
+                            } else {
+                                shouldSwitch = xText.toLowerCase() < yText.toLowerCase();
+                            }
+                        }
+                        
+                        if (shouldSwitch) {
+                            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                            switching = true;
+                            switchcount++;
+                        }
+                    }
+                    
+                    // 如果完成了一轮排序而没有切换，改变排序方向
+                    if (switchcount == 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+                
+                // 更新表头状态
+                for (i = 0; i < tableHeaders.length; i++) {
+                    tableHeaders[i].querySelector(".filter-icon").textContent = "▼";
+                }
+                tableHeaders[n].querySelector(".filter-icon").textContent = (dir === "asc") ? "▲" : "▼";
+            }
+            
+            // 全局筛选功能（现有的搜索功能）
+            function filterTable() {
+                var input, filter, table, tr, found;
+                input = document.getElementById("filterInput");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("modelTable");
+                tr = table.getElementsByTagName("tr");
+                
+                for (var i = 1; i < tr.length; i++) {
+                    found = false;
+                    var td = tr[i].getElementsByTagName("td");
+                    
+                    // 首先检查是否通过列筛选
+                    if (!passesColumnFilters(tr[i])) {
+                        tr[i].style.display = "none";
+                        continue;
+                    }
+                    
+                    // 然后检查关键词搜索
+                    if (filter === "") {
+                        found = true; // 如果搜索框为空，显示所有通过列筛选的行
+                    } else {
+                        for (var j = 0; j < td.length; j++) {
+                            var txtValue = td[j].textContent || td[j].innerText;
+                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+                    
+                    if (found) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+            
+            // 显示列筛选下拉菜单
+            function showFilter(event, colIndex) {
+                var dropdown = document.getElementById("filterDropdown");
+                
+                // 设置当前筛选列
+                currentFilterColumn = colIndex;
+                
+                // 计算下拉菜单位置
+                var th = event.target.closest('th');
+                var rect = th.getBoundingClientRect();
+                dropdown.style.left = rect.left + window.pageXOffset + "px";
+                dropdown.style.top = rect.bottom + window.pageYOffset + "px";
+                dropdown.style.minWidth = rect.width + "px";
+                
+                // 生成唯一值列表
+                populateDropdown(colIndex);
+                
+                // 显示下拉菜单
+                dropdown.classList.add("show");
+                
+                // 点击其他地方关闭下拉菜单
+                window.onclick = function(event) {
+                    if (!event.target.matches('.filter-icon') && 
+                        !event.target.closest('#filterDropdown')) {
+                        dropdown.classList.remove("show");
+                    }
+                }
+            }
+            
+            // 生成下拉菜单选项
+            function populateDropdown(colIndex) {
+                var table = document.getElementById("modelTable");
+                var rows = table.getElementsByTagName("tr");
+                var uniqueValues = new Set();
+                
+                // 收集唯一值
+                for (var i = 1; i < rows.length; i++) {
+                    var cell = rows[i].getElementsByTagName("td")[colIndex];
+                    var value = cell.textContent || cell.innerText;
+                    uniqueValues.add(value.trim());
+                }
+                
+                // 转换为数组并排序
+                var sortedValues = Array.from(uniqueValues).sort();
+                
+                // 清空并重新填充下拉菜单
+                var dropdown = document.getElementById("dropdown-items");
+                dropdown.innerHTML = "";
+                
+                // 添加"全选"选项
+                var allItem = document.createElement("div");
+                allItem.className = "dropdown-item";
+                allItem.innerHTML = '<input type="checkbox" id="select-all" onchange="toggleAll(this.checked)"> <label for="select-all">全选</label>';
+                dropdown.appendChild(allItem);
+                
+                // 添加分隔线
+                var divider = document.createElement("hr");
+                dropdown.appendChild(divider);
+                
+                // 添加每个唯一值
+                sortedValues.forEach(function(value, index) {
+                    var item = document.createElement("div");
+                    item.className = "dropdown-item";
+                    var checkboxId = "filter-item-" + index;
+                    var isChecked = !currentFilterValues[currentFilterColumn] || 
+                                    currentFilterValues[currentFilterColumn].includes(value);
+                    
+                    item.innerHTML = `<input type="checkbox" id="${checkboxId}" value="${value}" ${isChecked ? "checked" : ""}> 
+                                     <label for="${checkboxId}">${value}</label>`;
+                    dropdown.appendChild(item);
+                });
+                
+                // 更新全选复选框状态
+                updateSelectAllCheckbox();
+            }
+            
+            // 筛选下拉菜单项
+            function filterDropdownItems() {
+                var input = document.getElementById("filterSearchInput");
+                var filter = input.value.toUpperCase();
+                var items = document.querySelectorAll("#dropdown-items .dropdown-item:not(:first-child)");
+                
+                items.forEach(function(item) {
+                    var text = item.textContent || item.innerText;
+                    if (text.toUpperCase().indexOf(filter) > -1) {
+                        item.style.display = "";
+                    } else {
+                        item.style.display = "none";
+                    }
+                });
+            }
+            
+            // 应用筛选
+            function applyFilter() {
+                // 获取选中的值
+                var selectedValues = [];
+                var checkboxes = document.querySelectorAll("#dropdown-items .dropdown-item:not(:first-child) input[type='checkbox']");
+                
+                checkboxes.forEach(function(checkbox) {
+                    if (checkbox.checked) {
+                        selectedValues.push(checkbox.value);
+                    }
+                });
+                
+                // 保存选中的值
+                currentFilterValues[currentFilterColumn] = selectedValues;
+                
+                // 更新表头图标
+                if (selectedValues.length > 0 && selectedValues.length < checkboxes.length) {
+                    tableHeaders[currentFilterColumn].querySelector(".filter-icon").textContent = "🔍";
+                } else {
+                    tableHeaders[currentFilterColumn].querySelector(".filter-icon").textContent = "▼";
+                }
+                
+                // 关闭下拉菜单
+                document.getElementById("filterDropdown").classList.remove("show");
+                
+                // 应用筛选
+                filterTable();
+            }
+            
+            // 清除筛选
+            function clearFilter() {
+                // 清除当前列的筛选
+                if (currentFilterColumn in currentFilterValues) {
+                    delete currentFilterValues[currentFilterColumn];
+                }
+                
+                // 更新表头图标
+                tableHeaders[currentFilterColumn].querySelector(".filter-icon").textContent = "▼";
+                
+                // 重置复选框
+                var checkboxes = document.querySelectorAll("#dropdown-items .dropdown-item input[type='checkbox']");
+                checkboxes.forEach(function(checkbox) {
+                    checkbox.checked = true;
+                });
+                
+                // 关闭下拉菜单
+                document.getElementById("filterDropdown").classList.remove("show");
+                
+                // 重新应用筛选
+                filterTable();
+            }
+            
+            // 全选/取消全选
+            function toggleAll(checked) {
+                var checkboxes = document.querySelectorAll("#dropdown-items .dropdown-item:not(:first-child) input[type='checkbox']");
+                checkboxes.forEach(function(checkbox) {
+                    if (checkbox.parentElement.style.display !== "none") { // 只处理可见的复选框
+                        checkbox.checked = checked;
+                    }
+                });
+            }
+            
+            // 更新全选复选框状态
+            function updateSelectAllCheckbox() {
+                var allCheckbox = document.getElementById("select-all");
+                var checkboxes = document.querySelectorAll("#dropdown-items .dropdown-item:not(:first-child) input[type='checkbox']");
+                var allChecked = true;
+                var anyVisible = false;
+                
+                checkboxes.forEach(function(checkbox) {
+                    if (checkbox.parentElement.style.display !== "none") {
+                        anyVisible = true;
+                        if (!checkbox.checked) {
+                            allChecked = false;
+                        }
+                    }
+                });
+                
+                allCheckbox.checked = anyVisible && allChecked;
+                allCheckbox.indeterminate = !allChecked && anyVisible;
+            }
+            
+            // 判断行是否通过列筛选
+            function passesColumnFilters(row) {
+                var cells = row.getElementsByTagName("td");
+                
+                for (var colIdx in currentFilterValues) {
+                    var cellValue = cells[colIdx].textContent || cells[colIdx].innerText;
+                    var allowedValues = currentFilterValues[colIdx];
+                    
+                    if (allowedValues && !allowedValues.includes(cellValue.trim())) {
+                        return false;
+                    }
+                }
+                
+                return true;
+            }
+            </script>
+        
+        </body>
+        </html>
+        

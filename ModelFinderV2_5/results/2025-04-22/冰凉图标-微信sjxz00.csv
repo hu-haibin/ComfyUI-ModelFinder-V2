@@ -1,0 +1,15 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,322,UpscaleModelLoader,1xDeJPG_OmniSR.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%221xDeJPG_OmniSR.pth%22
+2,194,LoraLoader,GelatinTech-20.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22GelatinTech-20.safetensors%22
+3,"353,357",Upscale Model Loader,RealESRGAN_x2.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22RealESRGAN_x2.pth%22
+4,350,LoraLoader,SDXLrender_v2.0.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22SDXLrender_v2.0.safetensors%22
+5,4,CheckpointLoaderSimple,absolutereality_v181.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22absolutereality_v181.safetensors%22
+6,75,ControlNetLoader,control_canny-fp16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22control_canny-fp16.safetensors%22
+7,337,ControlNetLoader,control_v11f1e_sd15_tile.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22control_v11f1e_sd15_tile.pth%22
+8,21,ControlNetLoader,control_v11p_sd15_seg.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22control_v11p_sd15_seg.pth%22
+9,333,CheckpointLoaderSimple,juggernaut_reborn.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22juggernaut_reborn.safetensors%22
+10,351,LoraLoader,more_details.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22more_details.safetensors%22
+11,"230,310",ControlNetLoader,t2iadapter_color_sd14v1.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22t2iadapter_color_sd14v1.pth%22
+12,339,VAELoader,vae-ft-mse-840000-ema-pruned.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22vae-ft-mse-840000-ema-pruned.safetensors%22
+13,11,LoraLoader,你个玻璃_1.0.safetensors,,,,https://www.bing.com/search?q=site:liblib.art+%22你个玻璃_1.0.safetensors%22
+14,10,LoraLoader,美妆分子气泡场景lora_bubblev1.0.safetensors,,,,https://www.bing.com/search?q=site:liblib.art+%22美妆分子气泡场景lora_bubblev1.0.safetensors%22

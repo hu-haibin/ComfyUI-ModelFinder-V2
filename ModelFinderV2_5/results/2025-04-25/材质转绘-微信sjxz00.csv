@@ -1,0 +1,5 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,44,IPAdapterUnifiedLoader,STANDARD (medium strength),,,,https://www.bing.com/search?q=site:huggingface.co+%22STANDARD+(medium+strength)%22
+2,51,ControlNetLoaderAdvanced,control-lora-depth-rank256.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22control-lora-depth-rank256.safetensors%22
+3,4,CheckpointLoaderSimple,juggernautXL_v9Rundiffusionphoto2.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22juggernautXL_v9Rundiffusionphoto2.safetensors%22
+4,53,ControlNetLoaderAdvanced,t2i-adapter-lineart-sdxl-1.0.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22t2i-adapter-lineart-sdxl-1.0.safetensors%22

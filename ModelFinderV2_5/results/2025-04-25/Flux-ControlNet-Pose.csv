@@ -1,0 +1,3 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,81,CheckpointLoaderSimple,flux1-dev-fp8-with_clip_vae.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22flux1-dev-fp8-with_clip_vae.safetensors%22
+2,39,ControlNetLoader,raulc0399flux_dev_openpose_controlnet.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22raulc0399flux_dev_openpose_controlnet.safetensors%22

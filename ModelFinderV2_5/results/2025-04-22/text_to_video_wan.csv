@@ -1,0 +1,4 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,38,CLIPLoader,umt5_xxl_fp8_e4m3fn_scaled.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22umt5_xxl_fp8_e4m3fn_scaled.safetensors%22
+2,37,UNETLoader,wan2.1_t2v_1.3B_fp16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22wan2.1_t2v_1.3B_fp16.safetensors%22
+3,39,VAELoader,wan_2.1_vae.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22wan_2.1_vae.safetensors%22

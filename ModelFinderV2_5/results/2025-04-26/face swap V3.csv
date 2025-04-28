@@ -1,0 +1,6 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,11,CheckpointLoaderSimple,DreamShaper XL Turbo_SFW v2 Turbo.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22DreamShaper+XL+Turbo_SFW+v2+Turbo.safetensors%22
+2,571,IPAdapterUnifiedLoader,PLUS FACE (portraits),,,,https://www.bing.com/search?q=site:huggingface.co+%22PLUS+FACE+(portraits)%22
+3,7,ControlNetLoader,diffusion_pytorch_model.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22diffusion_pytorch_model.safetensors%22
+4,2,InstantIDModelLoader,ip-adapter.bin,,,,https://www.bing.com/search?q=site:huggingface.co+%22ip-adapter.bin%22
+5,55,VAELoader,sdxl_vae_fp16fix.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22sdxl_vae_fp16fix.safetensors%22

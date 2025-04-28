@@ -1,0 +1,6 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,244,VAELoader,ae.sft,,,,https://www.bing.com/search?q=site:huggingface.co+%22ae.sft%22
+2,247,DualCLIPLoader,clip_l,,,,https://www.bing.com/search?q=site:huggingface.co+%22clip_l%22
+3,166,ControlNetLoader,control_v11f1e_sd15_tile,,,,https://www.bing.com/search?q=site:huggingface.co+%22control_v11f1e_sd15_tile%22
+4,277,CheckpointLoaderSimple,dreamshaper_8_v8,,,,https://www.bing.com/search?q=site:huggingface.co+%22dreamshaper_8_v8%22
+5,246,UNETLoader,麦橘超然majicFlus_v1,,,,https://www.bing.com/search?q=site:liblib.art+%22麦橘超然majicFlus_v1%22

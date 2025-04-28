@@ -1,0 +1,8 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,84,UpscaleModelLoader,4x-UltraSharp.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%224x-UltraSharp.pth%22
+2,106,ControlNetLoaderAdvanced,control_v11f1e_sd15_tile.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22control_v11f1e_sd15_tile.pth%22
+3,4,CheckpointLoaderSimple,crystalClearXL_ccxl.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22crystalClearXL_ccxl.safetensors%22
+4,119,Efficient Loader,dreamshaper_8.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22dreamshaper_8.safetensors%22
+5,90,ControlNetLoaderAdvanced,sai_xl_depth_256lora.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22sai_xl_depth_256lora.safetensors%22
+6,129,LoraLoader,xl_more_art-full_v1.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22xl_more_art-full_v1.safetensors%22
+7,10,LoraLoader,自定义生成文本 Harrlogos_v2.0.safetensors,,,,https://www.bing.com/search?q=site:liblib.art+%22自定义生成文本+Harrlogos_v2.0.safetensors%22

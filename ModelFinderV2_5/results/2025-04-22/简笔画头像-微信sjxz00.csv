@@ -1,0 +1,9 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,78,IPAdapterInsightFaceLoader,CUDA,,,,https://www.bing.com/search?q=site:huggingface.co+%22CUDA%22
+2,47,LoraLoaderModelOnly,Hyper-SDXL-8steps-lora.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22Hyper-SDXL-8steps-lora.safetensors%22
+3,82,IPAdapterUnifiedLoader,PLUS FACE (portraits),,,,https://www.bing.com/search?q=site:huggingface.co+%22PLUS+FACE+(portraits)%22
+4,22,CheckpointLoaderSimple,aamXLAnimeMix_v10.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22aamXLAnimeMix_v10.safetensors%22
+5,23,LoraLoader,araminta_k_midsommar_cartoon.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22araminta_k_midsommar_cartoon.safetensors%22
+6,24,LoraLoader,lineAnime-sjxz00-v1.0.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22lineAnime-sjxz00-v1.0.safetensors%22
+7,65,ControlNetLoader,mistoLine_rank256.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22mistoLine_rank256.safetensors%22
+8,81,CLIPVisionLoader,open_clip_pytorch_model.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22open_clip_pytorch_model.safetensors%22

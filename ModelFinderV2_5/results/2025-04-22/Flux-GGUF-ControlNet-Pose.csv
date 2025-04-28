@@ -1,0 +1,5 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,80,VAELoader,ae.sft,,,,https://www.bing.com/search?q=site:huggingface.co+%22ae.sft%22
+2,78,UnetLoaderGGUF,flux1-dev-Q8_0.gguf,,,,https://www.bing.com/search?q=site:huggingface.co+%22flux1-dev-Q8_0.gguf%22
+3,39,ControlNetLoader,raulc0399flux_dev_openpose_controlnet.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22raulc0399flux_dev_openpose_controlnet.safetensors%22
+4,79,DualCLIPLoaderGGUF,t5xxl_fp8_e4m3fn.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22t5xxl_fp8_e4m3fn.safetensors%22
