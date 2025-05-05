@@ -1,4 +1,4 @@
 ﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
 1,115,ControlNetLoader,control_instant_id_sdxl.safetensors,已处理,https://huggingface.co/dominic1021/controls/resolve/main/control_instant_id_sdxl.safetensors,https://hf-mirror.com/dominic1021/controls/resolve/main/control_instant_id_sdxl.safetensors,
-2,114,InstantIDModelLoader,ip-adapter.bin,已处理,https://huggingface.co/h94/IP-Adapter,https://hf-mirror.com/h94/IP-Adapter,
+2,114,InstantIDModelLoader,ip-adapter.bin,已处理,https://huggingface.co/InstantX/InstantID,https://hf-mirror.com/InstantX/InstantID,
 3,4,CheckpointLoaderSimple,juggernautXL_v9Rdphoto2Lightning.safetensors,已处理,https://huggingface.co/AiWise/Juggernaut-XL-V9-GE-RDPhoto2-Lightning_4S/resolve/main/juggernautXL_v9Rdphoto2Lightning.safetensors,https://hf-mirror.com/AiWise/Juggernaut-XL-V9-GE-RDPhoto2-Lightning_4S/resolve/main/juggernautXL_v9Rdphoto2Lightning.safetensors,

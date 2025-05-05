@@ -70,9 +70,15 @@ class AnalysisModel:
             return False
         return bool(self._chinese_char_pattern.search(text))
 
-    def _get_search_url(self, keyword):
+    def _get_search_url(self, keyword,node_type=None):
         """Generates different search URLs based on the keyword."""
-        logger.debug(f"Generating search URL for keyword: {keyword}")
+        logger.debug(f"Generating search URL for keyword: {keyword}, node_type: {node_type}")
+        # 特殊规则：ip-adapter.bin + InstantIDModelLoader
+        if keyword == "ip-adapter.bin" and node_type == "InstantIDModelLoader":
+            return (
+                "https://www.bing.com/?setlang=en-US",
+                'site:huggingface.co "ip-adapter.bin InstantID"'
+            )
         if self._contains_chinese(keyword):
             logger.debug("Keyword contains Chinese, using liblib search.")
             # Using Bing as a proxy to search specific sites
@@ -307,7 +313,7 @@ class AnalysisModel:
                     file_path = merged['file_path']
                     # Generate appropriate search link based on name
                     search_link = ''
-                    base_search_url, site_query = self._get_search_url(file_path)
+                    base_search_url, site_query = self._get_search_url(file_path, merged['node_type'])
                     # Construct a direct search query URL (simple approach)
                     # Note: Bing URL format might change. URL encoding might be needed.
                     query_param = site_query.replace(' ', '+').replace('"', '%22')
@@ -446,7 +452,9 @@ class AnalysisModel:
                     logger.info(f"Searching ({i+1}/{total_keywords}): {keyword}")
                     if progress_callback: progress_callback(i+1, total_keywords)
 
-                    search_url, search_query = self._get_search_url(keyword)
+                    # 获取节点类型
+                    node_type = df.loc[df_index, '节点类型'] if '节点类型' in df.columns else None
+                    search_url, search_query = self._get_search_url(keyword, node_type)
                     logger.debug(f"Navigating to {search_url} with query '{search_query}'")
 
                     try:
