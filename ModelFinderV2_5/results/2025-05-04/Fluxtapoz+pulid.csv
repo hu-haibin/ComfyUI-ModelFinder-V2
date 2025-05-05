@@ -1,0 +1,4 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,98,PulidFluxInsightFaceLoader,CUDA,,,,https://www.bing.com/search?q=site:huggingface.co+%22CUDA%22
+2,75,CheckpointLoaderSimple,flux1-dev-fp8.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22flux1-dev-fp8.safetensors%22
+3,94,PulidFluxModelLoader,pulid_flux_v0.9.0.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22pulid_flux_v0.9.0.safetensors%22

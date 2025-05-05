@@ -1,0 +1,8 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,16,ESAM_ModelLoader_Zho,CUDA,,,,https://www.bing.com/search?q=site:huggingface.co+%22CUDA%22
+2,22,BrushNetLoader,diffusion_pytorch_model.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22diffusion_pytorch_model.safetensors%22
+3,55,INPAINT_LoadFooocusInpaint,fooocus_inpaint_head.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22fooocus_inpaint_head.pth%22
+4,67,CheckpointLoaderSimple,juggerxlInpaint_juggerInpaintV8.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22juggerxlInpaint_juggerInpaintV8.safetensors%22
+5,15,Yoloworld_ModelLoader_Zho,l,,,,https://www.bing.com/search?q=site:huggingface.co+%22l%22
+6,25,CheckpointLoaderSimple,majicmixRealistic_v7.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22majicmixRealistic_v7.safetensors%22
+7,57,CheckpointLoaderSimple,realvisxlV40_v40LightningBakedvae.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22realvisxlV40_v40LightningBakedvae.safetensors%22

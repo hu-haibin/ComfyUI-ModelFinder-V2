@@ -1,4 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,38,WanVideoVAELoader,Wan2_1_VAE_bf16.safetensors,已处理,https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/Wan2_1_VAE_bf16.safetensors,https://hf-mirror.com/Kijai/WanVideo_comfy/resolve/main/Wan2_1_VAE_bf16.safetensors,
-2,11,LoadWanVideoT5TextEncoder,umt5-xxl-enc-bf16.safetensors,已处理,https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/umt5-xxl-enc-bf16.safetensors,https://hf-mirror.com/Kijai/WanVideo_comfy/resolve/main/umt5-xxl-enc-bf16.safetensors,
-3,22,WanVideoModelLoader,wan2.1_t2v_1.3B_fp16.safetensors,已处理,https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/diffusion_models/wan2.1_t2v_1.3B_fp16.safetensors,https://hf-mirror.com/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/diffusion_models/wan2.1_t2v_1.3B_fp16.safetensors,

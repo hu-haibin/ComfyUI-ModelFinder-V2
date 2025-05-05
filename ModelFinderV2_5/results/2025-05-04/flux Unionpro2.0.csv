@@ -1,0 +1,5 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,"34,48,61",Note,Note that Flux dev and schnell do not have any negative prompt so CFG should be set to 1.0. Setting CFG to 1.0 means the negative prompt is ignored.,,,,https://www.bing.com/search?q=site:huggingface.co+%22Note+that+Flux+dev+and+schnell+do+not+have+any+negative+prompt+so+CFG+should+be+set+to+1.0.+Setting+CFG+to+1.0+means+the+negative+prompt+is+ignored.%22
+2,30,CheckpointLoaderSimple,stoiqoNewrealityFLUXSD35_f1DAlphaTwo.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22stoiqoNewrealityFLUXSD35_f1DAlphaTwo.safetensors%22
+3,54,ControlNetLoader,union_pro.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22union_pro.safetensors%22
+4,39,ControlNetLoader,union_pro2.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22union_pro2.safetensors%22

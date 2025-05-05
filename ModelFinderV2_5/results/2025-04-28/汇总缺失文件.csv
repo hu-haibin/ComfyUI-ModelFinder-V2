@@ -1,0 +1,7 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,83,GroundingDinoModelLoader (segment anything),GroundingDINO_SwinB (938MB),已处理,https://huggingface.co/ShilongLiu/GroundingDINO,https://hf-mirror.com/ShilongLiu/GroundingDINO,
+2,17,CheckpointLoaderSimple,flux1-dev-fp8-with_clip_vae.safetensors,已处理,https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-dev-fp8.safetensors,https://hf-mirror.com/Kijai/flux-fp8/resolve/main/flux1-dev-fp8.safetensors,
+3,30,CheckpointLoaderSimple,majicmixRealistic_v7.safetensors,已处理,https://huggingface.co/digiplay/majicMIX_realistic_v7/resolve/main/majicmixRealistic_v7.safetensors,https://hf-mirror.com/digiplay/majicMIX_realistic_v7/resolve/main/majicmixRealistic_v7.safetensors,
+4,82,SAMModelLoader (segment anything),sam_vit_h (2.56GB),已处理,https://huggingface.co/HCMUE-Research/SAM-vit-h/resolve/main/sam_vit_h_4b8939.pth,https://hf-mirror.com/HCMUE-Research/SAM-vit-h/resolve/main/sam_vit_h_4b8939.pth,
+5,25,VAELoader,vae-ft-mse-840000-ema-pruned.safetensors,已处理,https://huggingface.co/stabilityai/sd-vae-ft-mse-original/resolve/main/vae-ft-mse-840000-ema-pruned.safetensors,https://hf-mirror.com/stabilityai/sd-vae-ft-mse-original/resolve/main/vae-ft-mse-840000-ema-pruned.safetensors,
+6,39,VAELoader,vaeFtMse840000Ema_v10.safetensors,已处理,https://huggingface.co/HIangI/VAE/resolve/main/vaeFtMse840000Ema_v10.safetensors,https://hf-mirror.com/HIangI/VAE/resolve/main/vaeFtMse840000Ema_v10.safetensors,

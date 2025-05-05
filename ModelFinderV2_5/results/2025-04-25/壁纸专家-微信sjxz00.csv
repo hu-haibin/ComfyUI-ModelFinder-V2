@@ -1,9 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,"113,93",Upscale Model Loader,RealESRGAN_x2.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22RealESRGAN_x2.pth%22
-2,83,LoraLoader,SDXLrender_v2.0.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22SDXLrender_v2.0.safetensors%22
-3,23,ControlNetLoader,control_v11f1e_sd15_tile.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22control_v11f1e_sd15_tile.pth%22
-4,128,UltralyticsDetectorProvider,face_yolov8m.pt,,,,https://www.bing.com/search?q=site:huggingface.co+%22face_yolov8m.pt%22
-5,4,CheckpointLoaderSimple,juggernaut_reborn.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22juggernaut_reborn.safetensors%22
-6,84,LoraLoader,more_details.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22more_details.safetensors%22
-7,98,CheckpointLoaderSimple,playground-v2.5-1024px-aesthetic.fp16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22playground-v2.5-1024px-aesthetic.fp16.safetensors%22
-8,26,VAELoader,vae-ft-mse-840000-ema-pruned.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22vae-ft-mse-840000-ema-pruned.safetensors%22

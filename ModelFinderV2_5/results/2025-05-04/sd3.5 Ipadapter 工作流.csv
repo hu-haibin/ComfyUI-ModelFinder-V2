@@ -1,0 +1,4 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,10,TripleCLIPLoader,clip_g.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22clip_g.safetensors%22
+2,15,IPAdapterSD3Loader,ip-adapter.bin,,,,https://www.bing.com/search?q=site:huggingface.co+%22ip-adapter.bin%22
+3,4,CheckpointLoaderSimple,sd3.5_large.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22sd3.5_large.safetensors%22

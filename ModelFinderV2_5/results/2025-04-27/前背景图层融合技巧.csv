@@ -1,8 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,203,UpscaleModelLoader,4x-UltraSharp.pth,已处理,https://huggingface.co/lokCX/4x-Ultrasharp/resolve/main/4x-UltraSharp.pth,https://hf-mirror.com/lokCX/4x-Ultrasharp/resolve/main/4x-UltraSharp.pth,
-2,183,VAELoader,ae.sft,已处理,https://huggingface.co/cocktailpeanut/xulf-dev/resolve/main/ae.sft,https://hf-mirror.com/cocktailpeanut/xulf-dev/resolve/main/ae.sft,
-3,182,DualCLIPLoader,clip_l.safetensors,已处理,https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors,https://hf-mirror.com/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors,
-4,174,CheckpointLoaderSimple,copaxTimelessxlSDXL1_v11Lightning.safetensors,已处理,https://huggingface.co/pbxadb/sdxl-models/resolve/main/copaxTimelessxlSDXL1_v11Lightning.safetensors,https://hf-mirror.com/pbxadb/sdxl-models/resolve/main/copaxTimelessxlSDXL1_v11Lightning.safetensors,
-5,147,UnetLoaderGGUF,flux1-dev-Q4_K_S.gguf,已处理,https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q4_K_S.gguf,https://hf-mirror.com/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q4_K_S.gguf,
-6,148,LoraLoaderModelOnly,flux_turbo_alpha.safetensors,已处理,https://huggingface.co/alimama-creative/FLUX.1-Turbo-Alpha,https://hf-mirror.com/alimama-creative/FLUX.1-Turbo-Alpha,
-7,178,ControlNetLoader,sai_xl_depth_256lora.safetensors,已处理,https://huggingface.co/lllyasviel/sd_control_collection/resolve/main/sai_xl_depth_256lora.safetensors,https://hf-mirror.com/lllyasviel/sd_control_collection/resolve/main/sai_xl_depth_256lora.safetensors,

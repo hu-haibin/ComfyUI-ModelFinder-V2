@@ -1,0 +1,6 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,49,IPAdapterUnifiedLoader,PLUS (high strength),,,,https://www.bing.com/search?q=site:huggingface.co+%22PLUS+(high+strength)%22
+2,"50,11",BrushNetLoader,diffusion_pytorch_model.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22diffusion_pytorch_model.safetensors%22
+3,22,LoraLoaderModelOnly,dunhuang_敦煌仙女_飞天3.0_v1.0.safetensors,,,,https://www.bing.com/search?q=site:liblib.art+%22dunhuang_敦煌仙女_飞天3.0_v1.0.safetensors%22
+4,12,Eff. Loader SDXL,juggernautXL_v9Rdphoto2Lightning.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22juggernautXL_v9Rdphoto2Lightning.safetensors%22
+5,43,CheckpointLoaderSimple,majicmixRealistic_v7.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22majicmixRealistic_v7.safetensors%22

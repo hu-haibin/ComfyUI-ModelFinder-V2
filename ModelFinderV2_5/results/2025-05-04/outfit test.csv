@@ -1,0 +1,7 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,30,GroundingDinoModelLoader (segment anything),GroundingDINO_SwinT_OGC (694MB),,,,https://www.bing.com/search?q=site:huggingface.co+%22GroundingDINO_SwinT_OGC+(694MB)%22
+2,27,IPAdapterUnifiedLoader,PLUS (high strength),,,,https://www.bing.com/search?q=site:huggingface.co+%22PLUS+(high+strength)%22
+3,40,ControlNetLoader,control_v11p_sd15_openpose.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22control_v11p_sd15_openpose.pth%22
+4,36,Efficient Loader,majicmixRealistic_v7.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22majicmixRealistic_v7.safetensors%22
+5,39,ControlNetLoader,outfitToOutfit_v20.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22outfitToOutfit_v20.safetensors%22
+6,32,SAMLoader,sam_vit_b_01ec64.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22sam_vit_b_01ec64.pth%22

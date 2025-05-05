@@ -1,4 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,98,UpscaleModelLoader,4x-UltraSharp.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%224x-UltraSharp.pth%22
-2,22,ControlNetLoaderAdvanced,control_v11p_sd15_inpaint.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22control_v11p_sd15_inpaint.pth%22
-3,1,Efficient Loader,dreamshaper_8.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22dreamshaper_8.safetensors%22

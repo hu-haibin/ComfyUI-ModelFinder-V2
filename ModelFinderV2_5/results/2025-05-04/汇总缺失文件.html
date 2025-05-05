@@ -1,0 +1,2169 @@
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>模型下载链接 (Model Download Links)</title>
+            <style>
+                body { font-family: "Microsoft YaHei", Arial, sans-serif; margin: 20px; }
+                table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+                th, td { border: 1px solid #ddd; padding: 8px; text-align: left; word-wrap: break-word; } /* Added word-wrap */
+                th {
+                    background-color: #f2f2f2;
+                    position: sticky;
+                    top: 0; /* Stick to the top */
+                    z-index: 5; /* Ensure header is above table content */
+                    cursor: pointer;
+                    user-select: none;
+                }
+                th:hover { background-color: #e0e0e0; }
+                th .filter-icon { margin-left: 5px; font-size: 12px; color: #666; }
+                tr:nth-child(even) { background-color: #f9f9f9; }
+                a { text-decoration: none; color: #0066cc; } /* Default link color */
+                a:hover { text-decoration: underline; }
+                .status-processed { color: green; font-weight: bold; }
+                .status-notfound { color: red; }
+                .status-error { color: orange; }
+                .file-name { font-weight: bold; }
+                /* Adjusted link column style */
+                .link-col { max-width: 150px; text-align: center; font-size: 14px; }
+                .link-col a { display: inline-block; padding: 2px 6px; border-radius: 3px; }
+                .hf-link a { background-color: #ffe0cc; color: #ff6000; } /* HuggingFace */
+                .mirror-link a { background-color: #cce0ff; color: #0066ff; } /* HF Mirror */
+                .liblib-link a { background-color: #ccffcc; color: #00aa00; } /* LibLib */
+                .no-link { color: #999; text-align: center; font-size: 14px; } /* Style for '×暂无' */
+
+                .summary { margin-top: 20px; padding: 10px; background-color: #f8f8f8; border-radius: 5px; }
+                .section-title { font-size: 1.2em; margin-top: 30px; margin-bottom: 10px; font-weight: bold; }
+                .controls-box { margin-bottom: 20px; padding: 10px; background: #f0f0f0; border-radius: 5px; display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
+                #filterInput { padding: 5px; border: 1px solid #ccc; border-radius: 3px; }
+                #copyButton {
+                    padding: 5px 10px;
+                    background-color: #4CAF50; /* Green */
+                    color: white;
+                    border: none;
+                    border-radius: 3px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    transition: background-color 0.3s ease;
+                }
+                #copyButton:hover { background-color: #45a049; }
+                #copyButton:disabled { background-color: #cccccc; cursor: not-allowed; }
+                #copyMessage { margin-left: 10px; color: green; font-weight: bold; }
+
+                .usage-guide {
+                    margin-bottom: 15px; padding: 10px; background: #f8fff8;
+                    border-left: 4px solid #00aa00; border-radius: 3px; font-size: 14px;
+                }
+                .usage-guide ul { margin: 5px 0 0 20px; padding: 0; }
+
+                /* Dropdown styles */
+                .dropdown-content {
+                    display: none; position: absolute; background-color: white;
+                    min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                    z-index: 10; padding: 5px; border-radius: 3px;
+                    max-height: 300px; overflow-y: auto; border: 1px solid #ccc;
+                }
+                .dropdown-content.show { display: block; }
+                .dropdown-item { padding: 5px; cursor: pointer; display: flex; align-items: center; font-size: 14px; }
+                .dropdown-item:hover { background-color: #f1f1f1; }
+                .dropdown-item input[type='checkbox'] { margin-right: 8px; }
+                .dropdown-search { width: 100%; box-sizing: border-box; padding: 5px; margin-bottom: 5px; border: 1px solid #ccc; border-radius: 3px; }
+                .filter-buttons { display: flex; justify-content: space-between; margin-top: 5px; padding-top: 5px; border-top: 1px solid #eee; }
+                .filter-apply, .filter-clear { padding: 3px 8px; cursor: pointer; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 3px; font-size: 12px; }
+                .filter-apply:hover, .filter-clear:hover { background-color: #e0e0e0; }
+            </style>
+        </head>
+        <body>
+            <h1>模型下载链接 (Model Download Links)</h1>
+        
+            <p>源文件 (Source File): 汇总缺失文件.csv</p>
+            <p>生成时间 (Generated Time): 2025-05-04 01:54:50</p>
+
+            <div class="usage-guide">
+                <p><strong>使用说明 (Instructions):</strong></p>
+                <ul>
+                    <li>点击表格标题可以<strong>排序</strong>列内容 (Click table headers to <strong>sort</strong> columns)</li>
+                    <li>点击表格标题右侧的筛选图标 <span class="filter-icon">▼</span> 可以<strong>筛选</strong>列内容 (Click filter icon <span class="filter-icon">▼</span> next to headers to <strong>filter</strong> columns)</li>
+                    <li>表格中 <span style="color: #0066cc;">✓点此跳转</span> 表示有链接可点击，<span class="no-link">×暂无</span> 表示无链接 (✓Link indicates a clickable link, ×NoLink means no link)</li>
+                    <li><span class="hf-link" style="padding: 0 3px; border-radius: 3px;">✓HF</span> - 跳转到 HuggingFace 模型页面 (Go to HuggingFace model page)</li>
+                    <li><span class="mirror-link" style="padding: 0 3px; border-radius: 3px;">✓镜像</span> - 跳转到 HF镜像 下载页面 (Go to HF Mirror download page)</li>
+                    <li><span class="liblib-link" style="padding: 0 3px; border-radius: 3px;">✓LibLib</span> - 跳转到 LibLib 模型页面 (Go to LibLib model page)</li>
+                    <li>使用 "批量复制镜像链接" 按钮复制当前可见的 HF 镜像链接到剪贴板，可粘贴到下载工具。(Use "Batch Copy Mirror Links" button to copy visible HF Mirror links to clipboard for download tools.)</li>
+                </ul>
+            </div>
+        
+            <div class="controls-box">
+                <div>
+                    <label for="filterInput">筛选模型名称 (Filter Model Name): </label>
+                    <input type="text" id="filterInput" onkeyup="filterTable()" placeholder="输入关键词... (Enter keywords...)">
+                </div>
+            
+                 <div>
+                     <button id="copyButton" onclick="batchCopyMirrorLinks()">批量复制镜像链接 (Batch Copy Mirror Links)</button>
+                     <span id="copyMessage"></span>
+                 </div>
+                 </div><table id="modelTable">
+<thead>
+<tr>
+<th onclick="sortTable(0)">序号<span class="filter-icon" onclick="event.stopPropagation(); showFilter(event, 0)">▼</span></th>
+<th onclick="sortTable(1)">文件名<span class="filter-icon" onclick="event.stopPropagation(); showFilter(event, 1)">▼</span></th>
+<th onclick="sortTable(2)">节点ID<span class="filter-icon" onclick="event.stopPropagation(); showFilter(event, 2)">▼</span></th>
+<th onclick="sortTable(3)">节点类型<span class="filter-icon" onclick="event.stopPropagation(); showFilter(event, 3)">▼</span></th>
+<th onclick="sortTable(4)">HuggingFace<span class="filter-icon" onclick="event.stopPropagation(); showFilter(event, 4)">▼</span></th>
+<th onclick="sortTable(5)">HF镜像 (Mirror)<span class="filter-icon" onclick="event.stopPropagation(); showFilter(event, 5)">▼</span></th>
+<th onclick="sortTable(6)">LibLib<span class="filter-icon" onclick="event.stopPropagation(); showFilter(event, 6)">▼</span></th>
+<th onclick="sortTable(7)">状态<span class="filter-icon" onclick="event.stopPropagation(); showFilter(event, 7)">▼</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td class="file-name">2xNomosUni_span_multijpg_ldl.pth</td>
+<td>15</td>
+<td>UpscaleModelLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Phips/2xNomosUni_span_multijpg_ldl" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Phips/2xNomosUni_span_multijpg_ldl" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>2</td>
+<td class="file-name">4x-UltraSharp.pth</td>
+<td>269</td>
+<td>UpscaleModelLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/lokCX/4x-Ultrasharp/resolve/main/4x-UltraSharp.pth" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/lokCX/4x-Ultrasharp/resolve/main/4x-UltraSharp.pth" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>3</td>
+<td class="file-name">4x_NMKD-Siax_200k.pth</td>
+<td>388</td>
+<td>UpscaleModelLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/uwg/upscaler/resolve/main/ESRGAN/4x_NMKD-Siax_200k.pth" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/uwg/upscaler/resolve/main/ESRGAN/4x_NMKD-Siax_200k.pth" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>4</td>
+<td class="file-name">According to the original code, prompts should start with FPS-24</td>
+<td>137</td>
+<td>Note</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kijai/SkyReels-V1-Hunyuan_comfy/resolve/main/skyreels_hunyuan_I2V_native_example_01.json" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kijai/SkyReels-V1-Hunyuan_comfy/resolve/main/skyreels_hunyuan_I2V_native_example_01.json" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>5</td>
+<td class="file-name">AnimateLCM-SVD-xt-1-1_fp16_comfy.safetensors</td>
+<td>30</td>
+<td>ImageOnlyCheckpointLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kijai/AnimateLCM-SVD-Comfy/tree/main" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kijai/AnimateLCM-SVD-Comfy/tree/main" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>6</td>
+<td class="file-name">At this stage I have no idea what's a good negative prompt for the model, please experiment or leave it empty.</td>
+<td>136</td>
+<td>Note</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kijai/SkyReels-V1-Hunyuan_comfy/resolve/main/skyreels_hunyuan_I2V_native_example_01.json" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kijai/SkyReels-V1-Hunyuan_comfy/resolve/main/skyreels_hunyuan_I2V_native_example_01.json" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>7</td>
+<td class="file-name">CUDA</td>
+<td>16</td>
+<td>ESAM_ModelLoader_Zho</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/blog/zh/quanto-introduction" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/blog/zh/quanto-introduction" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>8</td>
+<td class="file-name">Cosmos-1_0-Diffusion-7B-Text2World.safetensors</td>
+<td>37</td>
+<td>UNETLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/mcmonkey/cosmos-1.0/resolve/main/Cosmos-1_0-Diffusion-7B-Text2World.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/mcmonkey/cosmos-1.0/resolve/main/Cosmos-1_0-Diffusion-7B-Text2World.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>9</td>
+<td class="file-name">DynamiCrafter_1024.ckpt</td>
+<td>34</td>
+<td>DynamiCrafterModelLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Doubiiu/DynamiCrafter_1024/resolve/main/model.ckpt" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Doubiiu/DynamiCrafter_1024/resolve/main/model.ckpt" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>10</td>
+<td class="file-name">ESRGAN_4x.pth</td>
+<td>52</td>
+<td>UpscaleModelLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/ffxvs/upscaler/resolve/f8edf6d7f286acdd70178a6ff0c736fc592e818e/ESRGAN_4x.pth" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/ffxvs/upscaler/resolve/f8edf6d7f286acdd70178a6ff0c736fc592e818e/ESRGAN_4x.pth" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>11</td>
+<td class="file-name">Enhance a video weight should be relative to the video lenght, if you get noisy results it's too strong</td>
+<td>70</td>
+<td>Note</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22Enhance+a+video+weight+should+be+relative+to+the+video+lenght,+if+you+get+noisy+results+it's+too+strong%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>12</td>
+<td class="file-name">FACEID PORTRAIT (style transfer)</td>
+<td>82</td>
+<td>IPAdapterUnifiedLoaderFaceID</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/h94/IP-Adapter-FaceID" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/h94/IP-Adapter-FaceID" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>13</td>
+<td class="file-name">Flex.2-preview.safetensors</td>
+<td>2</td>
+<td>UNETLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/ostris/Flex.2-preview/resolve/main/Flex.2-preview.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/ostris/Flex.2-preview/resolve/main/Flex.2-preview.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>14</td>
+<td class="file-name">GFPGANv1.4.pth</td>
+<td>50</td>
+<td>FaceRestoreModelLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/nlightcho/gfpgan_v14/resolve/main/GFPGANv1.4.pth" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/nlightcho/gfpgan_v14/resolve/main/GFPGANv1.4.pth" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>15</td>
+<td class="file-name">GroundingDINO_SwinT_OGC (694MB)</td>
+<td>30</td>
+<td>GroundingDinoModelLoader (segment anything)</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swint_ogc.pth" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swint_ogc.pth" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>16</td>
+<td class="file-name">If you have Triton installed, connect this for ~30% speed increase</td>
+<td>1</td>
+<td>Note</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22If+you+have+Triton+installed,+connect+this+for+~30%+speed+increase%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>17</td>
+<td class="file-name">If you have working Triton install, torch compile will reduce VRAM use and increase speed about 30%</td>
+<td>61</td>
+<td>Note</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22If+you+have+working+Triton+install,+torch+compile+will+reduce+VRAM+use+and+increase+speed+about+30%%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>18</td>
+<td class="file-name">Input can be nothing for text2vid, a single image for image2vid or any number of frames for video extension</td>
+<td>184</td>
+<td>Note</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22Input+can+be+nothing+for+text2vid,+a+single+image+for+image2vid+or+any+number+of+frames+for+video+extension%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>19</td>
+<td class="file-name">Juggernaut_X_RunDiffusion.safetensors</td>
+<td>54</td>
+<td>CheckpointLoaderSimple</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/mojen/Juggernaut_X/resolve/main/Juggernaut_X_RunDiffusion.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/mojen/Juggernaut_X/resolve/main/Juggernaut_X_RunDiffusion.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>20</td>
+<td class="file-name">LEOSAM HelloWorld 新世界 _ SDXL大模型_v6.0.safetensors</td>
+<td>10</td>
+<td>Efficient Loader</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.liblib.art/modelinfo/506c46c91b294710940bd4b183f3ecd7" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>21</td>
+<td class="file-name">LEOSAM HelloWorld 极速版_6.0 Lightning.safetensors</td>
+<td>10</td>
+<td>Eff. Loader SDXL</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.liblib.art/modelinfo/53f48a775e6f4e17ba475f421dcd08a7" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>22</td>
+<td class="file-name">LEOSAM's MoonFilm _ 胶片风真实感大模型_2.0.safetensors</td>
+<td>4</td>
+<td>CheckpointLoaderSimple</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.liblib.art/modelinfo/1d38049dd8946fcf72ea5f27cadddbfb" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>23</td>
+<td class="file-name">Make sure the resolution is multiple of 64 pixels and adds up to around 1 megapixel.</td>
+<td>105</td>
+<td>Note</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/cocktailpeanut/sd35turbo/resolve/main/SD3.5L_Turbo_example_workflow.json" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/cocktailpeanut/sd35turbo/resolve/main/SD3.5L_Turbo_example_workflow.json" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>24</td>
+<td class="file-name">No noise added here, only the seed on the first sampler matters</td>
+<td>134</td>
+<td>Note</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kijai/SkyReels-V1-Hunyuan_comfy/resolve/main/skyreels_hunyuan_I2V_native_example_01.json" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kijai/SkyReels-V1-Hunyuan_comfy/resolve/main/skyreels_hunyuan_I2V_native_example_01.json" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>25</td>
+<td class="file-name">Note that Flux dev and schnell do not have any negative prompt so CFG should be set to 1.0. Setting CFG to 1.0 means the negative prompt is ignored.</td>
+<td>34</td>
+<td>Note</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/black-forest-labs/FLUX.1-dev/discussions/256" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/black-forest-labs/FLUX.1-dev/discussions/256" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>26</td>
+<td class="file-name">Number of frames to continue from for the next extension</td>
+<td>188</td>
+<td>Note</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22Number+of+frames+to+continue+from+for+the+next+extension%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>27</td>
+<td class="file-name">OmniSR_X2_DIV2K.safetensors</td>
+<td>58</td>
+<td>UpscaleModelLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Acly/Omni-SR/resolve/main/OmniSR_X2_DIV2K.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Acly/Omni-SR/resolve/main/OmniSR_X2_DIV2K.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>28</td>
+<td class="file-name">PLUS (high strength)</td>
+<td>49</td>
+<td>IPAdapterUnifiedLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-Plus" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kwai-Kolors/Kolors-IP-Adapter-Plus" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>29</td>
+<td class="file-name">RealESRGAN_x2.pth</td>
+<td>76</td>
+<td>UpscaleModelLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/ai-forever/Real-ESRGAN/resolve/main/RealESRGAN_x2.pth" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/ai-forever/Real-ESRGAN/resolve/main/RealESRGAN_x2.pth" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>30</td>
+<td class="file-name">RealVisXL_v4_BakedVAE.safetensors</td>
+<td>1</td>
+<td>CheckpointLoaderSimple</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22RealVisXL_v4_BakedVAE.safetensors%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>31</td>
+<td class="file-name">Split the process to only do half the steps with cfg, as sampling without is twice as fast and doesn't have huge impact on the results.</td>
+<td>130</td>
+<td>Note</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22Split+the+process+to+only+do+half+the+steps+with+cfg,+as+sampling+without+is+twice+as+fast+and+doesn't+have+huge+impact+on+the+results.%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>32</td>
+<td class="file-name">This node is used to add the image as extra conditioning</td>
+<td>133</td>
+<td>Note</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kijai/SkyReels-V1-Hunyuan_comfy/resolve/main/skyreels_hunyuan_I2V_native_example_01.json" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kijai/SkyReels-V1-Hunyuan_comfy/resolve/main/skyreels_hunyuan_I2V_native_example_01.json" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>33</td>
+<td class="file-name">To allow compiling with LoRAs</td>
+<td>127</td>
+<td>Note</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kijai/SkyReels-V1-Hunyuan_comfy/resolve/main/skyreels_hunyuan_I2V_native_example_01.json" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kijai/SkyReels-V1-Hunyuan_comfy/resolve/main/skyreels_hunyuan_I2V_native_example_01.json" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>34</td>
+<td class="file-name">UniAnimate-Wan2.1-14B-Lora-12000-fp16.safetensors</td>
+<td>76</td>
+<td>WanVideoLoraSelect</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kijai/WanVideo_comfy/commits/0898d2a5a38ed30361a9804ecbe9e94ad53e4180/UniAnimate-Wan2.1-14B-Lora-12000-fp16.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kijai/WanVideo_comfy/commits/0898d2a5a38ed30361a9804ecbe9e94ad53e4180/UniAnimate-Wan2.1-14B-Lora-12000-fp16.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>35</td>
+<td class="file-name">Use sageattention if you can, flash attention if you can't... last resort use sdpa</td>
+<td>71</td>
+<td>Note</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22Use+sageattention+if+you+can,+flash+attention+if+you+can't...+last+resort+use+sdpa%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>36</td>
+<td class="file-name">Wan2_1-FLF2V-14B-720P_fp16.safetensors</td>
+<td>22</td>
+<td>WanVideoModelLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kijai/WanVideo_comfy/resolve/431c404152d2f589da0326f6b86063f62a6b155c/Wan2_1-FLF2V-14B-720P_fp16.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kijai/WanVideo_comfy/resolve/431c404152d2f589da0326f6b86063f62a6b155c/Wan2_1-FLF2V-14B-720P_fp16.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>37</td>
+<td class="file-name">Wan2_1-SkyReels-V2-DF-14B-540P_fp8_e4m3fn.safetensors</td>
+<td>22</td>
+<td>WanVideoModelLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/Skyreels/Wan2_1-SkyReels-V2-DF-14B-540P_fp8_e4m3fn.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kijai/WanVideo_comfy/resolve/main/Skyreels/Wan2_1-SkyReels-V2-DF-14B-540P_fp8_e4m3fn.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>38</td>
+<td class="file-name">Wan2_1-T2V-1_3B_fp8_e4m3fn.safetensors</td>
+<td>112</td>
+<td>WanVideoModelLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kijai/WanVideo_comfy/resolve/431c404152d2f589da0326f6b86063f62a6b155c/Wan2_1-T2V-1_3B_fp8_e4m3fn.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kijai/WanVideo_comfy/resolve/431c404152d2f589da0326f6b86063f62a6b155c/Wan2_1-T2V-1_3B_fp8_e4m3fn.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>39</td>
+<td class="file-name">Wan2_1-Wan2_1-Fun-V1_1-14B-Control-Camera_fp8_e4m3fn.safetensors</td>
+<td>22</td>
+<td>WanVideoModelLoader</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22Wan2_1-Wan2_1-Fun-V1_1-14B-Control-Camera_fp8_e4m3fn.safetensors%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>40</td>
+<td class="file-name">Wan2_1_SkyreelsA2_fp8_e4m3fn.safetensors</td>
+<td>22</td>
+<td>WanVideoModelLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kijai/WanVideo_comfy/resolve/134ff46c7e03736a91bccd3ecef782bf4d3af132/Skyreels/Wan2_1_SkyreelsA2_fp8_e4m3fn.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kijai/WanVideo_comfy/resolve/134ff46c7e03736a91bccd3ecef782bf4d3af132/Skyreels/Wan2_1_SkyreelsA2_fp8_e4m3fn.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>41</td>
+<td class="file-name">Wan2_1_VAE_bf16.safetensors</td>
+<td>38</td>
+<td>WanVideoVAELoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kijai/WanVideo_comfy/resolve/134ff46c7e03736a91bccd3ecef782bf4d3af132/Wan2_1_VAE_bf16.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kijai/WanVideo_comfy/resolve/134ff46c7e03736a91bccd3ecef782bf4d3af132/Wan2_1_VAE_bf16.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>42</td>
+<td class="file-name">While the WanVideo 1.3B model is in FP32, the VACE module in it is in BF16, so using fp16_fast is technically lossy, but seems to be fine if you want the speed boost.</td>
+<td>29</td>
+<td>Note</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22While+the+WanVideo+1.3B+model+is+in+FP32,+the+VACE+module+in+it+is+in+BF16,+so+using+fp16_fast+is+technically+lossy,+but+seems+to+be+fine+if+you+want+the+speed+boost.%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>43</td>
+<td class="file-name">add-detail-xl.safetensors</td>
+<td>98</td>
+<td>LoraLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/PvDeep/Add-Detail-XL/resolve/main/add-detail-xl.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/PvDeep/Add-Detail-XL/resolve/main/add-detail-xl.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>44</td>
+<td class="file-name">ae.safetensors</td>
+<td>3</td>
+<td>VAELoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>45</td>
+<td class="file-name">ae.sft</td>
+<td>13</td>
+<td>VAELoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>46</td>
+<td class="file-name">anime_lora.safetensors</td>
+<td>35</td>
+<td>FluxLoraLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/XLabs-AI/flux-lora-collection/resolve/main/anime_lora.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/XLabs-AI/flux-lora-collection/resolve/main/anime_lora.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>47</td>
+<td class="file-name">block swap is a manual way to do cpu offloading, use this to trade speed with memory use</td>
+<td>69</td>
+<td>Note</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22block+swap+is+a+manual+way+to+do+cpu+offloading,+use+this+to+trade+speed+with+memory+use%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>48</td>
+<td class="file-name">chatglm3-8bit.safetensors</td>
+<td>14</td>
+<td>MZ_ChatGLM3Loader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kijai/ChatGLM3-safetensors/tree/main" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kijai/ChatGLM3-safetensors/tree/main" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>49</td>
+<td class="file-name">clip_g.safetensors</td>
+<td>11</td>
+<td>TripleCLIPLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/comfyanonymous/clip_vision_g/resolve/main/clip_vision_g.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/comfyanonymous/clip_vision_g/resolve/main/clip_vision_g.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>50</td>
+<td class="file-name">clip_g_sdxl_base.safetensors</td>
+<td>11</td>
+<td>TripleCLIPLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>51</td>
+<td class="file-name">clip_l.safetensors</td>
+<td>16</td>
+<td>DualCLIPLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>52</td>
+<td class="file-name">clip_vision_vit_h.safetensors</td>
+<td>59</td>
+<td>CLIPVisionLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/lllyasviel/misc/resolve/main/clip_vision_vit_h.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/lllyasviel/misc/resolve/main/clip_vision_vit_h.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>53</td>
+<td class="file-name">closeupface-v1.1.safetensors</td>
+<td>68</td>
+<td>HyVideoLoraSelect</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/docs/safetensors/en/index" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/docs/safetensors/en/index" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>54</td>
+<td class="file-name">control_v11e_sd15_ip2p_fp16.safetensors</td>
+<td>16</td>
+<td>ControlNetLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/lllyasviel/control_v11e_sd15_ip2p" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/lllyasviel/control_v11e_sd15_ip2p" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>55</td>
+<td class="file-name">control_v11f1e_sd15_tile.pth</td>
+<td>135</td>
+<td>ControlNetLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/lllyasviel/ControlNet-v1-1/resolve/main/control_v11f1e_sd15_tile.pth" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/lllyasviel/ControlNet-v1-1/resolve/main/control_v11f1e_sd15_tile.pth" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>56</td>
+<td class="file-name">control_v11p_sd15_lineart_fp16.safetensors</td>
+<td>18</td>
+<td>ControlNetLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/JCTN/models/resolve/main/control_v11p_sd15_lineart_fp16.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/JCTN/models/resolve/main/control_v11p_sd15_lineart_fp16.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>57</td>
+<td class="file-name">control_v11p_sd15_openpose.pth</td>
+<td>40</td>
+<td>ControlNetLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/lllyasviel/ControlNet-v1-1/resolve/main/control_v11p_sd15_openpose.pth" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/lllyasviel/ControlNet-v1-1/resolve/main/control_v11p_sd15_openpose.pth" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>58</td>
+<td class="file-name">cosmos_cv8x8x8_1.0.safetensors</td>
+<td>39</td>
+<td>VAELoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/comfyanonymous/cosmos_1.0_text_encoder_and_VAE_ComfyUI/resolve/main/vae/cosmos_cv8x8x8_1.0.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/comfyanonymous/cosmos_1.0_text_encoder_and_VAE_ComfyUI/resolve/main/vae/cosmos_cv8x8x8_1.0.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>59</td>
+<td class="file-name">cuda</td>
+<td>16</td>
+<td>FitDiTLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/blog/zh/quanto-introduction" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/blog/zh/quanto-introduction" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>60</td>
+<td class="file-name">depth_anything_vitl14.pth</td>
+<td>68</td>
+<td>DepthAnythingPreprocessor</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/spaces/LiheYoung/Depth-Anything/resolve/main/checkpoints/depth_anything_vitl14.pth" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/spaces/LiheYoung/Depth-Anything/resolve/main/checkpoints/depth_anything_vitl14.pth" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>61</td>
+<td class="file-name">diffusion_pytorch_model.fp16.safetensors</td>
+<td>25</td>
+<td>VAELoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/latent-consistency/lcm-sdxl/resolve/main/diffusion_pytorch_model.fp16.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/latent-consistency/lcm-sdxl/resolve/main/diffusion_pytorch_model.fp16.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>62</td>
+<td class="file-name">diffusion_pytorch_model.safetensors</td>
+<td>22</td>
+<td>BrushNetLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/stabilityai/sdxl-vae/resolve/main/diffusion_pytorch_model.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/stabilityai/sdxl-vae/resolve/main/diffusion_pytorch_model.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>63</td>
+<td class="file-name">diffusion_pytorch_model_promax.safetensors</td>
+<td>42</td>
+<td>ControlNetLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/stabilityai/sdxl-vae/resolve/main/diffusion_pytorch_model.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/stabilityai/sdxl-vae/resolve/main/diffusion_pytorch_model.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>64</td>
+<td class="file-name">dreamshaper_8_v8.safetensors</td>
+<td>12</td>
+<td>Efficient Loader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Lykon/dreamshaper-8" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Lykon/dreamshaper-8" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>65</td>
+<td class="file-name">dunhuang_敦煌仙女_飞天3.0_v1.0.safetensors</td>
+<td>22</td>
+<td>LoraLoaderModelOnly</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:liblib.art+%22dunhuang_敦煌仙女_飞天3.0_v1.0.safetensors%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>66</td>
+<td class="file-name">face_yolov8m.pt</td>
+<td>19</td>
+<td>UltralyticsDetectorProvider</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8m.pt" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Bingsu/adetailer/resolve/main/face_yolov8m.pt" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>67</td>
+<td class="file-name">fantasytalking_fp16.safetensors</td>
+<td>68</td>
+<td>FantasyTalkingModelLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kijai/WanVideo_comfy/tree/359e18d203460f2cc8c58cb57c65136d21d8e9a7" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kijai/WanVideo_comfy/tree/359e18d203460f2cc8c58cb57c65136d21d8e9a7" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>68</td>
+<td class="file-name">flux-ip-adapter.safetensors</td>
+<td>32</td>
+<td>LoadFluxIPAdapter</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/XLabs-AI/flux-ip-adapter" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/XLabs-AI/flux-ip-adapter" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>69</td>
+<td class="file-name">flux1-depth-dev.safetensors</td>
+<td>12</td>
+<td>UNETLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/black-forest-labs/FLUX.1-Depth-dev" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/black-forest-labs/FLUX.1-Depth-dev" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>70</td>
+<td class="file-name">flux1-dev-fp8.safetensors</td>
+<td>380</td>
+<td>CheckpointLoaderSimple</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Comfy-Org/flux1-dev/resolve/main/flux1-dev-fp8.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Comfy-Org/flux1-dev/resolve/main/flux1-dev-fp8.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>71</td>
+<td class="file-name">flux1-fill-dev.safetensors</td>
+<td>15</td>
+<td>UNETLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/camenduru/FLUX.1-dev/resolve/main/flux1-fill-dev.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/camenduru/FLUX.1-dev/resolve/main/flux1-fill-dev.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>72</td>
+<td class="file-name">flux1-redux-dev.safetensors</td>
+<td>11</td>
+<td>StyleModelLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/black-forest-labs/FLUX.1-Redux-dev" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/black-forest-labs/FLUX.1-Redux-dev" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>73</td>
+<td class="file-name">flux1_devFP8Kijai11GB.safetensors</td>
+<td>136</td>
+<td>FluxTrainModelSelect</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kijai/flux-fp8" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kijai/flux-fp8" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>74</td>
+<td class="file-name">flux_turbo_alpha.safetensors</td>
+<td>10</td>
+<td>LoraLoaderModelOnly</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/alimama-creative/FLUX.1-Turbo-Alpha" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/alimama-creative/FLUX.1-Turbo-Alpha" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>75</td>
+<td class="file-name">fooocus_inpaint_head.pth</td>
+<td>55</td>
+<td>INPAINT_LoadFooocusInpaint</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/lllyasviel/fooocus_inpaint/resolve/main/fooocus_inpaint_head.pth" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/lllyasviel/fooocus_inpaint/resolve/main/fooocus_inpaint_head.pth" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>76</td>
+<td class="file-name">gimmvfi_f_arb_lpips_fp32.safetensors</td>
+<td>48</td>
+<td>DownloadAndLoadGIMMVFIModel</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kijai/GIMM-VFI_safetensors/resolve/main/gimmvfi_f_arb_lpips_fp32.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kijai/GIMM-VFI_safetensors/resolve/main/gimmvfi_f_arb_lpips_fp32.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>77</td>
+<td class="file-name">gimmvfi_r_arb_lpips_fp32.safetensors</td>
+<td>111</td>
+<td>DownloadAndLoadGIMMVFIModel</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kijai/GIMM-VFI_safetensors/resolve/main/gimmvfi_r_arb_lpips_fp32.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kijai/GIMM-VFI_safetensors/resolve/main/gimmvfi_r_arb_lpips_fp32.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>78</td>
+<td class="file-name">hand_yolov8s.pt</td>
+<td>384</td>
+<td>UltralyticsDetectorProvider</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Bingsu/adetailer/resolve/main/hand_yolov8s.pt" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Bingsu/adetailer/resolve/main/hand_yolov8s.pt" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>79</td>
+<td class="file-name">height must be multiple of 64</td>
+<td>266</td>
+<td>Note</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/adamo1139/stable-diffusion-3-medium-ungated/resolve/main/comfy_example_workflows/sd3_medium_example_workflow_basic.json" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/adamo1139/stable-diffusion-3-medium-ungated/resolve/main/comfy_example_workflows/sd3_medium_example_workflow_basic.json" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>80</td>
+<td class="file-name">hunyuan_video_720_cfgdistill_fp8_e4m3fn.safetensors</td>
+<td>1</td>
+<td>HyVideoModelLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kijai/HunyuanVideo_comfy/resolve/main/hunyuan_video_720_cfgdistill_fp8_e4m3fn.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kijai/HunyuanVideo_comfy/resolve/main/hunyuan_video_720_cfgdistill_fp8_e4m3fn.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>81</td>
+<td class="file-name">hunyuan_video_image_to_video_720p_bf16.safetensors</td>
+<td>4</td>
+<td>UNETLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/datasets/stablediffusiontutorials/HunyuanVideo-Workflows/resolve/main/HunyuanVideo_image_to_videoV1.json" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/datasets/stablediffusiontutorials/HunyuanVideo-Workflows/resolve/main/HunyuanVideo_image_to_videoV1.json" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>82</td>
+<td class="file-name">hunyuan_video_t2v_720p_bf16.safetensors</td>
+<td>12</td>
+<td>UNETLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/calcuis/hyvid/resolve/main/hunyuan_video_t2v_720p_bf16.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/calcuis/hyvid/resolve/main/hunyuan_video_t2v_720p_bf16.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>83</td>
+<td class="file-name">hunyuan_video_vae_bf16.safetensors</td>
+<td>10</td>
+<td>VAELoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/calcuis/hunyuan-gguf/resolve/main/hunyuan_video_vae_bf16.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/calcuis/hunyuan-gguf/resolve/main/hunyuan_video_vae_bf16.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>84</td>
+<td class="file-name">hyvideo_FastVideo_LoRA-fp8.safetensors</td>
+<td>56</td>
+<td>HyVideoLoraSelect</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kijai/HunyuanVideo_comfy/resolve/main/hyvideo_FastVideo_LoRA-fp8.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kijai/HunyuanVideo_comfy/resolve/main/hyvideo_FastVideo_LoRA-fp8.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>85</td>
+<td class="file-name">iclight_sd15_fc.safetensors</td>
+<td>10</td>
+<td>LoadAndApplyICLightUnet</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/lllyasviel/ic-light/resolve/main/iclight_sd15_fc.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/lllyasviel/ic-light/resolve/main/iclight_sd15_fc.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>86</td>
+<td class="file-name">img2vid.safetensors</td>
+<td>41</td>
+<td>HyVideoLoraSelect</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/stabilityai/stable-video-diffusion-img2vid/resolve/main/svd.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/stabilityai/stable-video-diffusion-img2vid/resolve/main/svd.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>87</td>
+<td class="file-name">ip-adapter.bin</td>
+<td>19</td>
+<td>InstantIDModelLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/h94/IP-Adapter" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/h94/IP-Adapter" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>88</td>
+<td class="file-name">ip-adapter_pulid_sdxl_fp16.safetensors</td>
+<td>22</td>
+<td>PulidModelLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/huchenlei/ipadapter_pulid/resolve/main/ip-adapter_pulid_sdxl_fp16.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/huchenlei/ipadapter_pulid/resolve/main/ip-adapter_pulid_sdxl_fp16.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>89</td>
+<td class="file-name">ip_adapter_plus_general.bin</td>
+<td>99</td>
+<td>MZ_IPAdapterModelLoaderKolors</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kwai-Kolors/Kolors-IP-Adapter-Plus/commit/9730bef52ea97549ce65f72b1d3abb5ec0ad3e8d" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kwai-Kolors/Kolors-IP-Adapter-Plus/commit/9730bef52ea97549ce65f72b1d3abb5ec0ad3e8d" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>90</td>
+<td class="file-name">juggernautXL_v9Rdphoto2Lightning.safetensors</td>
+<td>334</td>
+<td>CheckpointLoaderSimple</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/AiWise/Juggernaut-XL-V9-GE-RDPhoto2-Lightning_4S/resolve/main/juggernautXL_v9Rdphoto2Lightning.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/AiWise/Juggernaut-XL-V9-GE-RDPhoto2-Lightning_4S/resolve/main/juggernautXL_v9Rdphoto2Lightning.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>91</td>
+<td class="file-name">juggerxlInpaint_juggerInpaintV8.safetensors</td>
+<td>67</td>
+<td>CheckpointLoaderSimple</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/crj/dl-ws/resolve/main/juggerxlInpaint_juggerInpaintV8.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/crj/dl-ws/resolve/main/juggerxlInpaint_juggerInpaintV8.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>92</td>
+<td class="file-name">l</td>
+<td>15</td>
+<td>Yoloworld_ModelLoader_Zho</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>93</td>
+<td class="file-name">leosamsHelloworldXL_helloworldXL70.safetensors</td>
+<td>1</td>
+<td>Efficient Loader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/misri/leosamsHelloworldXL_helloworldXL70/tree/main" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/misri/leosamsHelloworldXL_helloworldXL70/tree/main" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>94</td>
+<td class="file-name">llava_llama3_fp8_scaled.safetensors</td>
+<td>6</td>
+<td>DualCLIPLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/calcuis/hunyuan-gguf/resolve/main/llava_llama3_fp8_scaled.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/calcuis/hunyuan-gguf/resolve/main/llava_llama3_fp8_scaled.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>95</td>
+<td class="file-name">llava_llama3_vision.safetensors</td>
+<td>25</td>
+<td>CLIPVisionLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/calcuis/hunyuan-gguf/resolve/main/llava_llama3_fp8_scaled.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/calcuis/hunyuan-gguf/resolve/main/llava_llama3_fp8_scaled.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>96</td>
+<td class="file-name">majicmixRealistic_v7.safetensors</td>
+<td>25</td>
+<td>CheckpointLoaderSimple</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/digiplay/majicMIX_realistic_v7/resolve/main/majicmixRealistic_v7.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/digiplay/majicMIX_realistic_v7/resolve/main/majicmixRealistic_v7.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>97</td>
+<td class="file-name">mm_sd_v15_v2.ckpt</td>
+<td>114</td>
+<td>ADE_AnimateDiffLoaderWithContext</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/guoyww/animatediff/resolve/main/mm_sd_v15_v2.ckpt" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/guoyww/animatediff/resolve/main/mm_sd_v15_v2.ckpt" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>98</td>
+<td class="file-name">mochi_preview_bf16.safetensors</td>
+<td>16</td>
+<td>UNETLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kijai/Mochi_preview_comfy/resolve/main/mochi_preview_vae_decoder_bf16.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kijai/Mochi_preview_comfy/resolve/main/mochi_preview_vae_decoder_bf16.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>99</td>
+<td class="file-name">mochi_preview_dit_bf16.safetensors</td>
+<td>4</td>
+<td>DownloadAndLoadMochiModel</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/camenduru/google_t5_v1.1/resolve/main/mochi_preview_dit_bf16.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/camenduru/google_t5_v1.1/resolve/main/mochi_preview_dit_bf16.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>100</td>
+<td class="file-name">mochi_preview_fp8_scaled.safetensors</td>
+<td>4</td>
+<td>CheckpointLoaderSimple</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/licyk/comfyui-extension-models/resolve/main/mochi/mochi_preview_fp8_scaled.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/licyk/comfyui-extension-models/resolve/main/mochi/mochi_preview_fp8_scaled.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>101</td>
+<td class="file-name">mochi_preview_vae_encoder_bf16_.safetensors</td>
+<td>27</td>
+<td>MochiVAEEncoderLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kijai/Mochi_preview_comfy/resolve/main/mochi_preview_vae_decoder_bf16.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kijai/Mochi_preview_comfy/resolve/main/mochi_preview_vae_decoder_bf16.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>102</td>
+<td class="file-name">mochi_vae.safetensors</td>
+<td>24</td>
+<td>VAELoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kijai/Mochi_preview_comfy/resolve/main/mochi_preview_vae_decoder_bf16.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kijai/Mochi_preview_comfy/resolve/main/mochi_preview_vae_decoder_bf16.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>103</td>
+<td class="file-name">model.fp16.safetensors</td>
+<td>18</td>
+<td>PowerPaintCLIPLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/ashawkey/LGM/resolve/main/model_fp16.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/ashawkey/LGM/resolve/main/model_fp16.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>104</td>
+<td class="file-name">model.safetensors</td>
+<td>14</td>
+<td>CLIPVisionLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/docs/safetensors/index" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/docs/safetensors/index" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>105</td>
+<td class="file-name">oldt5_xxl_fp8_e4m3fn_scaled.safetensors</td>
+<td>38</td>
+<td>CLIPLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/comfyanonymous/cosmos_1.0_text_encoder_and_VAE_ComfyUI/resolve/main/text_encoders/oldt5_xxl_fp8_e4m3fn_scaled.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/comfyanonymous/cosmos_1.0_text_encoder_and_VAE_ComfyUI/resolve/main/text_encoders/oldt5_xxl_fp8_e4m3fn_scaled.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>106</td>
+<td class="file-name">open-clip-xlm-roberta-large-vit-huge-14_fp16.safetensors</td>
+<td>56</td>
+<td>LoadWanVideoClipTextEncoder</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Serenak/chilloutmix/resolve/main/open-clip-xlm-roberta-large-vit-huge-14_fp16.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Serenak/chilloutmix/resolve/main/open-clip-xlm-roberta-large-vit-huge-14_fp16.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>107</td>
+<td class="file-name">outfitToOutfit_v20.safetensors</td>
+<td>39</td>
+<td>ControlNetLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/XuminYu/example_safetensors/resolve/184b5d20a8ce24afd5cc633571fe2f58d8ee86c7/controlnet/outfitToOutfit_v20.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/XuminYu/example_safetensors/resolve/184b5d20a8ce24afd5cc633571fe2f58d8ee86c7/controlnet/outfitToOutfit_v20.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>108</td>
+<td class="file-name">photomaker-v2.bin</td>
+<td>10</td>
+<td>PhotoMakerLoaderPlus</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/TencentARC/PhotoMaker-V2" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/TencentARC/PhotoMaker-V2" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>109</td>
+<td class="file-name">pixelwave_flux1Dev03.safetensors</td>
+<td>106</td>
+<td>UNETLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/mikeyandfriends/PixelWave_FLUX.1-dev_03/resolve/main/pixelwave_flux1_dev_fp8_03.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/mikeyandfriends/PixelWave_FLUX.1-dev_03/resolve/main/pixelwave_flux1_dev_fp8_03.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>110</td>
+<td class="file-name">pulid_flux_v0.9.0.safetensors</td>
+<td>94</td>
+<td>PulidFluxModelLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/camenduru/PuLID/resolve/main/pulid_flux_v0.9.0.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/camenduru/PuLID/resolve/main/pulid_flux_v0.9.0.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>111</td>
+<td class="file-name">pytorch_lora_weights.safetensors</td>
+<td>32</td>
+<td>LoraLoaderModelOnly</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/latent-consistency/lcm-lora-sdv1-5/resolve/main/pytorch_lora_weights.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/latent-consistency/lcm-lora-sdv1-5/resolve/main/pytorch_lora_weights.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>112</td>
+<td class="file-name">pytorch_model.bin</td>
+<td>103</td>
+<td>CLIPVisionLoader</td>
+<td class="link-col hf-link"><a href="https://discuss.huggingface.co/t/explain-pytorch-model-bin/20744" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/t/explain-pytorch-model-bin/20744" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>113</td>
+<td class="file-name">realvisxlV40_v40LightningBakedvae.safetensors</td>
+<td>57</td>
+<td>CheckpointLoaderSimple</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/yanex0/realisticvisxl/resolve/main/realvisxlV40_v40LightningBakedvae.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/yanex0/realisticvisxl/resolve/main/realvisxlV40_v40LightningBakedvae.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>114</td>
+<td class="file-name">rife47.pth</td>
+<td>154</td>
+<td>RIFE VFI</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/jasonot/mycomfyui/resolve/main/rife47.pth" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/jasonot/mycomfyui/resolve/main/rife47.pth" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>115</td>
+<td class="file-name">rife49.pth</td>
+<td>42</td>
+<td>RIFE VFI</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/jasonot/mycomfyui/resolve/main/rife47.pth" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/jasonot/mycomfyui/resolve/main/rife47.pth" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>116</td>
+<td class="file-name">rumeizi_rank32_bf16-step00200.safetensors</td>
+<td>25</td>
+<td>LoraLoaderModelOnly</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22rumeizi_rank32_bf16-step00200.safetensors%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>117</td>
+<td class="file-name">rumeizi_rank32_bf16-step00400.safetensors</td>
+<td>21</td>
+<td>LoraLoaderModelOnly</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22rumeizi_rank32_bf16-step00400.safetensors%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>118</td>
+<td class="file-name">rumeizi_rank32_bf16-step00600.safetensors</td>
+<td>10</td>
+<td>LoraLoaderModelOnly</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22rumeizi_rank32_bf16-step00600.safetensors%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>119</td>
+<td class="file-name">rumeizi_rank32_bf16-step00800.safetensors</td>
+<td>29</td>
+<td>LoraLoaderModelOnly</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22rumeizi_rank32_bf16-step00800.safetensors%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>120</td>
+<td class="file-name">rumeizi_rank32_bf16-step01000.safetensors</td>
+<td>33</td>
+<td>LoraLoaderModelOnly</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22rumeizi_rank32_bf16-step01000.safetensors%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>121</td>
+<td class="file-name">rumeizi_rank32_bf16-step01200.safetensors</td>
+<td>37</td>
+<td>LoraLoaderModelOnly</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22rumeizi_rank32_bf16-step01200.safetensors%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>122</td>
+<td class="file-name">rumeizi_rank32_bf16-step01400.safetensors</td>
+<td>41</td>
+<td>LoraLoaderModelOnly</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22rumeizi_rank32_bf16-step01400.safetensors%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>123</td>
+<td class="file-name">rumeizi_rank32_bf16-step01600.safetensors</td>
+<td>45</td>
+<td>LoraLoaderModelOnly</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22rumeizi_rank32_bf16-step01600.safetensors%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>124</td>
+<td class="file-name">rumeizi_rank32_bf16-step01800.safetensors</td>
+<td>57</td>
+<td>LoraLoaderModelOnly</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22rumeizi_rank32_bf16-step01800.safetensors%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>125</td>
+<td class="file-name">rumeizi_rank32_bf16-step02000.safetensors</td>
+<td>50</td>
+<td>LoraLoaderModelOnly</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22rumeizi_rank32_bf16-step02000.safetensors%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>126</td>
+<td class="file-name">rumeizi_rank32_bf16-step02200.safetensors</td>
+<td>51</td>
+<td>LoraLoaderModelOnly</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22rumeizi_rank32_bf16-step02200.safetensors%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>127</td>
+<td class="file-name">rumeizi_rank32_bf16-step02400.safetensors</td>
+<td>64</td>
+<td>LoraLoaderModelOnly</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22rumeizi_rank32_bf16-step02400.safetensors%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>128</td>
+<td class="file-name">rumeizi_rank32_bf16-step02600.safetensors</td>
+<td>65</td>
+<td>LoraLoaderModelOnly</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22rumeizi_rank32_bf16-step02600.safetensors%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>129</td>
+<td class="file-name">rumeizi_rank32_bf16-step03640.safetensors</td>
+<td>69</td>
+<td>LoraLoaderModelOnly</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22rumeizi_rank32_bf16-step03640.safetensors%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>130</td>
+<td class="file-name">rumeizi_rank32_bf16-step03900.safetensors</td>
+<td>73</td>
+<td>LoraLoaderModelOnly</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22rumeizi_rank32_bf16-step03900.safetensors%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>131</td>
+<td class="file-name">rumeizi_rank32_bf16-step04160.safetensors</td>
+<td>77</td>
+<td>LoraLoaderModelOnly</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22rumeizi_rank32_bf16-step04160.safetensors%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>132</td>
+<td class="file-name">sam_vit_b_01ec64.pth</td>
+<td>385</td>
+<td>SAMLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/sams/sam_vit_b_01ec64.pth" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/datasets/Gourieff/ReActor/resolve/main/models/sams/sam_vit_b_01ec64.pth" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>133</td>
+<td class="file-name">sd3.5_large.safetensors</td>
+<td>4</td>
+<td>CheckpointLoaderSimple</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/OwlMaster/SD3New/resolve/main/sd3.5_large.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/OwlMaster/SD3New/resolve/main/sd3.5_large.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>134</td>
+<td class="file-name">sd3.5_large_turbo.safetensors</td>
+<td>4</td>
+<td>CheckpointLoaderSimple</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/stabilityai/stable-diffusion-3.5-large-turbo" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/stabilityai/stable-diffusion-3.5-large-turbo" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>135</td>
+<td class="file-name">sd3_medium.safetensors</td>
+<td>252</td>
+<td>CheckpointLoaderSimple</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/stabilityai/stable-diffusion-3-medium" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/stabilityai/stable-diffusion-3-medium" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>136</td>
+<td class="file-name">sdxl_hyper_id_lora_v1_fidelity</td>
+<td>3</td>
+<td>HyperLoRALoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/bytedance-research/HyperLoRA/resolve/main/sdxl_hyper_id_lora_v1_fidelity/hyper_lora_modules.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/bytedance-research/HyperLoRA/resolve/main/sdxl_hyper_id_lora_v1_fidelity/hyper_lora_modules.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>137</td>
+<td class="file-name">sdxl_openpose.safetensors</td>
+<td>18</td>
+<td>ControlNetLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/thibaud/controlnet-openpose-sdxl-1.0/resolve/main/OpenPoseXL2.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/thibaud/controlnet-openpose-sdxl-1.0/resolve/main/OpenPoseXL2.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>138</td>
+<td class="file-name">sdxl_vae_fp16fix.safetensors</td>
+<td>70</td>
+<td>VAELoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/madebyollin/sdxl-vae-fp16-fix/resolve/main/sdxl.vae.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/madebyollin/sdxl-vae-fp16-fix/resolve/main/sdxl.vae.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>139</td>
+<td class="file-name">skin texture style v5.safetensors</td>
+<td>11</td>
+<td>LoraLoaderModelOnly</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/PsyBro369/FLux_Lora/resolve/main/skin%20texture%20style%20v5.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/PsyBro369/FLux_Lora/resolve/main/skin%20texture%20style%20v5.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>140</td>
+<td class="file-name">skyreels-i2v-smooth-lora-test-00000350.safetensors</td>
+<td>78</td>
+<td>HyVideoLoraSelect</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/spacepxl/skyreels-i2v-smooth-lora/resolve/main/skyreels-i2v-smooth-lora-test-00000350.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/spacepxl/skyreels-i2v-smooth-lora/resolve/main/skyreels-i2v-smooth-lora-test-00000350.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>141</td>
+<td class="file-name">skyreels_hunyuan_i2v_bf16.safetensors</td>
+<td>1</td>
+<td>HyVideoModelLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kijai/SkyReels-V1-Hunyuan_comfy/resolve/3049aa1da1187ab47492cc25c663e373040f05f1/skyreels_hunyuan_i2v_bf16.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kijai/SkyReels-V1-Hunyuan_comfy/resolve/3049aa1da1187ab47492cc25c663e373040f05f1/skyreels_hunyuan_i2v_bf16.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>142</td>
+<td class="file-name">stablesr_768v_000139.ckpt</td>
+<td>4</td>
+<td>CheckpointLoaderSimple</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Iceclear/StableSR/resolve/main/stablesr_768v_000139.ckpt" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Iceclear/StableSR/resolve/main/stablesr_768v_000139.ckpt" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>143</td>
+<td class="file-name">step20000.ckpt</td>
+<td>22</td>
+<td>WanVideoModelLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/KwaiVGI/ReCamMaster-Wan2.1/tree/main" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/KwaiVGI/ReCamMaster-Wan2.1/tree/main" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>144</td>
+<td class="file-name">stoiqoNewrealityFLUXSD35_f1DAlphaTwo.safetensors</td>
+<td>30</td>
+<td>CheckpointLoaderSimple</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Patarapoom/model/resolve/main/stoiqoNewrealityFLUXSD35_f1DAlphaTwo.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Patarapoom/model/resolve/main/stoiqoNewrealityFLUXSD35_f1DAlphaTwo.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>145</td>
+<td class="file-name">svd_xt_1_1.safetensors</td>
+<td>3</td>
+<td>ImageOnlyCheckpointLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/vdo/stable-video-diffusion-img2vid-xt-1-1/resolve/main/svd_xt_1_1.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/vdo/stable-video-diffusion-img2vid-xt-1-1/resolve/main/svd_xt_1_1.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>146</td>
+<td class="file-name">t5xxl_fp16.safetensors</td>
+<td>4</td>
+<td>DualCLIPLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/AUTOMATIC/stable-diffusion-3-medium-text-encoders/resolve/main/t5xxl_fp16.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/AUTOMATIC/stable-diffusion-3-medium-text-encoders/resolve/main/t5xxl_fp16.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>147</td>
+<td class="file-name">t5xxl_fp8_e4m3fn.safetensors</td>
+<td>20</td>
+<td>CLIPLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp8_e4m3fn.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp8_e4m3fn.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>148</td>
+<td class="file-name">ttplanetSDXLControlnet_v10Fp16.safetensors</td>
+<td>48</td>
+<td>ControlNetLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/zdouble/model/resolve/main/ttplanetSDXLControlnet_v20Fp16.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/zdouble/model/resolve/main/ttplanetSDXLControlnet_v20Fp16.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>149</td>
+<td class="file-name">umt5-xxl-enc-bf16.safetensors</td>
+<td>11</td>
+<td>LoadWanVideoT5TextEncoder</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Kijai/WanVideo_comfy/resolve/134ff46c7e03736a91bccd3ecef782bf4d3af132/umt5-xxl-enc-bf16.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Kijai/WanVideo_comfy/resolve/134ff46c7e03736a91bccd3ecef782bf4d3af132/umt5-xxl-enc-bf16.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>150</td>
+<td class="file-name">umt5_xxl_fp8_e4m3fn_scaled.safetensors</td>
+<td>92</td>
+<td>CLIPLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Evados/DiffSynth-Studio-Lora-Wan2.1-ComfyUI/resolve/main/umt5_xxl_fp8_e4m3fn_scaled.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Evados/DiffSynth-Studio-Lora-Wan2.1-ComfyUI/resolve/main/umt5_xxl_fp8_e4m3fn_scaled.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>151</td>
+<td class="file-name">unet.pth</td>
+<td>1</td>
+<td>SONICTLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/LeonJoe13/Sonic/resolve/main/Sonic/unet.pth" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/LeonJoe13/Sonic/resolve/main/Sonic/unet.pth" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>152</td>
+<td class="file-name">union_pro.safetensors</td>
+<td>54</td>
+<td>ControlNetLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro/resolve/main/diffusion_pytorch_model.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro/resolve/main/diffusion_pytorch_model.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>153</td>
+<td class="file-name">union_pro2.safetensors</td>
+<td>39</td>
+<td>ControlNetLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/licyk/flux_controlnet/resolve/main/flux1-dev-instantx-controlnet-union.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/licyk/flux_controlnet/resolve/main/flux1-dev-instantx-controlnet-union.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>154</td>
+<td class="file-name">v3_sd15_mm.ckpt</td>
+<td>23</td>
+<td>ADE_LoadAnimateDiffModel</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/guoyww/animatediff/resolve/main/v3_sd15_mm.ckpt" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/guoyww/animatediff/resolve/main/v3_sd15_mm.ckpt" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>155</td>
+<td class="file-name">wan2.1_i2v_720p_14B_bf16.safetensors</td>
+<td>22</td>
+<td>WanVideoModelLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Wan-AI/Wan2.1-I2V-14B-720P/resolve/main/README.md" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Wan-AI/Wan2.1-I2V-14B-720P/resolve/main/README.md" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>156</td>
+<td class="file-name">wan2.1_t2v_1.3B_bf16.safetensors</td>
+<td>12</td>
+<td>UNETLoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/diffusion_models/wan2.1_t2v_1.3B_bf16.safetensors" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/diffusion_models/wan2.1_t2v_1.3B_bf16.safetensors" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>157</td>
+<td class="file-name">wan_2.1_vae.safetensors</td>
+<td>10</td>
+<td>VAELoader</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/tree/main/split_files/vae" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Comfy-Org/Wan_2.1_ComfyUI_repackaged/tree/main/split_files/vae" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>158</td>
+<td class="file-name">webui_768v_139.ckpt</td>
+<td>31</td>
+<td>ApplyStableSRUpscaler</td>
+<td class="link-col hf-link"><a href="https://huggingface.co/Iceclear/StableSR/resolve/main/webui_768v_139.ckpt" target="_blank" title="跳转到HuggingFace模型页面 (Go to HuggingFace)">✓ HF</a></td>
+<td class="link-col mirror-link"><a href="https://hf-mirror.com/Iceclear/StableSR/resolve/main/webui_768v_139.ckpt" target="_blank" title="跳转到HF镜像下载页面 (Go to HF Mirror)">✓ 镜像 (Mirror)</a></td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="status-processed">已处理</td>
+</tr>
+<tr>
+<td>159</td>
+<td class="file-name">xiu-ren.safetensors</td>
+<td>10</td>
+<td>LoraLoader</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:huggingface.co+%22xiu-ren.safetensors%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+<tr>
+<td>160</td>
+<td class="file-name">绪儿-敦煌飞天V2_V2.safetensors</td>
+<td>24</td>
+<td>LoraLoader</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="no-link">× 暂无 (None)</td>
+<td class="link-col liblib-link"><a href="https://www.bing.com/search?q=site:liblib.art+%22绪儿-敦煌飞天V2_V2.safetensors%22" target="_blank" title="跳转到LibLib模型页面 (Go to LibLib)">✓ LibLib</a></td>
+<td class="status-notfound">未找到</td>
+</tr>
+</tbody>
+</table>
+
+            <div class="summary">
+                <p>总记录数 (Total Records): 160</p>
+            </div>
+        
+            <div id="filterDropdown" class="dropdown-content">
+                <input type="text" class="dropdown-search" placeholder="搜索筛选项... (Search filter options...)" id="filterSearchInput" onkeyup="filterDropdownItems()">
+                <div id="dropdown-items"></div>
+                <div class="filter-buttons">
+                    <button class="filter-apply" onclick="applyFilter()">应用 (Apply)</button>
+                    <button class="filter-clear" onclick="clearFilter()">清除 (Clear)</button>
+                </div>
+            </div>
+        
+            <script>
+            // Pass Python variable to JS before the main script block
+            var mirrorLinkColumnIndex = 5;
+            </script>
+        
+            <script>
+            // Global variables for filtering and table access
+            var currentFilterColumn = -1;
+            var currentFilterValues = {}; // Stores active filters: {colIndex: [value1, value2]}
+            var modelTable = document.getElementById("modelTable");
+            var tableHeaders = modelTable.querySelectorAll("thead th"); // Target thead headers
+            var tableBody = modelTable.querySelector("tbody"); // Target tbody for rows
+            // mirrorLinkColumnIndex is already defined in the previous script tag
+
+            // --- Batch Copy Function ---
+            function batchCopyMirrorLinks() {
+                if (mirrorLinkColumnIndex < 0) {
+                    alert("错误：未找到镜像链接列，无法复制。(Error: Mirror link column not found, cannot copy.)");
+                    return;
+                }
+
+                var links = [];
+                var rows = tableBody.getElementsByTagName("tr");
+                var copyButton = document.getElementById("copyButton");
+                var copyMessage = document.getElementById("copyMessage");
+
+                copyButton.disabled = true; // Disable button during copy
+                copyMessage.textContent = "正在复制... (Copying...)";
+
+                for (var i = 0; i < rows.length; i++) {
+                    // Check if row is visible (not display: none)
+                    if (rows[i].style.display !== "none") {
+                        var cells = rows[i].getElementsByTagName("td");
+                        if (cells.length > mirrorLinkColumnIndex) {
+                            var cell = cells[mirrorLinkColumnIndex];
+                            var linkElement = cell.querySelector("a"); // Find the link within the cell
+                            if (linkElement && linkElement.href) {
+                                links.push(linkElement.href);
+                            }
+                        }
+                    }
+                }
+
+                if (links.length > 0) {
+                    var linksText = links.join("\n"); // Join with newlines for Thunder
+                    navigator.clipboard.writeText(linksText).then(function() {
+                        copyMessage.textContent = `✓ 已复制 ${links.length} 条链接! (Copied ${links.length} links!)`;
+                        copyButton.textContent = "复制成功 (Copied!)";
+                        setTimeout(() => { // Reset message and button after a delay
+                            copyMessage.textContent = "";
+                            copyButton.textContent = "批量复制镜像链接 (Batch Copy Mirror Links)";
+                            copyButton.disabled = false;
+                        }, 3000); // Reset after 3 seconds
+                    }, function(err) {
+                        copyMessage.textContent = "复制失败! (Copy failed!)";
+                        console.error('Async: Could not copy text: ', err);
+                        alert("复制失败，请检查浏览器权限或手动复制。(Copy failed. Check browser permissions or copy manually.)");
+                        copyButton.disabled = false; // Re-enable button on failure
+                        copyButton.textContent = "批量复制镜像链接 (Batch Copy Mirror Links)";
+                    });
+                } else {
+                    copyMessage.textContent = "没有可见的镜像链接可复制。(No visible mirror links to copy.)";
+                     setTimeout(() => {
+                         copyMessage.textContent = "";
+                         copyButton.disabled = false;
+                         copyButton.textContent = "批量复制镜像链接 (Batch Copy Mirror Links)";
+                     }, 3000);
+                }
+            }
+
+            // --- Sorting Function ---
+            function sortTable(n) {
+                var switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+                switching = true;
+                dir = "asc"; // Default sort direction
+
+                // Get current sort direction from header icon if available
+                var currentIcon = tableHeaders[n].querySelector(".filter-icon").textContent;
+                if (currentIcon === "▲") {
+                    dir = "desc"; // If already ascending, switch to descending
+                }
+
+                while (switching) {
+                    switching = false;
+                    var rows = tableBody.getElementsByTagName("tr"); // Use tbody rows
+
+                    for (i = 0; i < (rows.length - 1); i++) {
+                        shouldSwitch = false;
+                        x = rows[i].getElementsByTagName("TD")[n];
+                        y = rows[i + 1].getElementsByTagName("TD")[n];
+
+                        var xText = x.textContent || x.innerText;
+                        var yText = y.textContent || y.innerText;
+
+                        // Handle link columns ('✓' vs '×')
+                        var xIsLink = x.querySelector("a") !== null;
+                        var yIsLink = y.querySelector("a") !== null;
+
+                        if (x.classList.contains('link-col') || x.classList.contains('no-link')) {
+                             if (dir == "asc") { // Links first
+                                 shouldSwitch = !xIsLink && yIsLink;
+                             } else { // No links first
+                                 shouldSwitch = xIsLink && !yIsLink;
+                             }
+                             // If both are links or both not links, sort by text (e.g., "✓ HF" vs "✓ Mirror")
+                             if (xIsLink === yIsLink) {
+                                 if (dir == "asc") {
+                                     shouldSwitch = xText.toLowerCase() > yText.toLowerCase();
+                                 } else {
+                                     shouldSwitch = xText.toLowerCase() < yText.toLowerCase();
+                                 }
+                             }
+                        } else {
+                            // Attempt numeric sort first
+                            var xNum = parseFloat(xText.replace(/,/g, '')); // Handle commas in numbers
+                            var yNum = parseFloat(yText.replace(/,/g, ''));
+
+                            if (!isNaN(xNum) && !isNaN(yNum)) {
+                                if (dir == "asc") {
+                                    shouldSwitch = xNum > yNum;
+                                } else {
+                                    shouldSwitch = xNum < yNum;
+                                }
+                            } else {
+                                // Fallback to string comparison
+                                if (dir == "asc") {
+                                    shouldSwitch = xText.toLowerCase() > yText.toLowerCase();
+                                } else {
+                                    shouldSwitch = xText.toLowerCase() < yText.toLowerCase();
+                                }
+                            }
+                        }
+
+
+                        if (shouldSwitch) {
+                            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                            switching = true;
+                            switchcount++;
+                            break; // Break after a switch and restart loop
+                        }
+                    }
+                }
+
+                // Update header icons
+                for (var k = 0; k < tableHeaders.length; k++) {
+                    var icon = tableHeaders[k].querySelector(".filter-icon");
+                    // Reset non-active sort/filter icons, keep active filter icons
+                     if (!icon.textContent || icon.textContent === "▲" || icon.textContent === "▼") {
+                         // Check if filter is active for this column (k) and if it's not filtering everything out
+                         var isFullyFiltered = currentFilterValues[k] && currentFilterValues[k].length === 0; // No values selected means filter is active but shows nothing
+                         var isPartiallyFiltered = currentFilterValues[k] && currentFilterValues[k].length > 0 && (tableBody.rows.length > 0 ? currentFilterValues[k].length < new Set(Array.from(tableBody.rows).map(r => r.cells[k].textContent.trim())).size : false);
+
+                         if (k !== n && (isFullyFiltered || isPartiallyFiltered)) {
+                             // If it's not the column being sorted AND it has an active filter, keep the filter icon
+                             icon.textContent = "🔍";
+                         } else if (k !==n) {
+                             // Otherwise, reset to default arrow if it's not the sorted column
+                             icon.textContent = "▼";
+                         }
+                     } else if (k !== n && icon.textContent === "🔍") {
+                         // Keep filter icon if it's already there and not the column being sorted
+                          icon.textContent = "🔍";
+                     } else if (k !== n) {
+                        // Default reset for non-sorted, non-filtered columns
+                        icon.textContent = "▼";
+                     }
+                }
+                 // Set the current sort icon for the column that was just sorted (n)
+                 tableHeaders[n].querySelector(".filter-icon").textContent = (dir === "asc") ? "▲" : "▼";
+            }
+
+
+            // --- Global Text Filter Function ---
+            function filterTable() {
+                var input, filter, tr, td, i, j, txtValue, found;
+                input = document.getElementById("filterInput");
+                filter = input ? input.value.toUpperCase() : ""; // Handle case where input might not exist
+                tr = tableBody.getElementsByTagName("tr");
+
+                for (i = 0; i < tr.length; i++) {
+                    // First check column filters
+                    if (!passesColumnFilters(tr[i])) {
+                        tr[i].style.display = "none";
+                        continue;
+                    }
+
+                    // Then check global text filter (if input exists)
+                    if (filter === "") {
+                        tr[i].style.display = ""; // Show if no global filter and passes column filters
+                        continue;
+                    }
+
+                    td = tr[i].getElementsByTagName("td");
+                    found = false;
+                    for (j = 0; j < td.length; j++) {
+                        txtValue = td[j].textContent || td[j].innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    tr[i].style.display = found ? "" : "none";
+                }
+            }
+
+            // --- Column Filter Dropdown Functions ---
+            function showFilter(event, colIndex) {
+                var dropdown = document.getElementById("filterDropdown");
+                currentFilterColumn = colIndex; // Set the column being filtered
+
+                // Position dropdown below the icon
+                var icon = event.target; // Should be the span icon
+                var th = icon.closest('th'); // Get the parent th
+                var rect = th.getBoundingClientRect(); // Use th for positioning base
+                var iconRect = icon.getBoundingClientRect(); // Use icon for fine-tuning
+
+                dropdown.style.left = rect.left + window.scrollX + "px";
+                // Position below the icon itself, not the whole header cell bottom
+                dropdown.style.top = iconRect.bottom + window.scrollY + 5 + "px";
+                dropdown.style.minWidth = Math.max(180, rect.width) + "px"; // Base width on header cell
+
+                populateDropdown(colIndex); // Fill with options
+                dropdown.classList.add("show");
+                document.getElementById('filterSearchInput').value = ''; // Clear search
+                filterDropdownItems(); // Show all items initially
+
+                // Close dropdown if clicked outside
+                 // Use setTimeout to defer adding the listener slightly
+                setTimeout(() => {
+                    window.onclick = function(closeEvent) {
+                        // Close if click is outside dropdown AND outside the filter icon that opened it
+                        if (!dropdown.contains(closeEvent.target) && !icon.contains(closeEvent.target)) {
+                            dropdown.classList.remove("show");
+                            window.onclick = null; // Remove listener after closing
+                        }
+                    }
+                }, 0);
+            }
+
+            function populateDropdown(colIndex) {
+                var rows = tableBody.getElementsByTagName("tr");
+                var uniqueValues = new Set();
+
+                // Collect unique values from the column
+                for (var i = 0; i < rows.length; i++) {
+                    // Only consider rows currently potentially visible (respects global filter, but not column filters yet)
+                    // This prevents options disappearing entirely if globally filtered out.
+                    // We will rely on passesColumnFilters later.
+                    // if (rows[i].style.display !== "none") { // Optimization: only check visible rows? Might hide options. Let's check all.
+                        if (rows[i].cells.length > colIndex) {
+                            var cell = rows[i].cells[colIndex];
+                            var value = (cell.textContent || cell.innerText).trim();
+                            uniqueValues.add(value);
+                        }
+                    // }
+                }
+
+                var sortedValues = Array.from(uniqueValues).sort();
+                var dropdownItemsDiv = document.getElementById("dropdown-items");
+                dropdownItemsDiv.innerHTML = ""; // Clear previous items
+
+                // Add "Select All"
+                var allItem = document.createElement("div");
+                allItem.className = "dropdown-item";
+                allItem.innerHTML = '<input type="checkbox" id="select-all" onchange="toggleAll(this.checked)"> <label for="select-all">全选 (Select All)</label>';
+                dropdownItemsDiv.appendChild(allItem);
+                dropdownItemsDiv.appendChild(document.createElement("hr")); // Separator
+
+                // Add items for each unique value
+                var activeFilters = currentFilterValues[colIndex] || null; // Get active filters for this column
+
+                sortedValues.forEach(function(value, index) {
+                    var item = document.createElement("div");
+                    item.className = "dropdown-item";
+                    var checkboxId = "filter-item-" + index;
+                    // Check if this value should be checked (either no filter active, or this value is in the active filter list)
+                    var isChecked = !activeFilters || activeFilters.includes(value);
+
+                    item.innerHTML = `<input type="checkbox" id="${checkboxId}" value="${value}" ${isChecked ? "checked" : ""}> <label for="${checkboxId}">${value || '(Blank)'}</label>`; // Handle blank values
+                    dropdownItemsDiv.appendChild(item);
+                });
+
+                updateSelectAllCheckbox(); // Set initial state of "Select All"
+            }
+
+            function filterDropdownItems() {
+                var input = document.getElementById("filterSearchInput");
+                var filter = input.value.toUpperCase();
+                var items = document.querySelectorAll("#dropdown-items .dropdown-item:not(:first-child)"); // Exclude "Select All"
+
+                items.forEach(function(item) {
+                    var label = item.querySelector("label");
+                    var text = label ? (label.textContent || label.innerText) : "";
+                    item.style.display = text.toUpperCase().indexOf(filter) > -1 ? "" : "none";
+                });
+                 updateSelectAllCheckbox(); // Update select all based on visible items
+            }
+
+            function applyFilter() {
+                var selectedValues = [];
+                var checkboxes = document.querySelectorAll("#dropdown-items .dropdown-item:not(:first-child) input[type='checkbox']");
+                var allPossibleValuesInDropdown = []; // All values currently in the dropdown (before filtering)
+
+                 // Re-populate the unique values set to get ALL possible values for this column
+                 var allRows = tableBody.getElementsByTagName("tr");
+                 var allUniqueValuesSet = new Set();
+                 for (var i = 0; i < allRows.length; i++) {
+                     if (allRows[i].cells.length > currentFilterColumn) {
+                         allUniqueValuesSet.add((allRows[i].cells[currentFilterColumn].textContent || allRows[i].cells[currentFilterColumn].innerText).trim());
+                     }
+                 }
+                 allPossibleValuesInDropdown = Array.from(allUniqueValuesSet);
+
+
+                checkboxes.forEach(function(checkbox) {
+                    // allPossibleValuesInDropdown.push(checkbox.value); // Collect all values represented by checkboxes
+                    if (checkbox.checked) {
+                        selectedValues.push(checkbox.value);
+                    }
+                });
+
+                var filterIcon = tableHeaders[currentFilterColumn].querySelector(".filter-icon");
+
+                // Update filter state
+                // Check if the number of selected values equals the total number of unique values for that column
+                if (selectedValues.length === allPossibleValuesInDropdown.length || selectedValues.length === 0) {
+                    // If all unique values are selected, or none are selected, treat as no filter active for this column
+                    delete currentFilterValues[currentFilterColumn];
+                    // Reset icon only if it wasn't a sort icon (▲ or ▼)
+                    if (filterIcon.textContent === "🔍") {
+                       // Check if it's also the sort column, if so, restore sort icon, otherwise default
+                       var currentSortIcon = tableHeaders[currentFilterColumn].matches('[aria-sort]') ? (tableHeaders[currentFilterColumn].getAttribute('aria-sort') === 'ascending' ? '▲' : '▼') : '▼'; // A bit complex, maybe simplify
+                       filterIcon.textContent = "▼"; // Simplified: just reset to default arrow when filter cleared
+                    }
+                } else {
+                    // Otherwise, apply the filter with the selected values
+                    currentFilterValues[currentFilterColumn] = selectedValues;
+                    filterIcon.textContent = "🔍"; // Set filter indicator
+                }
+
+
+                document.getElementById("filterDropdown").classList.remove("show");
+                filterTable(); // Re-apply filters to the main table
+            }
+
+            function clearFilter() {
+                 // Clear filter for the current column
+                 if (currentFilterColumn in currentFilterValues) {
+                     delete currentFilterValues[currentFilterColumn];
+                 }
+
+                 // Reset header icon (only if it's the filter icon)
+                 var filterIcon = tableHeaders[currentFilterColumn].querySelector(".filter-icon");
+                 if (filterIcon.textContent === "🔍") {
+                    filterIcon.textContent = "▼"; // Reset to default
+                 }
+
+
+                 // Check all checkboxes in the dropdown (even hidden ones by search)
+                 var checkboxes = document.querySelectorAll("#dropdown-items .dropdown-item input[type='checkbox']");
+                 checkboxes.forEach(function(checkbox) { checkbox.checked = true; });
+
+                 document.getElementById("filterDropdown").classList.remove("show");
+                 filterTable(); // Re-apply filters
+            }
+
+            function toggleAll(checked) {
+                var checkboxes = document.querySelectorAll("#dropdown-items .dropdown-item:not(:first-child) input[type='checkbox']");
+                checkboxes.forEach(function(checkbox) {
+                    // Only toggle visible checkboxes (respecting dropdown search)
+                    if (checkbox.closest('.dropdown-item').style.display !== "none") {
+                        checkbox.checked = checked;
+                    }
+                });
+            }
+
+            function updateSelectAllCheckbox() {
+                 var allCheckbox = document.getElementById("select-all");
+                 if (!allCheckbox) return; // Should exist, but safety check
+
+                 var checkboxes = document.querySelectorAll("#dropdown-items .dropdown-item:not(:first-child) input[type='checkbox']");
+                 var allVisibleChecked = true;
+                 var noneVisibleChecked = true;
+                 var anyVisible = false;
+
+                 checkboxes.forEach(function(checkbox) {
+                     // Only consider checkboxes that are currently visible in the dropdown
+                     if (checkbox.closest('.dropdown-item').style.display !== "none") {
+                         anyVisible = true;
+                         if (checkbox.checked) {
+                             noneVisibleChecked = false;
+                         } else {
+                             allVisibleChecked = false;
+                         }
+                     }
+                 });
+
+                 if (!anyVisible) { // Handle case where search filters out everything
+                     allCheckbox.checked = false;
+                     allCheckbox.indeterminate = false;
+                 } else {
+                     allCheckbox.checked = allVisibleChecked;
+                     // Indeterminate if some visible items are checked, but not all visible items are checked
+                     allCheckbox.indeterminate = !allVisibleChecked && !noneVisibleChecked;
+                 }
+            }
+
+            // Check if a row passes all active column filters
+            function passesColumnFilters(row) {
+                var cells = row.getElementsByTagName("td");
+                for (var colIdx in currentFilterValues) {
+                    // Ensure colIdx is a valid index for the row's cells
+                    if (cells.length > colIdx) {
+                        var cellValue = (cells[colIdx].textContent || cells[colIdx].innerText).trim();
+                        var allowedValues = currentFilterValues[colIdx]; // This is the array of selected values for this column's filter
+
+                        // If there's an active filter for this column (allowedValues exists)
+                        // AND the current cell's value is NOT in the list of allowed values...
+                        if (allowedValues && !allowedValues.includes(cellValue)) {
+                            return false; // ...then this row fails the filter
+                        }
+                    }
+                }
+                return true; // Passes all active filters (or no filters are active)
+            }
+
+            // Initial setup: Apply any default filters if needed (usually none)
+            // filterTable(); // Call once on load if you have default filters
+
+            </script>
+        
+        </body>
+        </html>
+        

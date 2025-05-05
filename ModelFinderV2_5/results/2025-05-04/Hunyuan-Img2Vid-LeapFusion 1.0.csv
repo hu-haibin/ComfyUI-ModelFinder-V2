@@ -1,0 +1,6 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,"68,69",HyVideoLoraSelect,closeupface-v1.1.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22closeupface-v1.1.safetensors%22
+2,1,HyVideoModelLoader,hunyuan_video_720_cfgdistill_fp8_e4m3fn.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22hunyuan_video_720_cfgdistill_fp8_e4m3fn.safetensors%22
+3,7,HyVideoVAELoader,hunyuan_video_vae_bf16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22hunyuan_video_vae_bf16.safetensors%22
+4,56,HyVideoLoraSelect,hyvideo_FastVideo_LoRA-fp8.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22hyvideo_FastVideo_LoRA-fp8.safetensors%22
+5,"41,50","HyVideoLoraSelect,Note",img2vid.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22img2vid.safetensors%22

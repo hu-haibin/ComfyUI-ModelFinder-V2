@@ -1,0 +1,3 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,"42,48,54,35,18,78,101,128,130,119","ControlNetLoader,ACN_ControlNet++LoaderSingle,ACN_ControlNet++LoaderSingle,ControlNetLoader,ACN_ControlNet++LoaderSingle,ACN_ControlNet++LoaderSingle",diffusion_pytorch_model_promax.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22diffusion_pytorch_model_promax.safetensors%22
+2,"1,123",Efficient Loader,leosamsHelloworldXL_helloworldXL70.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22leosamsHelloworldXL_helloworldXL70.safetensors%22

@@ -1,6 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,54,CLIPVisionLoader,clip_vision_h_fp8_e4m3fn.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22clip_vision_h_fp8_e4m3fn.safetensors%22
-2,38,CLIPLoader,umt5_xxl_fp8_e4m3fn_scaled.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22umt5_xxl_fp8_e4m3fn_scaled.safetensors%22
-3,67,LoaderGGUF,wan2.1-i2v-14b-480p-Q4_K_S.gguf,,,,https://www.bing.com/search?q=site:huggingface.co+%22wan2.1-i2v-14b-480p-Q4_K_S.gguf%22
-4,39,VAELoader,wan_2.1_vae_fp8_e4m3fn.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22wan_2.1_vae_fp8_e4m3fn.safetensors%22
-5,71,LoraLoaderModelOnly,大摆锤_汝窑版dabaichui_ruyao_wan_v2.1-000020_comfy.safetensors,,,,https://www.bing.com/search?q=site:liblib.art+%22大摆锤_汝窑版dabaichui_ruyao_wan_v2.1-000020_comfy.safetensors%22

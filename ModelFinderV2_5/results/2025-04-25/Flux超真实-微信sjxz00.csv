@@ -1,5 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,10,VAELoader,ae.sft,,,,https://www.bing.com/search?q=site:huggingface.co+%22ae.sft%22
-2,12,UNETLoader,flux1-dev.sft,,,,https://www.bing.com/search?q=site:huggingface.co+%22flux1-dev.sft%22
-3,72,LoraLoaderModelOnly,lora.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22lora.safetensors%22
-4,11,DualCLIPLoader,t5xxl_fp16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22t5xxl_fp16.safetensors%22

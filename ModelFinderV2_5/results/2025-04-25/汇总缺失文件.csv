@@ -1,6 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,38,ControlNetLoader,CN-anytest_v4-marged.safetensors,已处理,https://huggingface.co/2vXpSwA7/iroiro-lora/resolve/main/test_controlnet2/CN-anytest_v4-marged.safetensors,https://hf-mirror.com/2vXpSwA7/iroiro-lora/resolve/main/test_controlnet2/CN-anytest_v4-marged.safetensors,
-2,34,ControlNetLoader,TTPLANET_Controlnet_Tile_realistic_v2_fp16.safetensors,已处理,https://huggingface.co/TTPlanet/TTPLanet_SDXL_Controlnet_Tile_Realistic/resolve/main/TTPLANET_Controlnet_Tile_realistic_v2_fp16.safetensors,https://hf-mirror.com/TTPlanet/TTPLanet_SDXL_Controlnet_Tile_Realistic/resolve/main/TTPLANET_Controlnet_Tile_realistic_v2_fp16.safetensors,
-3,20,CheckpointLoaderSimple,anything-v5-PrtRE.safetensors,已处理,https://huggingface.co/xiaofujie/anything/resolve/main/anything-v5-PrtRE.safetensors,https://hf-mirror.com/xiaofujie/anything/resolve/main/anything-v5-PrtRE.safetensors,
-4,28,ControlNetLoader,control_v11p_sd15_mlsd_fp16.safetensors,已处理,https://huggingface.co/martintomov/comfy/resolve/main/controlnet/control_v11p_sd15_mlsd_fp16.safetensors,https://hf-mirror.com/martintomov/comfy/resolve/main/controlnet/control_v11p_sd15_mlsd_fp16.safetensors,
-5,18,Miaoshouai_Tagger,promptgen_base_v2.0,,,,https://www.bing.com/search?q=site:huggingface.co+%22promptgen_base_v2.0%22

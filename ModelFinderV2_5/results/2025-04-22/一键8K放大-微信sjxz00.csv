@@ -1,8 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,78,UpscaleModelLoader,4x_NMKD-Superscale-SP_178000_G.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%224x_NMKD-Superscale-SP_178000_G.pth%22
-2,84,CLIPVisionLoader,CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors%22
-3,80,ControlNetLoader,control_v11f1e_sd15_tile.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22control_v11f1e_sd15_tile.pth%22
-4,83,IPAdapterModelLoader,ip-adapter-plus_sd15.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22ip-adapter-plus_sd15.safetensors%22
-5,79,LoraLoader,lcm-lora-sdv1-5.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22lcm-lora-sdv1-5.safetensors%22
-6,76,CheckpointLoaderSimple,realisticVisionV51_v51VAE.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22realisticVisionV51_v51VAE.safetensors%22
-7,4,CheckpointLoaderSimple,stablesr_768v_000139.ckpt,,,,https://www.bing.com/search?q=site:huggingface.co+%22stablesr_768v_000139.ckpt%22

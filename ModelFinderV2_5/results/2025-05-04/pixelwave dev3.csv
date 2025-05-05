@@ -1,0 +1,6 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,11,VAELoader,ae.sft,,,,https://www.bing.com/search?q=site:huggingface.co+%22ae.sft%22
+2,10,DualCLIPLoader,clip_l.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22clip_l.safetensors%22
+3,21,UltralyticsDetectorProvider,face_yolov8m.pt,,,,https://www.bing.com/search?q=site:huggingface.co+%22face_yolov8m.pt%22
+4,13,UNETLoader,pixelwave_flux1Dev03.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22pixelwave_flux1Dev03.safetensors%22
+5,22,SAMLoader,sam_vit_b_01ec64.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22sam_vit_b_01ec64.pth%22

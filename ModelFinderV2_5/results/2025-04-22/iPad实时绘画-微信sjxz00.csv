@@ -1,5 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,37,ControlNetLoader,control_scribble-fp16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22control_scribble-fp16.safetensors%22
-2,4,CheckpointLoaderSimple,dreamshaper_8.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22dreamshaper_8.safetensors%22
-3,10,LoraLoader,lcm_sd1.5_pytorch_lora_weights.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22lcm_sd1.5_pytorch_lora_weights.safetensors%22
-4,30,VAELoader,vae-ft-mse-840000-ema-pruned.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22vae-ft-mse-840000-ema-pruned.safetensors%22

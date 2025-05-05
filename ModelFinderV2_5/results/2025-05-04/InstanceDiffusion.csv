@@ -1,0 +1,6 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,58,UpscaleModelLoader,OmniSR_X2_DIV2K.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22OmniSR_X2_DIV2K.safetensors%22
+2,13,CheckpointLoaderSimple,majicmixRealistic_v7.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22majicmixRealistic_v7.safetensors%22
+3,32,LoraLoaderModelOnly,pytorch_lora_weights.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22pytorch_lora_weights.safetensors%22
+4,42,RIFE VFI,rife49.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22rife49.pth%22
+5,23,ADE_LoadAnimateDiffModel,v3_sd15_mm.ckpt,,,,https://www.bing.com/search?q=site:huggingface.co+%22v3_sd15_mm.ckpt%22

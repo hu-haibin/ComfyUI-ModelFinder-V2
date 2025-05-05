@@ -1,4 +1,3 @@
-# model_finder/analysis_model.py
 import os
 import sys
 import json
@@ -112,18 +111,76 @@ class AnalysisModel:
                 logger.error(f"Invalid workflow format: Root is not a dict or 'nodes' key missing in {workflow_file}")
                 return []
 
-            node_model_indices = {"default": [0], "SUPIR_Upscale": [0, 1] ,"DualCLIPLoader": [1, 2]} # Simplified example
+            node_model_indices = {"default": [0], "SUPIR_Upscale": [0, 1]} # Simplified example
             model_extensions = ('.safetensors', '.pth', '.ckpt', '.pt', '.bin', '.onnx')
 
-            model_node_types = [ "CheckpointLoaderSimple", "CheckpointLoader", "ControlNetLoader",
-                        "DiffControlNetLoader", "LoraLoader", "CLIPLoader", "UNETLoader",
-                        "VAELoader", "ModelLoader", "UpscaleModelLoader", "StyleModelLoader",
-                        "CLIPVisionLoader", "GANLoader", "InstantIDModelLoader",
-                        "EcomID_PulidModelLoader", "PulidEvaClipLoader",
-                        "UltralyticsDetectorProvider", "SUPIR_Upscale", "DownloadAndLoadGIMMVFIModel",
-                        "LoadWanVideoClipTextEncoder","WanVideoVAELoader","WanVideoModelLoader",
-                        "WanVideoLoraSelect","LoadWanVideoT5TextEncoder","DownloadAndLoadGIMMVFIModel",
-                        "UpscaleModelLoader","Miaoshouai_Tagger","DualCLIPLoader"]  # 添加了 DiffusionModelLoaderKJ
+            model_node_types = [ "CheckpointLoader", 
+                        "DiffControlNetLoader", 
+                        "VAELoader",
+                        "ModelLoader",
+                        "GANLoader", 
+                        "PulidEvaClipLoader",
+                        "SUPIR_Upscale",
+                        "WanVideoLoraSelect",
+                        "DownloadAndLoadGIMMVFIModel",
+                        "UpscaleModelLoader",
+                        "Miaoshouai_Tagger",
+                        "ACN_ControlNet++LoaderSingle",
+                        "ADE_AnimateDiffLoaderWithContext",
+                        "ADE_LoadAnimateDiffModel",
+                        "ApplyStableSRUpscaler",
+                        "AuraSR.AuraSRUpscaler",
+                        "BrushNetLoader",
+                        "CLIPLoader",
+                        "CLIPVisionLoader",
+                        "CheckpointLoaderSimple",
+                        "ControlNetLoader",
+                        "DepthAnythingPreprocessor",
+                        "DownloadAndLoadGIMMVFIModel",
+                        "DownloadAndLoadMochiModel",
+                        "DualCLIPLoader",
+                        "DynamiCrafterModelLoader",
+                        "EcomID_PulidModelLoader",
+                        "Eff. Loader SDXL",
+                        "Efficient Loader",
+                        "FaceRestoreModelLoader",   
+                        "FantasyTalkingModelLoader",
+                        "FluxLoraLoader",
+                        "FluxTrainModelSelect",     
+                        "HyVideoLoraSelect",
+                        "HyVideoModelLoader",
+                        "HyVideoVAELoader",
+                        "INPAINT_LoadFooocusInpaint",
+                        "IPAdapterSD3Loader",
+                        "ImageOnlyCheckpointLoader",
+                        "InstantIDModelLoader",
+                        "LoadAndApplyICLightUnet",
+                        "LoadFluxIPAdapter",
+                        "LoadICLightUnetDiffusers",
+                        "LoadWanVideoClipTextEncoder",
+                        "LoadWanVideoT5TextEncoder",
+                        "LoraLoader",
+                        "MZ_ChatGLM3Loader",
+                        "MZ_IPAdapterModelLoaderKolors",
+                        "MZ_KolorsUNETLoader",
+                        "MZ_KolorsUNETLoaderV2",
+                        "MochiVAEEncoderLoader",
+                        "PhotoMakerLoaderPlus",
+                        "PowerPaintCLIPLoader",
+                        "PulidFluxModelLoader",
+                        "PulidModelLoader",
+                        "RIFE VFI",
+                        "ReActorFaceSwap",
+                        "SAMLoader",
+                        "SONICTLoader",
+                        "StyleModelLoader",
+                        "TripleCLIPLoader",
+                        "UNETLoader",
+                        "UltralyticsDetectorProvider",
+                        "UpscaleModelLoader",
+                        "WanVideoLoraSelect",
+                        "WanVideoModelLoader",
+                        "WanVideoVAELoader",]  # 添加了 DiffusionModelLoaderKJ
            
 
             file_references = []
@@ -268,6 +325,7 @@ class AnalysisModel:
             logger.error(f"Error creating CSV file for {output_basename}", exc_info=True)
             return None
         
+
     def search_model_links(self, csv_file, progress_callback=None):
         """Searches model download links using Bing and DrissionPage."""
         logger.info(f"Starting model link search for CSV: {csv_file}")
@@ -404,15 +462,14 @@ class AnalysisModel:
                         search_box.clear()
                         search_box.input(search_query)
                         time.sleep(random.uniform(0.5, 1.0))
-                        page.ele('.sb_search_btn').click() # Click search button explicitly
+                        page.ele('#search_icon',timeout=5).click() # Click search button explicitly
                         # page.run_js("document.querySelector('#sb_form').submit();") # JS submit can be less reliable
-                        time.sleep(random.uniform(2.5, 5))
+
                         page.wait.load_start(timeout=15) # Wait for page load after submit
 
                         # --- Extract results ---
                         # Use more robust selectors, wait for results container
-                        results_container = page.ele('#b_results', timeout=5)
-                        time.sleep(random.uniform(1.5, 3.5))
+                        results_container = page.ele('#b_results', timeout=10)
                         if not results_container:
                              logger.warning(f"Search results container not found for '{keyword}'.")
                              df.loc[df_index, '状态'] = '未找到'
@@ -490,7 +547,7 @@ class AnalysisModel:
         except Exception as e:
             logger.error(f"Critical error processing CSV file {csv_file}", exc_info=True)
             return False # Indicate failure
-
+        
     def batch_process_workflows(self, directory, file_pattern="*.json", progress_callback=None):
         """Processes all workflow files in a directory."""
         logger.info(f"Starting batch process for directory: {directory}, pattern: {file_pattern}")

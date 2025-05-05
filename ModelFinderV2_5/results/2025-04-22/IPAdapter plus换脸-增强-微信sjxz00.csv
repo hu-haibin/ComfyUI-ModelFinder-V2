@@ -1,7 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,31,CLIPVisionLoader,CLIP-ViT-bigG-14-laion2B-39B-b160k.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22CLIP-ViT-bigG-14-laion2B-39B-b160k.safetensors%22
-2,32,InsightFaceLoader,CUDA,,,,https://www.bing.com/search?q=site:huggingface.co+%22CUDA%22
-3,2,CheckpointLoaderSimple,helloip3dIP_helloip3dV13e.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22helloip3dIP_helloip3dV13e.safetensors%22
-4,14,LoraLoaderModelOnly,ip-adapter-faceid-plusv2_sd15_lora.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22ip-adapter-faceid-plusv2_sd15_lora.safetensors%22
-5,9,IPAdapterModelLoader,ip-adapter-faceid_sd15.bin,,,,https://www.bing.com/search?q=site:huggingface.co+%22ip-adapter-faceid_sd15.bin%22
-6,7,VAELoader,vae-ft-mse-840000-ema-pruned.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22vae-ft-mse-840000-ema-pruned.safetensors%22

@@ -1,5 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,10,LoraLoader,ahbs.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22ahbs.safetensors%22
-2,11,ControlNetLoader,control_v11p_sd15_openpose.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22control_v11p_sd15_openpose.pth%22
-3,22,ControlNetLoader,control_v11p_sd15_scribble.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22control_v11p_sd15_scribble.pth%22
-4,4,CheckpointLoaderSimple,v1-5-pruned.ckpt,,,,https://www.bing.com/search?q=site:huggingface.co+%22v1-5-pruned.ckpt%22

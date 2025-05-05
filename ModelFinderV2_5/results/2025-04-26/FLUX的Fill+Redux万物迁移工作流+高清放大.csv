@@ -1,8 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,10,UNETLoader,F.1-Fill-fp16_Inpaint&Outpaint_1.0,,,,https://www.bing.com/search?q=site:huggingface.co+%22F.1-Fill-fp16_Inpaint&Outpaint_1.0%22
-2,41,SUPIR_Upscale,SUPIR-v0F_fp16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22SUPIR-v0F_fp16.safetensors%22
-3,12,VAELoader,ae.sft,,,,https://www.bing.com/search?q=site:huggingface.co+%22ae.sft%22
-4,18,StyleModelLoader,flux1-redux-dev,,,,https://www.bing.com/search?q=site:huggingface.co+%22flux1-redux-dev%22
-5,41,SUPIR_Upscale,juggernautXL_v8Rundiffusion_V8,,,,https://www.bing.com/search?q=site:huggingface.co+%22juggernautXL_v8Rundiffusion_V8%22
-6,19,CLIPVisionLoader,sigclip_vision_patch14_384,,,,https://www.bing.com/search?q=site:huggingface.co+%22sigclip_vision_patch14_384%22
-7,11,DualCLIPLoader,t5xxl_fp8_e4m3fn,,,,https://www.bing.com/search?q=site:huggingface.co+%22t5xxl_fp8_e4m3fn%22

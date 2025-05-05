@@ -1,5 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,22,GroundingDinoModelLoader (segment anything),GroundingDINO_SwinT_OGC (694MB),,,,https://www.bing.com/search?q=site:huggingface.co+%22GroundingDINO_SwinT_OGC+(694MB)%22
-2,23,SAMModelLoader (segment anything),sam_hq_vit_l (1.25GB),,,,https://www.bing.com/search?q=site:huggingface.co+%22sam_hq_vit_l+(1.25GB)%22
-3,8,VAELoader,sdxl_vae.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22sdxl_vae.safetensors%22
-4,1,CheckpointLoaderSimple,wildcardxXLLIGHTNING_wildcardxXL.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22wildcardxXLLIGHTNING_wildcardxXL.safetensors%22

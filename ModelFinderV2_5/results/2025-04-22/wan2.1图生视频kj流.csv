@@ -1,5 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,22,UpscaleModelLoader,RealESRGAN_x2.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22RealESRGAN_x2.pth%22
-2,8,WanVideoModelLoader,Wan2_1-I2V-14B-720P_fp8_e4m3fn.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22Wan2_1-I2V-14B-720P_fp8_e4m3fn.safetensors%22
-3,5,WanVideoVAELoader,Wan2_1_VAE_bf16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22Wan2_1_VAE_bf16.safetensors%22
-4,21,DownloadAndLoadGIMMVFIModel,gimmvfi_f_arb_lpips_fp32.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22gimmvfi_f_arb_lpips_fp32.safetensors%22

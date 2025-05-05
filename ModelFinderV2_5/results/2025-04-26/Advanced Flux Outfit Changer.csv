@@ -1,8 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,77,LoraLoaderModelOnly,Catviton.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22Catviton.safetensors%22
-2,153,LoraLoaderModelOnly,FLUX.1-Turbo-Alpha.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22FLUX.1-Turbo-Alpha.safetensors%22
-3,32,VAELoader,ae.sft,,,,https://www.bing.com/search?q=site:huggingface.co+%22ae.sft%22
-4,142,UnetLoaderGGUF,flux1-fill-dev-fp16-Q8_0-GGUF.gguf,,,,https://www.bing.com/search?q=site:huggingface.co+%22flux1-fill-dev-fp16-Q8_0-GGUF.gguf%22
-5,80,StyleModelLoader,flux1-redux-dev.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22flux1-redux-dev.safetensors%22
-6,82,CLIPVisionLoader,sigclip_vision_patch14_384.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22sigclip_vision_patch14_384.safetensors%22
-7,143,DualCLIPLoaderGGUF,t5-v1_1-xxl-encoder-Q6_K.gguf,,,,https://www.bing.com/search?q=site:huggingface.co+%22t5-v1_1-xxl-encoder-Q6_K.gguf%22

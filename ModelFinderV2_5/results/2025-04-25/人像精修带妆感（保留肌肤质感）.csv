@@ -1,7 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,42,UpscaleModelLoader,ESRGAN_4x,,,,https://www.bing.com/search?q=site:huggingface.co+%22ESRGAN_4x%22
-2,24,ControlNetLoader,control_v11f1e_sd15_tile,,,,https://www.bing.com/search?q=site:huggingface.co+%22control_v11f1e_sd15_tile%22
-3,47,UltralyticsDetectorProvider,face_yolov8m,,,,https://www.bing.com/search?q=site:huggingface.co+%22face_yolov8m%22
-4,27,CheckpointLoaderSimple,majicMIX realistic 麦橘写实_v7,,,,https://www.bing.com/search?q=site:liblib.art+%22majicMIX+realistic+麦橘写实_v7%22
-5,46,LoraLoader,极致肤感 | 提升皮肤纹理质感_v-001,,,,https://www.bing.com/search?q=site:liblib.art+%22极致肤感+|+提升皮肤纹理质感_v-001%22
-6,44,LoraLoader,林鹤-妆容，美颜，磨皮，滤镜，四合一差异炼丹功能性lora。_v1,,,,https://www.bing.com/search?q=site:liblib.art+%22林鹤-妆容，美颜，磨皮，滤镜，四合一差异炼丹功能性lora。_v1%22

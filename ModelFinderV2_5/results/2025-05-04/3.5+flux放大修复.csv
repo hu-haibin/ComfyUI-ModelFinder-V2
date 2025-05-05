@@ -1,0 +1,9 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,388,UpscaleModelLoader,4x_NMKD-Siax_200k.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%224x_NMKD-Siax_200k.pth%22
+2,105,Note,Make sure the resolution is multiple of 64 pixels and adds up to around 1 megapixel.,,,,https://www.bing.com/search?q=site:huggingface.co+%22Make+sure+the+resolution+is+multiple+of+64+pixels+and+adds+up+to+around+1+megapixel.%22
+3,11,TripleCLIPLoader,clip_g.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22clip_g.safetensors%22
+4,380,CheckpointLoaderSimple,flux1-dev-fp8.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22flux1-dev-fp8.safetensors%22
+5,384,UltralyticsDetectorProvider,hand_yolov8s.pt,,,,https://www.bing.com/search?q=site:huggingface.co+%22hand_yolov8s.pt%22
+6,334,CheckpointLoaderSimple,juggernautXL_v9Rdphoto2Lightning.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22juggernautXL_v9Rdphoto2Lightning.safetensors%22
+7,385,SAMLoader,sam_vit_b_01ec64.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22sam_vit_b_01ec64.pth%22
+8,4,CheckpointLoaderSimple,sd3.5_large.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22sd3.5_large.safetensors%22

@@ -1,7 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,49,UpscaleModelLoader,4x_foolhardy_Remacri.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%224x_foolhardy_Remacri.pth%22
-2,47,LoraLoader,SDXL_offset_example-lora_1.0.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22SDXL_offset_example-lora_1.0.safetensors%22
-3,13,CheckpointLoaderSimple,Stable Diffusion SDXL refiner_1.0 refiner.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22Stable+Diffusion+SDXL+refiner_1.0+refiner.safetensors%22
-4,2,CheckpointLoaderSimple,XLMoyouArtificial_v01.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22XLMoyouArtificial_v01.safetensors%22
-5,60,LoraLoader,add-detail-xl.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22add-detail-xl.safetensors%22
-6,61,VAELoader,sdxl_vae.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22sdxl_vae.safetensors%22

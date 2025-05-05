@@ -1,0 +1,9 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,84,CheckpointLoaderSimple,Juggernaut_X_RunDiffusion.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22Juggernaut_X_RunDiffusion.safetensors%22
+2,98,LoraLoader,add-detail-xl.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22add-detail-xl.safetensors%22
+3,"66,134,107,150",MZ_ChatGLM3Loader,chatglm3-8bit.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22chatglm3-8bit.safetensors%22
+4,"59,113,140,142,156,158,115","MZ_KolorsUNETLoader,VAELoader,VAELoader,MZ_KolorsUNETLoaderV2,VAELoader,MZ_KolorsUNETLoaderV2,MZ_KolorsUNETLoaderV2",diffusion_pytorch_model.fp16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22diffusion_pytorch_model.fp16.safetensors%22
+5,"92,144,160",ControlNetLoader,diffusion_pytorch_model.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22diffusion_pytorch_model.safetensors%22
+6,"99,130",MZ_IPAdapterModelLoaderKolors,ip_adapter_plus_general.bin,,,,https://www.bing.com/search?q=site:huggingface.co+%22ip_adapter_plus_general.bin%22
+7,"103,132",CLIPVisionLoader,pytorch_model.bin,,,,https://www.bing.com/search?q=site:huggingface.co+%22pytorch_model.bin%22
+8,70,VAELoader,sdxl_vae_fp16fix.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22sdxl_vae_fp16fix.safetensors%22

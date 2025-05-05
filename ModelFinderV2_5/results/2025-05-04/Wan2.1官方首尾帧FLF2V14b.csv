@@ -1,0 +1,6 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,22,WanVideoModelLoader,Wan2_1-FLF2V-14B-720P_fp16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22Wan2_1-FLF2V-14B-720P_fp16.safetensors%22
+2,38,WanVideoVAELoader,Wan2_1_VAE_bf16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22Wan2_1_VAE_bf16.safetensors%22
+3,111,DownloadAndLoadGIMMVFIModel,gimmvfi_r_arb_lpips_fp32.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22gimmvfi_r_arb_lpips_fp32.safetensors%22
+4,56,LoadWanVideoClipTextEncoder,open-clip-xlm-roberta-large-vit-huge-14_fp16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22open-clip-xlm-roberta-large-vit-huge-14_fp16.safetensors%22
+5,11,LoadWanVideoT5TextEncoder,umt5-xxl-enc-bf16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22umt5-xxl-enc-bf16.safetensors%22

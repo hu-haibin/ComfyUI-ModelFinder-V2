@@ -1,7 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,22,CheckpointLoaderSimple,majicmixRealistic_v7.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22majicmixRealistic_v7.safetensors%22
-2,20,ADE_AnimateDiffLoaderWithContext,mm_sd_v15_v2.ckpt,,,,https://www.bing.com/search?q=site:huggingface.co+%22mm_sd_v15_v2.ckpt%22
-3,32,ADE_AnimateDiffLoRALoader,v2_lora_PanLeft.ckpt,,,,https://www.bing.com/search?q=site:huggingface.co+%22v2_lora_PanLeft.ckpt%22
-4,2,VAELoader,vae-ft-mse-840000-ema-pruned.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22vae-ft-mse-840000-ema-pruned.safetensors%22
-5,29,LoraLoader,一张初恋脸_v1.0.safetensors,,,,https://www.bing.com/search?q=site:liblib.art+%22一张初恋脸_v1.0.safetensors%22
-6,31,LoraLoader,中式审美，网红脸系列_V1.0.safetensors,,,,https://www.bing.com/search?q=site:liblib.art+%22中式审美，网红脸系列_V1.0.safetensors%22

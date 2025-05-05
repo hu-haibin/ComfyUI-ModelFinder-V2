@@ -1,7 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,232,LoraLoader,add-detail-xl.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22add-detail-xl.safetensors%22
-2,37,CheckpointLoaderSimple,dreamshaperXL_v21TurboDPMSDE.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22dreamshaperXL_v21TurboDPMSDE.safetensors%22
-3,499,LLava Loader Simple,ggml-model-q4_k.gguf,,,,https://www.bing.com/search?q=site:huggingface.co+%22ggml-model-q4_k.gguf%22
-4,110,IPAdapterModelLoader,ip-adapter-plus_sdxl_vit-h.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22ip-adapter-plus_sdxl_vit-h.safetensors%22
-5,500,LlavaClipLoader,mmproj-model-f16.gguf,,,,https://www.bing.com/search?q=site:huggingface.co+%22mmproj-model-f16.gguf%22
-6,111,CLIPVisionLoader,open_clip_pytorch_model.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22open_clip_pytorch_model.safetensors%22

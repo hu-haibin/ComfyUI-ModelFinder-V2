@@ -1,7 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,54,LoraLoaderModelOnly,AWPortraitFL LoRA_1.0.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22AWPortraitFL+LoRA_1.0.safetensors%22
-2,35,PulidFluxInsightFaceLoader,CPU,,,,https://www.bing.com/search?q=site:huggingface.co+%22CPU%22
-3,12,UNETLoader,FLUX dev+8step.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22FLUX+dev+8step.safetensors%22
-4,10,VAELoader,ae.sft,,,,https://www.bing.com/search?q=site:huggingface.co+%22ae.sft%22
-5,34,PulidFluxModelLoader,pulid_flux_v0.9.0.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22pulid_flux_v0.9.0.safetensors%22
-6,11,DualCLIPLoader,t5xxl_fp8_e4m3fn.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22t5xxl_fp8_e4m3fn.safetensors%22

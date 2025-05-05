@@ -1,0 +1,5 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,45,UpscaleModelLoader,4x_NMKD-Siax_200k.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%224x_NMKD-Siax_200k.pth%22
+2,37,CheckpointLoaderSimple,Juggernaut_X_RunDiffusion.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22Juggernaut_X_RunDiffusion.safetensors%22
+3,10,Efficient Loader,LEOSAM HelloWorld 极速版_6.0 Lightning.safetensors,,,,https://www.bing.com/search?q=site:liblib.art+%22LEOSAM+HelloWorld+极速版_6.0+Lightning.safetensors%22
+4,32,ControlNetLoader,diffusion_pytorch_model.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22diffusion_pytorch_model.safetensors%22

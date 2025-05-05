@@ -1,0 +1,6 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,184,Note,"Input can be nothing for text2vid, a single image for image2vid or any number of frames for video extension",,,,"https://www.bing.com/search?q=site:huggingface.co+%22Input+can+be+nothing+for+text2vid,+a+single+image+for+image2vid+or+any+number+of+frames+for+video+extension%22"
+2,188,Note,Number of frames to continue from for the next extension,,,,https://www.bing.com/search?q=site:huggingface.co+%22Number+of+frames+to+continue+from+for+the+next+extension%22
+3,22,WanVideoModelLoader,Wan2_1-SkyReels-V2-DF-14B-540P_fp8_e4m3fn.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22Wan2_1-SkyReels-V2-DF-14B-540P_fp8_e4m3fn.safetensors%22
+4,38,WanVideoVAELoader,Wan2_1_VAE_bf16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22Wan2_1_VAE_bf16.safetensors%22
+5,195,LoadWanVideoT5TextEncoder,umt5-xxl-enc-bf16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22umt5-xxl-enc-bf16.safetensors%22

@@ -1,7 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,6,ESAM_ModelLoader_Zho,CUDA,,,,https://www.bing.com/search?q=site:huggingface.co+%22CUDA%22
-2,92,GroundingDinoModelLoader (segment anything),GroundingDINO_SwinB (938MB),,,,https://www.bing.com/search?q=site:huggingface.co+%22GroundingDINO_SwinB+(938MB)%22
-3,89,ControlNetLoader,control-lora-openposeXL2-rank256.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22control-lora-openposeXL2-rank256.safetensors%22
-4,5,Yoloworld_ModelLoader_Zho,l,,,,https://www.bing.com/search?q=site:huggingface.co+%22l%22
-5,9,CheckpointLoaderSimple,leosamsHelloworldXL_helloworldXL50GPT4V.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22leosamsHelloworldXL_helloworldXL50GPT4V.safetensors%22
-6,91,SAMModelLoader (segment anything),sam_vit_h (2.56GB),,,,https://www.bing.com/search?q=site:huggingface.co+%22sam_vit_h+(2.56GB)%22

@@ -1,0 +1,5 @@
+﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
+1,2,UNETLoader,Flex.2-preview.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22Flex.2-preview.safetensors%22
+2,3,VAELoader,ae.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22ae.safetensors%22
+3,4,DualCLIPLoader,clip_l.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22clip_l.safetensors%22
+4,15,UNETLoader,flux1-fill-dev.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22flux1-fill-dev.safetensors%22
