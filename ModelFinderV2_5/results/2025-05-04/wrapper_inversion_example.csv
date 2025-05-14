@@ -1,4 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,4,DownloadAndLoadMochiModel,mochi_preview_dit_bf16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22mochi_preview_dit_bf16.safetensors%22
-2,27,MochiVAEEncoderLoader,mochi_preview_vae_encoder_bf16_.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22mochi_preview_vae_encoder_bf16_.safetensors%22
-3,2,CLIPLoader,t5xxl_fp16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22t5xxl_fp16.safetensors%22

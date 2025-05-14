@@ -1,5 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,2,ControlNetLoader,diffusion_pytorch_model.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22diffusion_pytorch_model.safetensors%22
-2,1,InstantIDModelLoader,ip-adapter.bin,,,,https://www.bing.com/search?q=site:huggingface.co+%22ip-adapter.bin%22
-3,9,EcomID_PulidModelLoader,ip-adapter_pulid_sdxl_fp16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22ip-adapter_pulid_sdxl_fp16.safetensors%22
-4,4,CheckpointLoaderSimple,juggernautXL_v9Rdphoto2Lightning.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22juggernautXL_v9Rdphoto2Lightning.safetensors%22

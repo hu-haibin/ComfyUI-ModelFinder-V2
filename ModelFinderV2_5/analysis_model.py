@@ -45,12 +45,27 @@ class AnalysisModel:
     def remove_chinese_prefix(self, filename):
         """
         Removes ONLY the Chinese prefix from a filename, if it exists at the beginning.
-        Examples:
-        "万相clip_vision_h.safetensors" -> "clip_vision_h.safetensors"
-        "牛奶abc_def_pingguo.safetensors" -> "abc_def_pingguo.safetensors"
-        "abc一二三def.safetensors" -> "abc一二三def.safetensors" (no change)
-        "abcdef一二三.safetensors" -> "abcdef一二三.safetensors" (no change)
+        特殊处理：如果是类似"基础算法_F.1"这样的特殊格式，保留完整文件名。
         """
+        # 首先检查是否是需要保留完整名称的特殊情况
+        if '_' in filename:
+            parts = filename.split('_')
+            last_part = parts[-1]
+            # 如果下划线后的部分很短，且不含中文，保留完整文件名
+            if len(last_part) <= 5 and not any('\u4e00' <= ch <= '\u9fff' for ch in last_part):
+                return filename
+
+        # 匹配以一个或多个中文字符开始的模式
+        prefix_pattern = re.compile(r"^[\u4e00-\u9fa5]+")
+
+        # 检查是否以中文开头
+        if re.search(r"^[\u4e00-\u9fa5]", filename):
+            # 移除中文前缀
+            filename = re.sub(prefix_pattern, "", filename).strip()
+            # 移除前导的分隔符
+            filename = re.sub(r"^[-_|\s]+", "", filename).strip()
+
+        return filename
 
         # 匹配以一个或多个中文字符开始的模式
         prefix_pattern = re.compile(r"^[\u4e00-\u9fa5]+")
@@ -117,7 +132,7 @@ class AnalysisModel:
                 logger.error(f"Invalid workflow format: Root is not a dict or 'nodes' key missing in {workflow_file}")
                 return []
 
-            node_model_indices = {"default": [0], "SUPIR_Upscale": [0, 1]} # Simplified example
+            node_model_indices = {"default": [0], "SUPIR_Upscale": [0, 1],"IPAdapterFluxLoader": [0, 1],"DualCLIPLoader": [0, 1]} # Simplified example
             model_extensions = ('.safetensors', '.pth', '.ckpt', '.pt', '.bin', '.onnx')
 
             model_node_types = [ "CheckpointLoader", 
@@ -149,6 +164,7 @@ class AnalysisModel:
                         "EcomID_PulidModelLoader",
                         "Eff. Loader SDXL",
                         "Efficient Loader",
+                        "easy hiresFix",
                         "FaceRestoreModelLoader",   
                         "FantasyTalkingModelLoader",
                         "FluxLoraLoader",
@@ -166,6 +182,7 @@ class AnalysisModel:
                         "LoadWanVideoClipTextEncoder",
                         "LoadWanVideoT5TextEncoder",
                         "LoraLoader",
+                        "LayerMask: LoadBiRefNetModel",
                         "MZ_ChatGLM3Loader",
                         "MZ_IPAdapterModelLoaderKolors",
                         "MZ_KolorsUNETLoader",

@@ -1,5 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,123,LayerMask: LoadBiRefNetModel,BiRefNet-general-epoch_244.pth,已处理,https://huggingface.co/yiwangsimple/BiRefNet-general-epoch_244/resolve/main/BiRefNet-general-epoch_244.pth,https://hf-mirror.com/yiwangsimple/BiRefNet-general-epoch_244/resolve/main/BiRefNet-general-epoch_244.pth,
-2,"83,116","GroundingDinoModelLoader (segment anything),LayerMask: SegmentAnythingUltra V2",GroundingDINO_SwinB (938MB),已处理,https://huggingface.co/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swint_ogc.pth,https://hf-mirror.com/ShilongLiu/GroundingDINO/resolve/main/groundingdino_swint_ogc.pth,
-3,"294,127","LayerMask: SAM2Ultra,DownloadAndLoadSAM2Model",sam2_hiera_base_plus.safetensors,已处理,https://huggingface.co/Kijai/sam2-safetensors/resolve/main/sam2_hiera_base_plus.safetensors,https://hf-mirror.com/Kijai/sam2-safetensors/resolve/main/sam2_hiera_base_plus.safetensors,
-4,"82,116","SAMModelLoader (segment anything),LayerMask: SegmentAnythingUltra V2",sam_vit_h (2.56GB),已处理,https://huggingface.co/spaces/abhishek/StableSAM/resolve/main/sam_vit_h_4b8939.pth,https://hf-mirror.com/spaces/abhishek/StableSAM/resolve/main/sam_vit_h_4b8939.pth,

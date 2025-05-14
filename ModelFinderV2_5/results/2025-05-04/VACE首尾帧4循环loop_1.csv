@@ -1,8 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,50,UpscaleModelLoader,4x_NMKD-Siax_200k.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%224x_NMKD-Siax_200k.pth%22
-2,1,Note,"If you have Triton installed, connect this for ~30% speed increase",,,,"https://www.bing.com/search?q=site:huggingface.co+%22If+you+have+Triton+installed,+connect+this+for+~30%+speed+increase%22"
-3,32,WanVideoVAELoader,Wan2_1_VAE_bf16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22Wan2_1_VAE_bf16.safetensors%22
-4,29,Note,"While the WanVideo 1.3B model is in FP32, the VACE module in it is in BF16, so using fp16_fast is technically lossy, but seems to be fine if you want the speed boost.",,,,"https://www.bing.com/search?q=site:huggingface.co+%22While+the+WanVideo+1.3B+model+is+in+FP32,+the+VACE+module+in+it+is+in+BF16,+so+using+fp16_fast+is+technically+lossy,+but+seems+to+be+fine+if+you+want+the+speed+boost.%22"
-5,31,WanVideoModelLoader,diffusion_pytorch_model.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22diffusion_pytorch_model.safetensors%22
-6,48,DownloadAndLoadGIMMVFIModel,gimmvfi_f_arb_lpips_fp32.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22gimmvfi_f_arb_lpips_fp32.safetensors%22
-7,33,LoadWanVideoT5TextEncoder,umt5-xxl-enc-bf16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22umt5-xxl-enc-bf16.safetensors%22

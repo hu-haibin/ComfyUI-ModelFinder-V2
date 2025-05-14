@@ -1,5 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,10,Efficient Loader,LEOSAM HelloWorld 新世界 _ SDXL大模型_v6.0.safetensors,,,,https://www.bing.com/search?q=site:liblib.art+%22LEOSAM+HelloWorld+新世界+_+SDXL大模型_v6.0.safetensors%22
-2,15,ControlNetLoader,diffusion_pytorch_model.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22diffusion_pytorch_model.safetensors%22
-3,13,InstantIDModelLoader,ip-adapter.bin,,,,https://www.bing.com/search?q=site:huggingface.co+%22ip-adapter.bin%22
-4,22,PulidModelLoader,ip-adapter_pulid_sdxl_fp16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22ip-adapter_pulid_sdxl_fp16.safetensors%22

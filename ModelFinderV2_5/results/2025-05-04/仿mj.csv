@@ -1,4 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,40,UltralyticsDetectorProvider,face_yolov8m.pt,,,,https://www.bing.com/search?q=site:huggingface.co+%22face_yolov8m.pt%22
-2,30,Efficient Loader,leosamsHelloworldXL_helloworldXL70.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22leosamsHelloworldXL_helloworldXL70.safetensors%22
-3,41,SAMLoader,sam_vit_b_01ec64.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22sam_vit_b_01ec64.pth%22

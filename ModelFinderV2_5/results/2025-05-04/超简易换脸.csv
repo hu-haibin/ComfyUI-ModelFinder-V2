@@ -1,7 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,10,Eff. Loader SDXL,LEOSAM HelloWorld 极速版_6.0 Lightning.safetensors,,,,https://www.bing.com/search?q=site:liblib.art+%22LEOSAM+HelloWorld+极速版_6.0+Lightning.safetensors%22
-2,23,ControlNetLoader,diffusion_pytorch_model.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22diffusion_pytorch_model.safetensors%22
-3,15,UltralyticsDetectorProvider,face_yolov8m.pt,,,,https://www.bing.com/search?q=site:huggingface.co+%22face_yolov8m.pt%22
-4,20,InstantIDModelLoader,ip-adapter.bin,,,,https://www.bing.com/search?q=site:huggingface.co+%22ip-adapter.bin%22
-5,16,SAMLoader,sam_vit_b_01ec64.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22sam_vit_b_01ec64.pth%22
-6,48,ControlNetLoader,ttplanetSDXLControlnet_v10Fp16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22ttplanetSDXLControlnet_v10Fp16.safetensors%22

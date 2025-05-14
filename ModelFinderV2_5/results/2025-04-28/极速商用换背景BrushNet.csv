@@ -1,5 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,140,UpscaleModelLoader,4x_NMKD-Siax_200k.pth,已处理,https://huggingface.co/uwg/upscaler/resolve/main/ESRGAN/4x_NMKD-Siax_200k.pth,https://hf-mirror.com/uwg/upscaler/resolve/main/ESRGAN/4x_NMKD-Siax_200k.pth,
-2,47,CheckpointLoaderSimple,juggernautXL_v9Rdphoto2Lightning.safetensors,已处理,https://huggingface.co/Maycol56v/Lusia/resolve/64e08d742f11fc9a252507790ca50976480087c9/juggernautXL_v9Rdphoto2Lightning.safetensors,https://hf-mirror.com/Maycol56v/Lusia/resolve/64e08d742f11fc9a252507790ca50976480087c9/juggernautXL_v9Rdphoto2Lightning.safetensors,
-3,"91,134",CheckpointLoaderSimple,realisticVisionV60B1_v51HyperVAE.safetensors,已处理,https://huggingface.co/Carlos2312/models/resolve/main/realisticVisionV60B1_v51HyperVAE.safetensors,https://hf-mirror.com/Carlos2312/models/resolve/main/realisticVisionV60B1_v51HyperVAE.safetensors,
-4,45,BrushNetLoader,segmentation_mask_brushnet_ckpt_sdxl_v1.safetensors,已处理,https://huggingface.co/Kuvshin/models/resolve/main/segmentation_mask_brushnet_ckpt_sdxl_v1.safetensors,https://hf-mirror.com/Kuvshin/models/resolve/main/segmentation_mask_brushnet_ckpt_sdxl_v1.safetensors,

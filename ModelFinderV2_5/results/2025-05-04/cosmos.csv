@@ -1,4 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,37,UNETLoader,Cosmos-1_0-Diffusion-7B-Text2World.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22Cosmos-1_0-Diffusion-7B-Text2World.safetensors%22
-2,39,VAELoader,cosmos_cv8x8x8_1.0.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22cosmos_cv8x8x8_1.0.safetensors%22
-3,38,CLIPLoader,oldt5_xxl_fp8_e4m3fn_scaled.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22oldt5_xxl_fp8_e4m3fn_scaled.safetensors%22

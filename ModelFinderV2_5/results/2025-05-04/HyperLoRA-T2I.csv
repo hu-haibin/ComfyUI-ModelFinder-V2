@@ -1,3 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,1,CheckpointLoaderSimple,RealVisXL_v4_BakedVAE.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22RealVisXL_v4_BakedVAE.safetensors%22
-2,3,HyperLoRALoader,sdxl_hyper_id_lora_v1_fidelity,,,,https://www.bing.com/search?q=site:huggingface.co+%22sdxl_hyper_id_lora_v1_fidelity%22

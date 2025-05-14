@@ -1,5 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,52,UpscaleModelLoader,ESRGAN_4x.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22ESRGAN_4x.pth%22
-2,50,FaceRestoreModelLoader,GFPGANv1.4.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22GFPGANv1.4.pth%22
-3,4,CheckpointLoaderSimple,stablesr_768v_000139.ckpt,,,,https://www.bing.com/search?q=site:huggingface.co+%22stablesr_768v_000139.ckpt%22
-4,31,ApplyStableSRUpscaler,webui_768v_139.ckpt,,,,https://www.bing.com/search?q=site:huggingface.co+%22webui_768v_139.ckpt%22

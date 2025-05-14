@@ -1,8 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,130,UpscaleModelLoader,RealESRGAN_x4plus.pth,已处理,https://huggingface.co/spaces/Marne/Real-ESRGAN/resolve/main/RealESRGAN_x4plus.pth,https://hf-mirror.com/spaces/Marne/Real-ESRGAN/resolve/main/RealESRGAN_x4plus.pth,
-2,268,VAELoader,ae.safetensors,已处理,https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors,https://hf-mirror.com/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors,
-3,272,Florence2ModelLoader,base-PromptGen-v2.0,已处理,https://huggingface.co/MiaoshouAI/Florence-2-base-PromptGen-v2.0,https://hf-mirror.com/MiaoshouAI/Florence-2-base-PromptGen-v2.0,
-4,270,DualCLIPLoaderGGUF,clip_l.safetensors,已处理,https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors,https://hf-mirror.com/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors,
-5,267,UnetLoaderGGUF,flux1-dev-Q4_K_S.gguf,已处理,https://huggingface.co/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q4_K_S.gguf,https://hf-mirror.com/city96/FLUX.1-dev-gguf/resolve/main/flux1-dev-Q4_K_S.gguf,
-6,272,Florence2ModelLoader,sdpa,已处理,https://huggingface.co/docs/diffusers/optimization/torch2.0,https://hf-mirror.com/docs/diffusers/optimization/torch2.0,
-7,270,DualCLIPLoaderGGUF,t5-v1_1-xxl-encoder-Q4_K_S.gguf,已处理,https://huggingface.co/city96/t5-v1_1-xxl-encoder-gguf/resolve/main/t5-v1_1-xxl-encoder-Q4_K_S.gguf,https://hf-mirror.com/city96/t5-v1_1-xxl-encoder-gguf/resolve/main/t5-v1_1-xxl-encoder-Q4_K_S.gguf,

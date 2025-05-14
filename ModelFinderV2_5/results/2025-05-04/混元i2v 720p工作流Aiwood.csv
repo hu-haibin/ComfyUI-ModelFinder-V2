@@ -1,5 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,4,UNETLoader,hunyuan_video_image_to_video_720p_bf16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22hunyuan_video_image_to_video_720p_bf16.safetensors%22
-2,5,VAELoader,hunyuan_video_vae_bf16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22hunyuan_video_vae_bf16.safetensors%22
-3,6,DualCLIPLoader,llava_llama3_fp8_scaled.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22llava_llama3_fp8_scaled.safetensors%22
-4,25,CLIPVisionLoader,llava_llama3_vision.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22llava_llama3_vision.safetensors%22

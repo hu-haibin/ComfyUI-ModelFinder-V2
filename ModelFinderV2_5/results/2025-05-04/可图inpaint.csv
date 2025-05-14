@@ -1,8 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,64,UpscaleModelLoader,4x_NMKD-Siax_200k.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%224x_NMKD-Siax_200k.pth%22
-2,54,CheckpointLoaderSimple,Juggernaut_X_RunDiffusion.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22Juggernaut_X_RunDiffusion.safetensors%22
-3,14,MZ_ChatGLM3Loader,chatglm3-8bit.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22chatglm3-8bit.safetensors%22
-4,25,VAELoader,diffusion_pytorch_model.fp16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22diffusion_pytorch_model.fp16.safetensors%22
-5,"60,13","ControlNetLoader,MZ_KolorsUNETLoaderV2",diffusion_pytorch_model.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22diffusion_pytorch_model.safetensors%22
-6,87,CheckpointLoaderSimple,dreamshaper_8_v8.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22dreamshaper_8_v8.safetensors%22
-7,75,AuraSR.AuraSRUpscaler,model.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22model.safetensors%22

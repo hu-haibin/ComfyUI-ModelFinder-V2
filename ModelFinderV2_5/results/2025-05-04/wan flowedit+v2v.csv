@@ -1,7 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,112,WanVideoModelLoader,Wan2_1-T2V-1_3B_fp8_e4m3fn.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22Wan2_1-T2V-1_3B_fp8_e4m3fn.safetensors%22
-2,105,WanVideoVAELoader,Wan2_1_VAE_bf16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22Wan2_1_VAE_bf16.safetensors%22
-3,104,LoadWanVideoT5TextEncoder,umt5-xxl-enc-bf16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22umt5-xxl-enc-bf16.safetensors%22
-4,92,CLIPLoader,umt5_xxl_fp8_e4m3fn_scaled.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22umt5_xxl_fp8_e4m3fn_scaled.safetensors%22
-5,12,UNETLoader,wan2.1_t2v_1.3B_bf16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22wan2.1_t2v_1.3B_bf16.safetensors%22
-6,10,VAELoader,wan_2.1_vae.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22wan_2.1_vae.safetensors%22

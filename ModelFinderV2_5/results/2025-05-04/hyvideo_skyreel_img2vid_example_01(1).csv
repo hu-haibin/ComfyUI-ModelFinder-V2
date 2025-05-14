@@ -1,7 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,70,Note,"Enhance a video weight should be relative to the video lenght, if you get noisy results it's too strong",,,,"https://www.bing.com/search?q=site:huggingface.co+%22Enhance+a+video+weight+should+be+relative+to+the+video+lenght,+if+you+get+noisy+results+it's+too+strong%22"
-2,61,Note,"If you have working Triton install, torch compile will reduce VRAM use and increase speed about 30%",,,,"https://www.bing.com/search?q=site:huggingface.co+%22If+you+have+working+Triton+install,+torch+compile+will+reduce+VRAM+use+and+increase+speed+about+30%%22"
-3,71,Note,"Use sageattention if you can, flash attention if you can't... last resort use sdpa",,,,"https://www.bing.com/search?q=site:huggingface.co+%22Use+sageattention+if+you+can,+flash+attention+if+you+can't...+last+resort+use+sdpa%22"
-4,69,Note,"block swap is a manual way to do cpu offloading, use this to trade speed with memory use",,,,"https://www.bing.com/search?q=site:huggingface.co+%22block+swap+is+a+manual+way+to+do+cpu+offloading,+use+this+to+trade+speed+with+memory+use%22"
-5,"7,63","HyVideoVAELoader,Note",hunyuan_video_vae_bf16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22hunyuan_video_vae_bf16.safetensors%22
-6,"62,1","Note,HyVideoModelLoader",skyreels_hunyuan_i2v_bf16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22skyreels_hunyuan_i2v_bf16.safetensors%22

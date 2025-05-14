@@ -1,5 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,15,UpscaleModelLoader,2xNomosUni_span_multijpg_ldl.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%222xNomosUni_span_multijpg_ldl.pth%22
-2,4,CheckpointLoaderSimple,flux1-dev-fp8.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22flux1-dev-fp8.safetensors%22
-3,10,LoraLoaderModelOnly,flux_turbo_alpha.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22flux_turbo_alpha.safetensors%22
-4,11,LoraLoaderModelOnly,skin texture style v5.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22skin+texture+style+v5.safetensors%22

@@ -1,5 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,30,ImageOnlyCheckpointLoader,AnimateLCM-SVD-xt-1-1_fp16_comfy.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22AnimateLCM-SVD-xt-1-1_fp16_comfy.safetensors%22
-2,34,DynamiCrafterModelLoader,DynamiCrafter_1024.ckpt,,,,https://www.bing.com/search?q=site:huggingface.co+%22DynamiCrafter_1024.ckpt%22
-3,4,CheckpointLoaderSimple,juggernautXL_v9Rdphoto2Lightning.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22juggernautXL_v9Rdphoto2Lightning.safetensors%22
-4,"21,35",RIFE VFI,rife49.pth,,,,https://www.bing.com/search?q=site:huggingface.co+%22rife49.pth%22

@@ -1,4 +1,0 @@
-﻿序号,节点ID,节点类型,文件名,状态,下载链接,镜像链接,搜索链接
-1,13,PulidInsightFaceLoader,CUDA,,,,https://www.bing.com/search?q=site:huggingface.co+%22CUDA%22
-2,4,CheckpointLoaderSimple,LEOSAM HelloWorld 新世界 _ SDXL大模型_v6.0.safetensors,,,,https://www.bing.com/search?q=site:liblib.art+%22LEOSAM+HelloWorld+新世界+_+SDXL大模型_v6.0.safetensors%22
-3,11,PulidModelLoader,ip-adapter_pulid_sdxl_fp16.safetensors,,,,https://www.bing.com/search?q=site:huggingface.co+%22ip-adapter_pulid_sdxl_fp16.safetensors%22
