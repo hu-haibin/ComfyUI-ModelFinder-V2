@@ -8,7 +8,6 @@ This script handles the startup of the Model Finder application, including loggi
 
 import os
 import sys
-import traceback
 import logging # Import logging module
 import logging.handlers # For file handler
 from tkinter import messagebox # Keep for critical startup errors
@@ -55,8 +54,6 @@ def setup_logging():
 
     # File Handler
     try:
-        # Use RotatingFileHandler for larger logs, or simple FileHandler
-        # file_handler = logging.handlers.RotatingFileHandler(log_filepath, maxBytes=5*1024*1024, backupCount=2, encoding='utf-8')
         file_handler = logging.FileHandler(log_filepath, encoding='utf-8')
         file_handler.setFormatter(log_format)
         root_logger.addHandler(file_handler)
@@ -82,9 +79,6 @@ def main():
         if current_dir not in sys.path:
             sys.path.insert(0, current_dir)
             logger.debug(f"Added {current_dir} to sys.path")
-
-        # Check dependencies (moved utils check inside model_finder/init)
-        # Logging for dependencies happens within the module now if check_dependencies logs
 
         # Import the main application components AFTER path setup
         # Handle import errors specifically

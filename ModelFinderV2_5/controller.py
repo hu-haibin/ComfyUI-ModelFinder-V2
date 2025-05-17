@@ -12,14 +12,17 @@ from tkinter import filedialog, messagebox
 import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
 import logging # Import logging
+from .irregular_names_model import IrregularNamesModel
 
 # Import other parts of the application
 from .settings_model import SettingsModel
 from .view import AppView
 from .utils import check_dependencies, find_chrome_path, get_mirror_link, create_html_view
-
+from .model_mover import ModelMover
 from .analysis_model import AnalysisModel
 from .file_manager import cleanup_old_results, get_output_path, get_results_folder
+from .model_registry import ModelRegistry
+from .plugin_repair import PluginRepairModel  # 导入插件修复模型
 from . import __version__, __author__
 
 logger = logging.getLogger(__name__) # Get logger for this module
@@ -31,7 +34,15 @@ class AppController:
         self.__version__ = version
         self.__author__ = author
         self.settings_model = SettingsModel()
-        self.analysis_model = AnalysisModel()
+        self.irregular_names_model = IrregularNamesModel()
+        # 初始化model_mover
+        self.model_mover = ModelMover()
+        # 初始化analysis_model时传递controller自身作为参数
+        self.analysis_model = AnalysisModel(controller=self)
+        # 初始化model_registry
+        self.model_registry = ModelRegistry()
+        # 初始化plugin_repair_model
+        self.plugin_repair_model = PluginRepairModel()
 
         self.html_file_path = None
         self.batch_summary_file_path = None
@@ -49,6 +60,21 @@ class AppController:
         """Final setup after view and controller are created."""
         logger.debug("Controller initialize sequence started.")
         self.load_settings()          # Load settings first
+        
+        # 调试映射文件
+        mapping_count = self.irregular_names_model.dump_all_mappings_debug()
+        logger.info(f"已加载 {mapping_count} 条不规则名称映射")
+        
+        # 刷新模型配置视图
+        self.refresh_model_config_view()
+        
+        # 初始化model_registry记录文件
+        registry_file = get_output_path("model_registry", "json")
+        self.model_registry.set_registry_file(registry_file)
+        
+        # 初始化插件修复标签页
+        self.refresh_plugin_repair_view()
+        
         self.view.set_controller(self) # Then set controller in view (triggers view update)
         self.show_welcome_message()   # Then show welcome message
         logger.debug("Controller initialize sequence finished.")
@@ -563,3 +589,725 @@ class AppController:
             logger.error("无法打开结果文件夹", exc_info=True)
             self.view.show_error("打开文件夹失败", f"无法打开结果文件夹: {e}")
             self.view.update_log("无法打开结果文件夹，请查看日志文件。") # User message
+    # 示例：添加一个新映射的处理方法
+    def handle_add_irregular_mapping(self, original_name, corrected_name, notes):
+        if self.irregular_names_model.add_mapping(original_name, corrected_name, notes):
+            self.view.update_log("成功添加不规则名称映射。")
+            self.refresh_irregular_mappings_view() # 一个新的方法，用于更新GUI中的列表
+        else:
+            self.view.show_error("添加失败", "无法添加不规则名称映射，请检查输入或日志。")
+
+    # 处理更新不规则名称映射的方法
+    def handle_update_irregular_mapping(self, mapping_id, original_name, corrected_name, notes):
+        logger.info(f"更新不规则名称映射: ID={mapping_id}, 原始名={original_name}, 修正名={corrected_name}")
+        if self.irregular_names_model.update_mapping(mapping_id, original_name, corrected_name, notes):
+            self.view.update_log("成功更新不规则名称映射。")
+            self.refresh_irregular_mappings_view()
+        else:
+            self.view.show_error("更新失败", "无法更新不规则名称映射，请检查输入或日志。")
+
+    # 处理删除不规则名称映射的方法
+    def handle_delete_irregular_mapping(self, mapping_id):
+        logger.info(f"删除不规则名称映射: ID={mapping_id}")
+        if self.irregular_names_model.delete_mapping(mapping_id):
+            self.view.update_log("成功删除不规则名称映射。")
+            self.refresh_irregular_mappings_view()
+        else:
+            self.view.show_error("删除失败", "无法删除不规则名称映射，请检查输入或日志。")
+
+    # 示例：刷新GUI中映射列表的方法
+    def refresh_irregular_mappings_view(self):
+        # 获取并显示所有不规则映射
+        mappings = self.irregular_names_model.get_all_mappings()
+        self.view.load_irregular_mappings(mappings)
+        
+    # --- 模型配置管理相关方法 ---
+    def refresh_model_config_view(self):
+        """获取并显示所有模型配置数据"""
+        node_types = self.analysis_model.config_manager.get_model_node_types()
+        node_indices = self.analysis_model.config_manager.get_node_model_indices()
+        extensions = self.analysis_model.config_manager.get_model_extensions()
+        
+        self.view.load_model_node_types(node_types)
+        self.view.load_node_indices(node_indices)
+        self.view.load_model_extensions(extensions)
+        logger.info(f"已刷新模型配置视图：{len(node_types)}个节点类型, {len(node_indices)}个索引映射, {len(extensions)}个扩展名")
+    
+    def handle_add_model_node_type(self, node_type):
+        """添加模型节点类型"""
+        if not node_type.strip():
+            self.view.show_warning("警告", "节点类型不能为空")
+            return False
+            
+        success = self.analysis_model.config_manager.add_model_node_type(node_type)
+        if success:
+            self.refresh_model_config_view()
+            self.view.show_info("成功", f"已添加节点类型: {node_type}")
+            return True
+        else:
+            self.view.show_warning("警告", f"节点类型 '{node_type}' 已存在")
+            return False
+    
+    def handle_delete_model_node_type(self, node_type):
+        """删除模型节点类型"""
+        success = self.analysis_model.config_manager.remove_model_node_type(node_type)
+        if success:
+            self.refresh_model_config_view()
+            self.view.show_info("成功", f"已删除节点类型: {node_type}")
+            return True
+        else:
+            self.view.show_warning("警告", f"删除节点类型失败: {node_type}")
+            return False
+    
+    def handle_add_node_model_index(self, node_type, index):
+        """添加节点模型索引映射"""
+        try:
+            index = int(index)
+            # 将单个索引值转换为列表，然后传递给config_manager
+            indices = [index]
+            success = self.analysis_model.config_manager.add_node_model_index(node_type, indices)
+            if success:
+                self.refresh_model_config_view()
+                self.view.show_info("成功", f"已添加节点索引映射: {node_type} -> {index}")
+                return True
+            else:
+                self.view.show_warning("警告", f"添加节点索引映射失败: {node_type} -> {index}")
+                return False
+        except ValueError:
+            self.view.show_error("错误", "索引必须是整数")
+            return False
+    
+    def handle_delete_node_model_index(self, node_type, index=None):
+        """删除节点模型索引映射(整个节点类型或特定索引)"""
+        try:
+            if index is not None:
+                index = int(index)
+                success = self.analysis_model.config_manager.remove_node_model_index(node_type, index)
+            else:
+                success = self.analysis_model.config_manager.remove_node_model_index_type(node_type)
+            
+            if success:
+                self.refresh_model_config_view()
+                msg = f"已删除节点索引映射: {node_type}"
+                if index is not None:
+                    msg += f" -> {index}"
+                self.view.show_info("成功", msg)
+                return True
+            else:
+                self.view.show_warning("警告", f"删除节点索引映射失败")
+                return False
+        except ValueError:
+            self.view.show_error("错误", "索引必须是整数")
+            return False
+    
+    def handle_add_model_extension(self, extension):
+        """添加模型文件扩展名"""
+        if not extension.strip():
+            self.view.show_warning("警告", "扩展名不能为空")
+            return False
+            
+        # 确保扩展名格式正确
+        if not extension.startswith('.'):
+            extension = '.' + extension
+            
+        success = self.analysis_model.config_manager.add_model_extension(extension)
+        if success:
+            self.refresh_model_config_view()
+            self.view.show_info("成功", f"已添加模型扩展名: {extension}")
+            return True
+        else:
+            self.view.show_warning("警告", f"模型扩展名 '{extension}' 已存在")
+            return False
+    
+    def handle_delete_model_extension(self, extension):
+        """删除模型文件扩展名"""
+        success = self.analysis_model.config_manager.remove_model_extension(extension)
+        if success:
+            self.refresh_model_config_view()
+            self.view.show_info("成功", f"已删除模型扩展名: {extension}")
+            return True
+        else:
+            self.view.show_warning("警告", f"删除模型扩展名失败: {extension}")
+            return False
+
+    # --- 模型移动相关方法 ---
+    def set_model_paths(self, models_root, backup_dir=None):
+        """设置模型路径和备份路径"""
+        result = self.model_mover.set_paths(models_root, backup_dir)
+        if result:
+            self.view.update_log(f"设置模型目录: {models_root}")
+            if backup_dir:
+                self.view.update_log(f"设置备份目录: {backup_dir}")
+            self.refresh_model_directories()
+            return True
+        else:
+            self.view.show_error("路径错误", f"无法设置模型目录或备份目录")
+            return False
+    
+    def browse_models_root(self):
+        """浏览选择ComfyUI模型根目录"""
+        dir_path = filedialog.askdirectory(title="选择ComfyUI模型根目录")
+        if dir_path:
+            logger.info(f"ComfyUI模型目录选择: {dir_path}")
+            self.view.set_models_root_path(dir_path)
+            return True
+        else:
+            logger.debug("模型目录选择已取消")
+            return False
+    
+    def browse_backup_dir(self):
+        """浏览选择备份目录"""
+        dir_path = filedialog.askdirectory(title="选择备份目录")
+        if dir_path:
+            logger.info(f"备份目录选择: {dir_path}")
+            self.view.set_backup_dir_path(dir_path)
+            return True
+        else:
+            logger.debug("备份目录选择已取消")
+            return False
+    
+    def refresh_model_directories(self):
+        """刷新模型目录列表"""
+        if not self.model_mover.comfyui_models_root:
+            self.view.show_warning("未设置路径", "请先设置ComfyUI模型目录")
+            return False
+        
+        directories = self.model_mover.get_model_subdirectories()
+        self.view.load_model_directories(directories)
+        return True
+    
+    def scan_model_files(self, directory=None):
+        """扫描模型文件"""
+        if not self.model_mover.comfyui_models_root:
+            self.view.show_warning("未设置路径", "请先设置ComfyUI模型目录")
+            return False
+        
+        model_files = self.model_mover.scan_model_files(directory)
+        self.view.load_model_files(model_files)
+        
+        # 更新统计信息
+        stats = self.model_mover.get_model_stats()
+        if "error" not in stats:
+            msg = f"共扫描到 {stats['total_files']} 个模型文件，" \
+                  f"总大小 {stats['total_size_gb']:.2f} GB，" \
+                  f"分布在 {stats['directories']} 个目录中"
+            self.view.update_log(msg)
+        
+        return True
+    
+    def handle_move_model_file(self, source_path, target_dir, create_backup=True):
+        """处理模型文件移动"""
+        if not self.model_mover.comfyui_models_root:
+            self.view.show_warning("未设置路径", "请先设置ComfyUI模型目录")
+            return False
+        
+        success, message = self.model_mover.move_model_file(source_path, target_dir, create_backup)
+        if success:
+            self.view.show_info("移动成功", message)
+            self.view.update_log(message)
+            # 刷新文件列表
+            self.scan_model_files()
+            return True
+        else:
+            self.view.show_error("移动失败", message)
+            self.view.update_log(f"移动失败: {message}")
+            return False
+    
+    def handle_copy_model_file(self, source_path, target_dir):
+        """处理模型文件复制"""
+        if not self.model_mover.comfyui_models_root:
+            self.view.show_warning("未设置路径", "请先设置ComfyUI模型目录")
+            return False
+        
+        success, message = self.model_mover.copy_model_file(source_path, target_dir)
+        if success:
+            self.view.show_info("复制成功", message)
+            self.view.update_log(message)
+            # 刷新文件列表
+            self.scan_model_files()
+            return True
+        else:
+            self.view.show_error("复制失败", message)
+            self.view.update_log(f"复制失败: {message}")
+            return False
+    
+    def handle_create_model_directory(self, dir_path):
+        """处理创建模型目录"""
+        if not self.model_mover.comfyui_models_root:
+            self.view.show_warning("未设置路径", "请先设置ComfyUI模型目录")
+            return False
+        
+        success, message = self.model_mover.create_directory(dir_path)
+        if success:
+            self.view.show_info("创建成功", message)
+            self.view.update_log(message)
+            # 刷新目录列表
+            self.refresh_model_directories()
+            return True
+        else:
+            self.view.show_error("创建失败", message)
+            self.view.update_log(f"创建失败: {message}")
+            return False
+    
+    def handle_delete_empty_directories(self):
+        """处理删除空目录"""
+        if not self.model_mover.comfyui_models_root:
+            self.view.show_warning("未设置路径", "请先设置ComfyUI模型目录")
+            return False
+        
+        if not self.view.ask_yes_no("确认删除", "确定要删除所有空目录吗？此操作不可撤销。"):
+            return False
+        
+        count, deleted_dirs = self.model_mover.delete_empty_directories()
+        if count > 0:
+            message = f"已删除 {count} 个空目录"
+            self.view.show_info("删除成功", message)
+            self.view.update_log(message)
+            # 刷新目录列表
+            self.refresh_model_directories()
+            return True
+        else:
+            self.view.show_info("无空目录", "没有找到需要删除的空目录")
+            return False
+            
+    # ---- 智能移动功能 ----
+    
+    def handle_detect_model_type(self, file_path):
+        """检测模型文件类型"""
+        if not self.model_mover.comfyui_models_root:
+            self.view.show_warning("未设置路径", "请先设置ComfyUI模型目录")
+            return None, 0.0
+        
+        model_type, confidence = self.model_mover.detect_model_type(file_path)
+        
+        if model_type != "unknown":
+            self.view.update_log(f"检测到模型类型: {model_type}，置信度: {confidence:.2f}")
+        else:
+            self.view.update_log(f"无法确定模型类型")
+        
+        return model_type, confidence
+    
+    def handle_smart_move(self, source_path, target_dir=None, create_backup=True):
+        """处理智能移动"""
+        if not self.model_mover.comfyui_models_root:
+            self.view.show_warning("未设置路径", "请先设置ComfyUI模型目录")
+            return False, None
+        
+        # 获取推荐目录
+        success, message, recommendations = self.model_mover.smart_move(source_path, target_dir, create_backup)
+        
+        # 如果只是获取推荐（没有提供目标目录）
+        if target_dir is None:
+            if recommendations:
+                # 在视图中显示推荐目录
+                self.view.show_directory_recommendations(source_path, recommendations)
+                self.view.update_log(f"获取推荐目录成功: {len(recommendations)} 个推荐")
+                return True, recommendations
+            else:
+                self.view.show_warning("无推荐", "无法为此文件生成目录推荐")
+                self.view.update_log("无法为此文件生成目录推荐")
+                return False, None
+        
+        # 如果执行了移动
+        if success:
+            self.view.show_info("移动成功", message)
+            self.view.update_log(message)
+            # 刷新文件列表
+            self.scan_model_files()
+            return True, recommendations
+        else:
+            self.view.show_error("移动失败", message)
+            self.view.update_log(f"移动失败: {message}")
+            return False, recommendations
+    
+    def handle_batch_smart_move(self, source_files, create_backup=True):
+        """处理批量智能移动"""
+        if not self.model_mover.comfyui_models_root:
+            self.view.show_warning("未设置路径", "请先设置ComfyUI模型目录")
+            return False
+        
+        if not source_files:
+            self.view.show_warning("无文件", "未选择任何文件")
+            return False
+        
+        # 获取批量推荐结果
+        batch_results = self.model_mover.batch_smart_move(source_files, create_backup)
+        
+        # 显示批量推荐结果
+        self.view.show_batch_recommendations(batch_results)
+        
+        count_with_recommendations = sum(1 for result in batch_results if result.get('recommendations'))
+        self.view.update_log(f"已为 {count_with_recommendations}/{len(batch_results)} 个文件生成目录推荐")
+        
+        return True
+    
+    def handle_execute_batch_move(self, batch_moves, create_backup=True):
+        """执行批量移动"""
+        if not self.model_mover.comfyui_models_root:
+            self.view.show_warning("未设置路径", "请先设置ComfyUI模型目录")
+            return False
+        
+        if not batch_moves:
+            self.view.show_warning("无移动操作", "未提供任何移动操作")
+            return False
+        
+        # 执行批量移动
+        results = self.model_mover.execute_batch_move(batch_moves, create_backup)
+        
+        # 统计成功和失败的数量
+        success_count = sum(1 for result in results if result.get('success'))
+        fail_count = len(results) - success_count
+        
+        if fail_count == 0:
+            self.view.show_info("批量移动成功", f"成功移动 {success_count} 个文件")
+        else:
+            self.view.show_warning("部分移动失败", f"成功: {success_count}, 失败: {fail_count}")
+        
+        # 更新日志
+        self.view.update_log(f"批量移动完成: 成功 {success_count}, 失败 {fail_count}")
+        
+        # 刷新文件列表
+        self.scan_model_files()
+        
+        return True
+        
+    def handle_browse_downloads_folder(self):
+        """浏览下载文件夹"""
+        dir_path = filedialog.askdirectory(title="选择下载文件夹")
+        if dir_path:
+            logger.info(f"下载文件夹选择: {dir_path}")
+            self.view.set_downloads_folder_path(dir_path)
+            # 自动扫描该文件夹中的模型文件
+            self.handle_scan_downloads_folder(dir_path)
+            return True
+        else:
+            logger.debug("下载文件夹选择已取消")
+            return False
+    
+    def handle_scan_downloads_folder(self, folder_path=None):
+        """扫描下载文件夹中的模型文件"""
+        # 如果未提供路径，使用视图中的路径
+        if not folder_path:
+            folder_path = self.view.get_downloads_folder_path()
+        
+        if not folder_path or not os.path.exists(folder_path):
+            self.view.show_warning("路径错误", "下载文件夹路径无效")
+            return False
+        
+        # 扫描文件夹中的模型文件
+        file_paths = []
+        for root, _, files in os.walk(folder_path):
+            for file in files:
+                _, ext = os.path.splitext(file)
+                if ext.lower() in self.model_mover.model_extensions:
+                    file_paths.append(os.path.join(root, file))
+        
+        if not file_paths:
+            self.view.show_info("无模型文件", "下载文件夹中未找到模型文件")
+            self.view.update_log("下载文件夹中未找到模型文件")
+            return False
+        
+        # 加载找到的文件到视图
+        self.view.load_download_files(file_paths)
+        self.view.update_log(f"在下载文件夹中找到 {len(file_paths)} 个模型文件")
+        
+        return True
+
+    # --- 模型记录管理相关方法 ---
+    def get_model_registry_path(self):
+        """获取模型记录文件路径"""
+        if self.model_registry.registry_file:
+            return self.model_registry.registry_file
+        return get_output_path("model_registry", "json")
+
+    def refresh_model_registry_view(self):
+        """刷新模型记录视图"""
+        models = self.model_registry.get_all_models()
+        tags = self.model_registry.get_all_tags()
+        types = self.model_registry.get_all_types()
+        
+        # 更新视图中的模型记录
+        self.view.load_model_registry(models, tags, types)
+        logger.info(f"已刷新模型记录视图: {len(models)}条记录, {len(tags)}个标签, {len(types)}种类型")
+
+    def handle_add_model_registry(self, model_data):
+        """添加模型记录"""
+        if not model_data.get('name') or not model_data.get('path'):
+            self.view.show_warning("添加失败", "模型名称和路径不能为空")
+            return None
+        
+        model_id = self.model_registry.add_model(model_data)
+        if model_id:
+            self.refresh_model_registry_view()
+            self.view.show_info("添加成功", f"已添加模型记录: {model_data['name']}")
+            return model_id
+        else:
+            self.view.show_error("添加失败", "无法添加模型记录")
+            return None
+
+    def handle_update_model_registry(self, model_id, model_data):
+        """更新模型记录"""
+        if not model_data.get('name') or not model_data.get('path'):
+            self.view.show_warning("更新失败", "模型名称和路径不能为空")
+            return False
+        
+        success = self.model_registry.update_model(model_id, model_data)
+        if success:
+            self.refresh_model_registry_view()
+            self.view.show_info("更新成功", f"已更新模型记录: {model_data['name']}")
+            return True
+        else:
+            self.view.show_error("更新失败", f"无法更新模型记录ID: {model_id}")
+            return False
+
+    def handle_delete_model_registry(self, model_id):
+        """删除模型记录"""
+        model_data = self.model_registry.get_model(model_id)
+        if not model_data:
+            self.view.show_warning("删除失败", f"模型记录ID {model_id} 不存在")
+            return False
+        
+        model_name = model_data.get('name', '未知')
+        if not self.view.ask_yes_no("确认删除", f"确定要删除模型记录 '{model_name}' 吗？"):
+            return False
+        
+        success = self.model_registry.delete_model(model_id)
+        if success:
+            self.refresh_model_registry_view()
+            self.view.update_log(f"已删除模型记录: {model_name}")
+            return True
+        else:
+            self.view.show_error("删除失败", f"无法删除模型记录: {model_name}")
+            return False
+
+    def handle_search_model_registry(self, query=None, tags=None, model_type=None):
+        """搜索模型记录"""
+        results = self.model_registry.search_models(query, tags, model_type)
+        self.view.load_model_registry_results(results)
+        logger.info(f"模型记录搜索结果: {len(results)}条")
+        return len(results) > 0
+
+    def handle_add_model_registry_from_file(self, file_path, model_type=None):
+        """从文件添加模型记录"""
+        if not os.path.exists(file_path):
+            self.view.show_error("添加失败", f"文件不存在: {file_path}")
+            return None
+        
+        # 获取文件信息
+        file_name = os.path.basename(file_path)
+        file_size = os.path.getsize(file_path)
+        file_size_mb = round(file_size / (1024 * 1024), 2)
+        file_ext = os.path.splitext(file_name)[1].lower()
+        
+        # 创建模型数据
+        model_data = {
+            'name': file_name,
+            'path': file_path,
+            'size': file_size,
+            'size_mb': file_size_mb,
+            'type': model_type or '',
+            'extension': file_ext,
+            'description': '',
+            'tags': []
+        }
+        
+        return self.handle_add_model_registry(model_data)
+
+    def handle_export_model_registry(self, file_path=None):
+        """导出模型记录"""
+        if not file_path:
+            file_path = filedialog.asksaveasfilename(
+                title="导出模型记录",
+                filetypes=[("JSON文件", "*.json")],
+                defaultextension=".json"
+            )
+        
+        if not file_path:
+            return False
+        
+        success = self.model_registry.export_registry(file_path)
+        if success:
+            self.view.show_info("导出成功", f"已导出模型记录到: {file_path}")
+            return True
+        else:
+            self.view.show_error("导出失败", "无法导出模型记录")
+            return False
+
+    def handle_import_model_registry(self, file_path=None, merge=True):
+        """导入模型记录"""
+        if not file_path:
+            file_path = filedialog.askopenfilename(
+                title="导入模型记录",
+                filetypes=[("JSON文件", "*.json")],
+                defaultextension=".json"
+            )
+        
+        if not file_path:
+            return False
+        
+        mode = "合并" if merge else "替换"
+        if not self.view.ask_yes_no("确认导入", f"确定要{mode}导入模型记录吗？\n{mode}模式会{'添加导入的记录到现有记录中' if merge else '完全替换现有记录'}。"):
+            return False
+        
+        success = self.model_registry.import_registry(file_path, merge)
+        if success:
+            self.refresh_model_registry_view()
+            self.view.show_info("导入成功", f"已{mode}导入模型记录")
+            return True
+        else:
+            self.view.show_error("导入失败", "无法导入模型记录")
+            return False
+
+    def handle_add_tag_to_model(self, model_id, tag):
+        """为模型添加标签"""
+        if not tag.strip():
+            self.view.show_warning("添加标签失败", "标签不能为空")
+            return False
+        
+        success = self.model_registry.add_tag_to_model(model_id, tag)
+        if success:
+            self.refresh_model_registry_view()
+            return True
+        else:
+            self.view.show_error("添加标签失败", f"无法为模型ID {model_id} 添加标签 '{tag}'")
+            return False
+
+    def handle_remove_tag_from_model(self, model_id, tag):
+        """从模型移除标签"""
+        success = self.model_registry.remove_tag_from_model(model_id, tag)
+        if success:
+            self.refresh_model_registry_view()
+            return True
+        else:
+            self.view.show_error("移除标签失败", f"无法从模型ID {model_id} 移除标签 '{tag}'")
+            return False
+
+    # --- 插件修复相关方法 ---
+    
+    def refresh_plugin_repair_view(self):
+        """刷新插件修复标签页的数据"""
+        logger.debug("刷新插件修复标签页数据")
+        try:
+            plugins = self.plugin_repair_model.get_all_plugins()
+            plugins_data = [{"name": plugin.name, 
+                            "description": plugin.description,
+                            "status": "未检测"} 
+                           for plugin in plugins]
+            if hasattr(self.view, 'display_repair_plugins'):
+                self.view.display_repair_plugins(plugins_data)
+            logger.info(f"已加载 {len(plugins_data)} 个支持修复的插件")
+        except Exception as e:
+            logger.error(f"刷新插件修复标签页时出错: {e}", exc_info=True)
+    
+    def browse_comfyui_path(self):
+        """浏览ComfyUI安装路径"""
+        logger.debug("浏览ComfyUI路径按钮点击")
+        dir_path = filedialog.askdirectory(title="选择ComfyUI安装目录")
+        if dir_path:
+            logger.info(f"已选择ComfyUI路径: {dir_path}")
+            if hasattr(self.view, 'set_comfyui_path'):
+                self.view.set_comfyui_path(dir_path)
+            # 选择路径后自动检查
+            self.check_plugin_status()
+    
+    def check_plugin_status(self):
+        """检查插件状态"""
+        logger.debug("检查插件状态按钮点击")
+        comfyui_path = self.view.get_comfyui_path()
+        if not comfyui_path:
+            self.view.show_error("错误", "请先选择ComfyUI安装路径")
+            return
+        
+        if not os.path.exists(comfyui_path):
+            self.view.show_error("错误", f"路径不存在: {comfyui_path}")
+            return
+        
+        # 检查是否是ComfyUI目录
+        if not self._validate_comfyui_dir(comfyui_path):
+            if not self.view.ask_yes_no("确认", f"目录 {comfyui_path} 不像是标准的ComfyUI安装目录。\n是否继续？"):
+                return
+        
+        try:
+            # 获取需要修复的插件
+            need_repair = self.plugin_repair_model.check_plugin_status(comfyui_path)
+            
+            # 更新UI中的插件状态
+            plugins = self.plugin_repair_model.get_all_plugins()
+            for plugin in plugins:
+                if plugin.name in need_repair:
+                    self.view.update_plugin_status(plugin.name, "需要修复")
+                else:
+                    self.view.update_plugin_status(plugin.name, "已安装正确")
+            
+            if not need_repair:
+                self.view.show_info("检查结果", "所有支持的插件都已正确安装。")
+        except Exception as e:
+            logger.error(f"检查插件状态时出错: {e}", exc_info=True)
+            self.view.show_error("错误", f"检查插件状态时出错: {e}")
+    
+    def _validate_comfyui_dir(self, dir_path):
+        """验证目录是否为ComfyUI安装目录"""
+        # 检查一些ComfyUI典型的文件/目录是否存在
+        expected_items = ["main.py", "web", "comfy", "models"]
+        found_count = 0
+        for item in expected_items:
+            if os.path.exists(os.path.join(dir_path, item)):
+                found_count += 1
+        
+        # 如果找到一半以上的预期项，就认为是ComfyUI目录
+        return found_count >= len(expected_items) // 2
+    
+    def repair_selected_plugin(self):
+        """修复选中的插件"""
+        logger.debug("修复选中插件按钮点击")
+        plugin_name = self.view.get_selected_plugin()
+        if not plugin_name:
+            self.view.show_error("错误", "请先选择要修复的插件")
+            return
+        
+        comfyui_path = self.view.get_comfyui_path()
+        if not comfyui_path:
+            self.view.show_error("错误", "请先选择ComfyUI安装路径")
+            return
+        
+        if not os.path.exists(comfyui_path):
+            self.view.show_error("错误", f"ComfyUI路径 {comfyui_path} 不存在")
+            return
+        
+        # 禁用修复按钮，防止重复点击
+        self.view.repair_button.config(state=tk.DISABLED)
+        
+        # 重置状态
+        self.view.set_repair_status("准备修复...", 0)
+        
+        def update_status_callback(message, progress):
+            """更新UI的回调函数"""
+            self.root.after(0, self.view.set_repair_status, message, progress)
+        
+        # 在线程中执行修复
+        threading.Thread(
+            target=self._repair_plugin_thread,
+            args=(plugin_name, comfyui_path, update_status_callback),
+            daemon=True
+        ).start()
+    
+    def _repair_plugin_thread(self, plugin_name, comfyui_path, status_callback):
+        """在线程中执行插件修复"""
+        try:
+            logger.info(f"开始修复插件: {plugin_name}")
+            success = self.plugin_repair_model.repair_plugin(plugin_name, comfyui_path, status_callback)
+            
+            if success:
+                logger.info(f"插件 {plugin_name} 修复成功")
+                self.root.after(0, self.view.show_info, "成功", f"{plugin_name} 修复成功！")
+                # 修复成功后重新检查状态
+                self.root.after(500, self.check_plugin_status)
+            else:
+                logger.error(f"插件 {plugin_name} 修复失败")
+                self.root.after(0, self.view.show_error, "失败", f"{plugin_name} 修复失败，请查看日志或状态信息。")
+        except Exception as e:
+            logger.error(f"修复插件时发生异常: {e}", exc_info=True)
+            self.root.after(0, self.view.show_error, "错误", f"修复过程中发生异常: {e}")
+        finally:
+            # 无论成功失败，都重新启用修复按钮
+            self.root.after(0, lambda: self.view.repair_button.config(state=tk.NORMAL))

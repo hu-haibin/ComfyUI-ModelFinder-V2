@@ -1,7 +1,6 @@
 # model_finder/model_finder.py (Main Application Runner)
 
 import sys
-import traceback
 import tkinter as tk
 from tkinter import messagebox # Keep for fallback error
 import ttkbootstrap as ttk
@@ -30,8 +29,8 @@ class ModelFinderApp:
             self.controller.initialize()
 
         except Exception as e:
-            print("Error during ModelFinderApp Initialization:")
-            traceback.print_exc()
+            import logging
+            logging.error("Error during ModelFinderApp Initialization", exc_info=True)
             messagebox.showerror("初始化错误", f"应用程序初始化失败:\n{e}")
             self.root.destroy() # Close window if init fails badly
             sys.exit(1) # Exit the script
@@ -45,13 +44,11 @@ def main():
         app = ModelFinderApp(root)
         root.mainloop()
     except Exception as e:
+        import logging
         # Fallback error handling if GUI fails catastrophically
         error_msg = f"程序启动失败: {type(e).__name__}: {str(e)}"
-        print("=" * 50)
-        print(error_msg)
-        print("-" * 50)
-        traceback.print_exc()
-        print("=" * 50)
+        logging.critical(error_msg, exc_info=True)
+        
         # Try to show a simple Tkinter error box if possible
         try:
             if root and root.winfo_exists(): # Check if root window was created

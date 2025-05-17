@@ -1,9 +1,9 @@
 @echo off
 REM ===== Model Finder Launcher =====
-REM Version: 2.0
+REM Version: 2.6
 REM Contact: WeChat wangdefa4567
 
-echo Starting Model Finder 2.0...
+echo Starting Model Finder 2.6...
 
 REM Check if Python is installed
 python --version >nul 2>&1

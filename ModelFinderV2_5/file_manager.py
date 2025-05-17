@@ -9,6 +9,9 @@ import shutil
 from datetime import datetime
 import ctypes
 import sys
+import logging
+
+logger = logging.getLogger(__name__)
 
 def is_admin():
     """检查程序是否以管理员权限运行"""
@@ -32,7 +35,7 @@ def run_as_admin():
             sys.exit()
         return True
     except Exception as e:
-        print(f"请求管理员权限失败: {e}")
+        logger.error(f"请求管理员权限失败: {e}")
         return False
 
 def create_output_directory():
@@ -59,7 +62,7 @@ def create_output_directory():
         today = datetime.now()
         date_str = f"{today.year:04d}-{today.month:02d}-{today.day:02d}"
         temp_dir = os.path.join(tempfile.gettempdir(), f"ModelFinder_Results/{date_str}")
-        print(f"创建输出目录出错: {e}, 使用临时目录: {temp_dir}")
+        logger.error(f"创建输出目录出错: {e}, 使用临时目录: {temp_dir}")
         os.makedirs(temp_dir, exist_ok=True)
         return temp_dir
 
@@ -100,7 +103,7 @@ def cleanup_old_results(days_to_keep=30):
         base_dir = get_results_folder()
         
         if not os.path.exists(base_dir):
-            print(f"结果目录不存在: {base_dir}")
+            logger.warning(f"结果目录不存在: {base_dir}")
             return 0
         
         current_time = time.time()
@@ -116,14 +119,14 @@ def cleanup_old_results(days_to_keep=30):
                 if (current_time - dir_time) / (24 * 3600) > days_to_keep:
                     try:
                         shutil.rmtree(dir_path)
-                        print(f"已清理旧结果目录: {dir_path}")
+                        logger.info(f"已清理旧结果目录: {dir_path}")
                         cleaned_count += 1
                     except Exception as e:
-                        print(f"清理目录出错: {e}")
+                        logger.error(f"清理目录出错: {e}")
         
         return cleaned_count
     except Exception as e:
-        print(f"清理旧结果出错: {e}")
+        logger.error(f"清理旧结果出错: {e}")
         return 0
 
 def get_results_folder():
@@ -137,26 +140,26 @@ def get_results_folder():
         if hasattr(sys, '_MEIPASS'):
             # PyInstaller打包环境
             base_path = sys._MEIPASS
-            print(f"使用PyInstaller基础路径: {base_path}")
+            logger.debug(f"使用PyInstaller基础路径: {base_path}")
         else:
             # 开发环境
             # 首先尝试获取当前模块的目录
             base_path = os.path.dirname(os.path.abspath(__file__))
-            print(f"文件管理器模块路径: {base_path}")
+            logger.debug(f"文件管理器模块路径: {base_path}")
             
             # 如果在model_finder子目录中，则上移一级
             if os.path.basename(base_path) == 'model_finder':
                 base_path = os.path.dirname(base_path)
-                print(f"上移至父目录: {base_path}")
+                logger.debug(f"上移至父目录: {base_path}")
         
         # 如果以上逻辑失败，尝试使用当前工作目录
         if not os.path.exists(base_path):
             base_path = os.getcwd()
-            print(f"使用当前工作目录: {base_path}")
+            logger.debug(f"使用当前工作目录: {base_path}")
         
         # 在程序目录下的results文件夹
         results_dir = os.path.join(base_path, "results")
-        print(f"结果目录: {results_dir}")
+        logger.debug(f"结果目录: {results_dir}")
         
         # 确保目录存在
         os.makedirs(results_dir, exist_ok=True)
@@ -174,7 +177,7 @@ def get_results_folder():
             # 在我的文档下创建一个结果文件夹
             docs_path = buf.value
             results_dir = os.path.join(docs_path, "ModelFinder_Results")
-            print(f"使用备用结果目录: {results_dir}")
+            logger.debug(f"使用备用结果目录: {results_dir}")
             os.makedirs(results_dir, exist_ok=True)
         
         return results_dir
@@ -182,6 +185,6 @@ def get_results_folder():
         # 出错时使用临时目录
         import tempfile
         temp_dir = os.path.join(tempfile.gettempdir(), "ModelFinder_Results")
-        print(f"获取结果目录出错: {e}, 使用临时目录: {temp_dir}")
+        logger.error(f"获取结果目录出错: {e}, 使用临时目录: {temp_dir}")
         os.makedirs(temp_dir, exist_ok=True)
         return temp_dir
