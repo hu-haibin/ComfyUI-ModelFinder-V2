@@ -50,14 +50,23 @@ def print_download_links():
     print("请使用您喜欢的下载工具(如迅雷)下载以下模型:")
     print()
     
+    print("模型名称：")
     for model in MODELS:
-        print(f"模型: {model['name']}")
-        print(f"  国际链接: {model['foreign_url']}")
-        print(f"  国内链接: {model['domestic_url']}")
-        print(f"  ComfyUI目标路径: {model['target_path']}")
-        print()
+        print(f"{model['name']}")
     
-    print("下载完成后，使用此脚本将文件移动到正确位置。")
+    print("\nhuggingface链接:")
+    for model in MODELS:
+        print(f"{model['foreign_url']}")
+    
+    print("\nhf-mirror链接：")
+    for model in MODELS:
+        print(f"{model['domestic_url']}")
+    
+    print("\nComfyUI目标路径:")
+    for model in MODELS:
+        print(f"{model['target_path']}")
+    
+    print("\n下载完成后，使用此脚本将文件移动到正确位置。")
     print()
 
 def get_dir_size(path):

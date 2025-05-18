@@ -7,6 +7,7 @@ import threading
 import webbrowser
 import traceback
 import glob
+import subprocess
 import tkinter as tk
 from tkinter import filedialog, messagebox
 import ttkbootstrap as ttk
@@ -1277,37 +1278,29 @@ class AppController:
         # 禁用修复按钮，防止重复点击
         self.view.repair_button.config(state=tk.DISABLED)
         
-        # 重置状态
-        self.view.set_repair_status("准备修复...", 0)
+        # 更新状态
+        self.view.set_repair_status("启动修复助手...", 0)
         
-        def update_status_callback(message, progress):
-            """更新UI的回调函数"""
-            self.root.after(0, self.view.set_repair_status, message, progress)
-        
-        # 在线程中执行修复
-        threading.Thread(
-            target=self._repair_plugin_thread,
-            args=(plugin_name, comfyui_path, update_status_callback),
-            daemon=True
-        ).start()
-    
-    def _repair_plugin_thread(self, plugin_name, comfyui_path, status_callback):
-        """在线程中执行插件修复"""
         try:
-            logger.info(f"开始修复插件: {plugin_name}")
-            success = self.plugin_repair_model.repair_plugin(plugin_name, comfyui_path, status_callback)
+            # 直接运行download_helper_joy_caption_two.py脚本
+            script_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 
+                                     "download_helper_joy_caption_two.py")
             
-            if success:
-                logger.info(f"插件 {plugin_name} 修复成功")
-                self.root.after(0, self.view.show_info, "成功", f"{plugin_name} 修复成功！")
-                # 修复成功后重新检查状态
-                self.root.after(500, self.check_plugin_status)
+            # 在新进程中运行脚本
+            if sys.platform.startswith('win'):
+                # Windows下使用subprocess.Popen打开新窗口
+                subprocess.Popen([sys.executable, script_path], 
+                               creationflags=subprocess.CREATE_NEW_CONSOLE)
             else:
-                logger.error(f"插件 {plugin_name} 修复失败")
-                self.root.after(0, self.view.show_error, "失败", f"{plugin_name} 修复失败，请查看日志或状态信息。")
+                # Linux/Mac下直接运行脚本
+                subprocess.Popen([sys.executable, script_path])
+                
+            logger.info(f"已启动插件修复助手: {script_path}")
+            self.view.set_repair_status("已启动修复助手，请在新窗口中操作", 100)
+            
         except Exception as e:
-            logger.error(f"修复插件时发生异常: {e}", exc_info=True)
-            self.root.after(0, self.view.show_error, "错误", f"修复过程中发生异常: {e}")
+            logger.error(f"启动插件修复助手时发生异常: {e}", exc_info=True)
+            self.view.show_error("错误", f"启动修复助手时发生异常: {e}")
         finally:
-            # 无论成功失败，都重新启用修复按钮
-            self.root.after(0, lambda: self.view.repair_button.config(state=tk.NORMAL))
+            # 延迟一秒后重新启用修复按钮
+            self.root.after(1000, lambda: self.view.repair_button.config(state=tk.NORMAL))

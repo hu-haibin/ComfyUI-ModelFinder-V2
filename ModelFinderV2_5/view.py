@@ -2159,63 +2159,6 @@ class AppView:
         file_list_frame = ttk.Frame(paned)
         paned.add(file_list_frame, weight=70)
         
-        # 添加智能移动选项卡
-        self.smart_move_tab = ttk.Frame(tab_control)
-        tab_control.add(self.smart_move_tab, text="智能移动")
-        
-        # 路径设置框架
-        path_frame = ttk.LabelFrame(self.smart_move_tab, text="路径设置")
-        path_frame.pack(fill=tk.X, padx=10, pady=5)
-        
-        # ComfyUI目录设置
-        ttk.Label(path_frame, text="ComfyUI模型根目录:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
-        self.models_root_entry = ttk.Entry(path_frame, width=50)
-        self.models_root_entry.grid(row=0, column=1, sticky=tk.EW, padx=5, pady=5)
-        ttk.Button(path_frame, text="浏览...", command=lambda: self.controller.browse_models_root() if self.controller else None).grid(row=0, column=2, padx=5, pady=5)
-        
-        # 备份目录设置
-        ttk.Label(path_frame, text="备份目录(可选):").grid(row=1, column=0, sticky=tk.W, padx=5, pady=5)
-        self.backup_dir_entry = ttk.Entry(path_frame, width=50)
-        self.backup_dir_entry.grid(row=1, column=1, sticky=tk.EW, padx=5, pady=5)
-        ttk.Button(path_frame, text="浏览...", command=lambda: self.controller.browse_backup_dir() if self.controller else None).grid(row=1, column=2, padx=5, pady=5)
-        
-        # 应用路径设置按钮
-        ttk.Button(path_frame, text="应用路径设置", command=lambda: self.controller.set_model_paths(self.models_root_entry.get(), self.backup_dir_entry.get()) if self.controller else None).grid(row=2, column=0, columnspan=3, pady=10)
-        
-        # 文件扫描框架
-        file_frame = ttk.LabelFrame(self.smart_move_tab, text="文件扫描")
-        file_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=5)
-        
-        # 创建左右分栏
-        paned = ttk.PanedWindow(file_frame, orient=tk.HORIZONTAL)
-        paned.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
-        
-        # 左侧：目录树
-        dir_frame = ttk.Frame(paned)
-        paned.add(dir_frame, weight=30)
-        
-        ttk.Label(dir_frame, text="模型目录:").pack(anchor=tk.W, padx=5, pady=5)
-        
-        # 目录Treeview
-        self.dir_tree = ttk.Treeview(dir_frame, selectmode="browse")
-        self.dir_tree.heading("#0", text="目录", anchor=tk.W)
-        self.dir_tree.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
-        
-        # 目录操作按钮
-        dir_btn_frame = ttk.Frame(dir_frame)
-        dir_btn_frame.pack(fill=tk.X, padx=5, pady=5)
-        
-        ttk.Label(dir_btn_frame, text="新目录名称:").pack(side=tk.LEFT, padx=5)
-        self.new_dir_entry = ttk.Entry(dir_btn_frame, width=15)
-        self.new_dir_entry.pack(side=tk.LEFT, padx=5, expand=True, fill=tk.X)
-        
-        ttk.Button(dir_btn_frame, text="创建", command=lambda: self.controller.handle_create_model_directory(self.new_dir_entry.get()) if self.controller else None).pack(side=tk.LEFT, padx=5)
-        ttk.Button(dir_btn_frame, text="删除空目录", command=lambda: self.controller.handle_delete_empty_directories() if self.controller else None).pack(side=tk.LEFT, padx=5)
-        
-        # 右侧：文件列表
-        file_list_frame = ttk.Frame(paned)
-        paned.add(file_list_frame, weight=70)
-        
         # --- 插件修复相关的UI元素引用 ---
         self.comfyui_path_var = tk.StringVar()
         self.repair_progress_var = tk.IntVar()
@@ -2242,41 +2185,40 @@ class AppView:
         ttk.Label(path_frame, text="ComfyUI路径:").pack(side=tk.LEFT, padx=5)
         ttk.Entry(path_frame, textvariable=self.comfyui_path_var, width=50).pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5)
         ttk.Button(path_frame, text="浏览...", command=lambda: self.controller.browse_comfyui_path() if self.controller else None).pack(side=tk.LEFT, padx=5)
-        ttk.Button(path_frame, text="检查插件状态", command=lambda: self.controller.check_plugin_status() if self.controller else None).pack(side=tk.LEFT, padx=5)
         
-        # 插件列表框架
-        plugins_frame = ttk.LabelFrame(main_frame, text="支持修复的插件")
-        plugins_frame.pack(fill=tk.BOTH, expand=True, pady=10)
+        # 支持的插件信息
+        info_frame = ttk.LabelFrame(main_frame, text="支持修复的插件")
+        info_frame.pack(fill=tk.BOTH, expand=True, pady=10)
         
-        # 创建Treeview显示插件信息
-        columns = ("name", "description", "status")
-        self.repair_plugins_tree = ttk.Treeview(plugins_frame, columns=columns, show="headings", selectmode="browse")
-        
-        # 设置列标题
+        # 简化的插件信息显示
+        self.repair_plugins_tree = ttk.Treeview(info_frame, columns=("name", "description"), show="headings", selectmode="browse")
         self.repair_plugins_tree.heading("name", text="插件名称")
         self.repair_plugins_tree.heading("description", text="描述")
-        self.repair_plugins_tree.heading("status", text="状态")
-        
-        # 设置列宽
         self.repair_plugins_tree.column("name", width=150)
-        self.repair_plugins_tree.column("description", width=300)
-        self.repair_plugins_tree.column("status", width=100)
+        self.repair_plugins_tree.column("description", width=450)
+        
+        # 添加固定的Joy Caption Two插件
+        self.repair_plugins_tree.insert("", tk.END, values=("Joy Caption Two", "高质量图像描述插件"))
         
         # 添加滚动条
-        scrollbar = ttk.Scrollbar(plugins_frame, orient=tk.VERTICAL, command=self.repair_plugins_tree.yview)
+        scrollbar = ttk.Scrollbar(info_frame, orient=tk.VERTICAL, command=self.repair_plugins_tree.yview)
         self.repair_plugins_tree.configure(yscrollcommand=scrollbar.set)
         
         # 放置Treeview和滚动条
         self.repair_plugins_tree.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         
+        # 说明信息
+        label = ttk.Label(main_frame, text='点击"修复选中的插件"按钮后，将打开插件修复助手窗口，按照提示操作即可', wraplength=600, justify=tk.LEFT)
+        label.pack(pady=10)
+        
         # 修复按钮和进度条框架
         repair_controls_frame = ttk.Frame(main_frame)
         repair_controls_frame.pack(fill=tk.X, pady=10)
         
         self.repair_button = ttk.Button(repair_controls_frame, 
-                                         text="修复选中的插件", 
-                                         command=lambda: self.controller.repair_selected_plugin() if self.controller else None)
+                                        text="修复选中的插件", 
+                                        command=lambda: self.controller.repair_selected_plugin() if self.controller else None)
         self.repair_button.pack(side=tk.LEFT, padx=5)
         
         repair_progress = ttk.Progressbar(repair_controls_frame, variable=self.repair_progress_var, maximum=100)
