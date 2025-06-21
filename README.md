@@ -1,4 +1,4 @@
-# ModelFinder V2.5
+# ModelFinder V2
 
 ModelFinder是一个用于ComfyUI的模型管理工具，可以帮助您检测缺失模型、自动搜索下载链接，并提供智能的模型管理功能。
 
